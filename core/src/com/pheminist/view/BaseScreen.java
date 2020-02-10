@@ -4,15 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.pheminist.controller.Controller;
 import com.pheminist.model.Model;
 
-import static com.pheminist.model.Model.SKIN;
-
 public abstract class BaseScreen implements Screen {
+    private final float V_WIDTH =  1366f;
     protected Controller controller;
     protected Model model;
     protected Stage stage;
@@ -20,8 +17,11 @@ public abstract class BaseScreen implements Screen {
     public BaseScreen(Controller controller, Model model) {
         this.controller = controller;
         this.model=model;
-        Skin skin = model.assetManager.get(SKIN, Skin.class);
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage(new FitViewport(V_WIDTH,getV_Height()));
+    }
+    private float getV_Height() {
+        float aspRatio = (float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth();
+        return V_WIDTH * aspRatio;
     }
 
     // === Lifecycle Methods === //
