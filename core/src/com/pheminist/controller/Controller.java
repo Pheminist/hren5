@@ -1,33 +1,48 @@
 package com.pheminist.controller;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.utils.ObjectMap;
+import com.pheminist.model.Model;
+import com.pheminist.view.BaseScreen;
+import com.pheminist.view.TestScreen;
 
-public class Controller extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
+public class Controller extends Game {
+    private ObjectMap<Class<? extends BaseScreen>, BaseScreen> screens = new ObjectMap<>();
+    private Model model;
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
-	}
+
+    @Override
+    public void create() {
+        model = new Model();
+
+        // Load the screens
+        loadScreens();
+        this.changeScreen(TestScreen.class);
+    }
+
+
+    @Override
+    public void dispose() {
+        // Dispose of the view
+        setScreen(null);
+
+        for (BaseScreen screen : screens.values()) {
+            screen.dispose();
+        }
+        screens.clear();
+
+        // Dispose of the model
+        model.dispose();
+    }
+
+    // === Screen Management === //
+    public void changeScreen(Class<? extends BaseScreen> key) {
+        this.setScreen(screens.get(key));
+//		handle(new GameEvent("SCREEN_CHANGE").set("SCREEN", screens.get(key)));
+    }
+
+    public void loadScreens() {
+        screens.put(TestScreen.class, new TestScreen(this,model));
+    }
+
 }
