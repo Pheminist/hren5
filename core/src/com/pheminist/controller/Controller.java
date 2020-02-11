@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.pheminist.model.Model;
 import com.pheminist.view.BaseScreen;
+import com.pheminist.view.FChooser;
 import com.pheminist.view.GScreen;
 import com.pheminist.view.TestScreen;
 
@@ -18,7 +19,7 @@ public class Controller extends Game {
 
         // Load the screens
         loadScreens();
-        this.changeScreen(GScreen.class);
+        this.changeScreen(FChooser.class);
     }
 
 
@@ -44,6 +45,7 @@ public class Controller extends Game {
 
     public void loadScreens() {
         screens.put(TestScreen.class, new TestScreen(this,model));
+        screens.put(FChooser.class,new FChooser(this,model));
         screens.put(GScreen.class, new GScreen(this,model));
     }
 

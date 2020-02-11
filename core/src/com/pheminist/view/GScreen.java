@@ -1,54 +1,20 @@
 package com.pheminist.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pheminist.controller.Controller;
 import com.pheminist.model.Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.pheminist.model.Model.SKIN;
-
 public class GScreen extends BaseScreen {
-    private final float V_WIDTH =  1366f;
+    private final float V_WIDTH = 1366f;
 
-    private Table screenTable=new Table();
+    private Table screenTable = new Table();
 
     private Hud hud;
 
     public GScreen(Controller controller, Model model) {
-        super(controller,model);
-        Skin skin = model.assetManager.get(SKIN, Skin.class);
-//        stage = new Stage(new FitViewport(V_WIDTH, getV_Hight()));
-
-    }
-
-    private List<NoteListener> noteListeners = new ArrayList<>();
-
-    public interface NoteListener {
-        void noteEvent(int note, int tone, boolean isOn);
-    }
-
-    public void addNoteListener(GScreen.NoteListener listener) {
-        if (!noteListeners.contains(listener)) noteListeners.add(listener);
-    }
-
-    public void removeNoteListener(GScreen.NoteListener listener) {
-        noteListeners.remove(listener);
-    }
-
-    public void removeAllNoteListener() {
-        noteListeners.clear();
-    }
-
-    protected void notifyNoteListeners(final int note, final int tone, final boolean isOn) {
-        for (GScreen.NoteListener listener : noteListeners) {
-            listener.noteEvent(note, tone, isOn);
-        }
+        super(controller, model);
     }
 
     float getV_Hight() {
@@ -61,9 +27,9 @@ public class GScreen extends BaseScreen {
         stage.clear();
 
         screenTable.clear();
-        hud = new Hud(controller,model);
+        hud = new Hud(controller, model);
 
-        Table testTable=new Table();
+        Table testTable = new Table();
 //        testTable.add(notesRenderer).expand().fill().row();
 //        nButtonsRenderer=new NButtonsRenderer(parent,parent.hData);
 //        addNoteListener(nButtonsRenderer);
@@ -84,7 +50,8 @@ public class GScreen extends BaseScreen {
     }
 
     @Override
-    public void dispose(){ }
+    public void dispose() {
+    }
 
     @Override
     public void resize(int width, int height) {
@@ -105,7 +72,6 @@ public class GScreen extends BaseScreen {
 
     @Override
     public void hide() {
-        removeAllNoteListener();
     }
 
 }
