@@ -46,10 +46,7 @@ public class FChooser extends BaseScreen {
     @Override public void init() {
         table.clear();
         scrollTable.clear();
-        float aspRatio = (float) Gdx.graphics.getHeight()/(float) Gdx.graphics.getWidth();
-        stage = new Stage(new FitViewport(V_WIDTH,V_WIDTH*aspRatio));
-
-        Gdx.input.setInputProcessor(stage);
+//        float aspRatio = (float) Gdx.graphics.getHeight()/(float) Gdx.graphics.getWidth();
 
         files = filer.getFileItems(filer.getRoot());
 
@@ -133,7 +130,7 @@ public class FChooser extends BaseScreen {
                 image=new Image(skin.getRegion("folder"));
             else image=new Image(skin.getRegion("midi"));
 
-            scrollTable.add(image).size(Value.percentHeight(1f,label));
+            scrollTable.add(image).size(label.getHeight());
             scrollTable.add(label).left().expandX().fillX();
             scrollTable.row();
         }
