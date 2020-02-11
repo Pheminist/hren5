@@ -1,9 +1,6 @@
 package com.pheminist.model;
 
-import com.pheminist.interfaces.Publisher;
-
-public class NoteEvent {
-    private final Publisher<NoteEvent> noteEventPublisher = new SimplePublisher<>();
+public class NoteEvent extends SimpleEvent<NoteEvent>{
     private int note;
     private int tone;
     private boolean isOn;
@@ -12,7 +9,7 @@ public class NoteEvent {
         this.note=note;
         this.tone=tone;
         this.isOn=isOn;
-        noteEventPublisher.fire(this);
+        publisher.fire(this);
     }
 
     public int getNote() {
@@ -37,10 +34,6 @@ public class NoteEvent {
 
     public void setOn(boolean on) {
         isOn = on;
-    }
-
-    public Publisher<NoteEvent> getNoteEventPublisher() {
-        return noteEventPublisher;
     }
 
 }

@@ -2,7 +2,7 @@ package com.pheminist.model;
 
 import com.pheminist.interfaces.Publisher;
 
-public class QPS {
+public class QPS extends SimpleEvent<QPS>{
     private float qps=4;
 
     public float getQps() {
@@ -11,12 +11,6 @@ public class QPS {
 
     public void setQps(float qps) {
         this.qps = qps;
-        QPSChanged.fire(this);
+        publisher.fire(this);
     }
-
-    private final Publisher<QPS> QPSChanged = new SimplePublisher<>();
-    public Publisher<QPS> onQPSChanged() {
-        return QPSChanged;
-    }
-
 }
