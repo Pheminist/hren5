@@ -61,11 +61,6 @@ public class GScreen extends BaseScreen {
         stage.clear();
 
         screenTable.clear();
-//        this.clear();
-
-//        paused = false;
-
-//        hud = new Hud(parent, this);
         hud = new Hud(controller,model);
 
         Table testTable=new Table();
@@ -84,18 +79,8 @@ public class GScreen extends BaseScreen {
         screenTable.add(hud).width(365).expandY().fillY();
         screenTable.setDebug(true);
 
-
-
-//        stage.addActor(this);
-//        this.setFillParent(true);
         stage.addActor(screenTable);
         screenTable.setFillParent(true);
-
-
-//        if (parent.getPreferences().isMusicEnabled()) addNoteListener(beeper);
-////        if(Gdx.app.getType()== Application.ApplicationType.Desktop) addNoteListener(beeper);
-//        addNoteListener(notesRenderer);
-
     }
 
     @Override
