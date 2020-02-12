@@ -1,7 +1,5 @@
 package com.pheminist.model;
 
-import com.pheminist.interfaces.Publisher;
-
 public class QPS extends SimpleEvent<QPS>{
     private float qps=4;
 
