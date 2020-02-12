@@ -11,16 +11,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.pheminist.controller.Controller;
+import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
+import com.pheminist.model.Tempo;
 
 import java.util.Locale;
 
 import static com.pheminist.model.Model.SKIN;
 
 public class Hud extends Table {
+    private static final float VPAD = 20;
     private Controller controller;
     private Model model;
-    private static final float VPAD = 20;
     private Skin skin;
     private float tempo = 1;
     private Label tempoNumberLabel;
@@ -32,8 +34,8 @@ public class Hud extends Table {
     private boolean sound = false;
 
     public Hud(Controller controller, Model model) {
-        this.controller=controller;
-        this.model=model;
+        this.controller = controller;
+        this.model = model;
         skin = model.assetManager.get(SKIN, Skin.class);
         show();
     }
@@ -60,12 +62,13 @@ public class Hud extends Table {
         Label tempoTextLabel = new Label("Tempo", skin);
         TextButton tempoMinusBtn = new TextButton("-", skin);
 //        tempo=parent.getPreferences().getTempVolume();
-        tempo=1f;
+        tempo = 1f;
         tempoNumberLabel = new Label(String.format(Locale.UK, "%.1f", tempo), skin);
         tempoNumberLabel.setAlignment(Align.center);
 //        tempoNumberLabel.setFontScale(0.5f);
         TextButton tempoPlusBtn = new TextButton("+", skin);
-        final Slider tempoSlider = new Slider(0.4f, 2f, 0.1f, false, skin);
+        final Slider tempoSlider = new Slider(model.tempo.minTempo, model.tempo.maxTempo,
+                0.1f, false, skin);
 //        tempoSlider.setValue(parent.getPreferences().getTempVolume());
         tempoSlider.setValue(tempo);
         tempoTable.pad(VPAD, 10, VPAD, 10);
@@ -104,8 +107,8 @@ public class Hud extends Table {
         TextButton openFile = new TextButton("Open", skin);
         openFile.pad(VPAD, 0, VPAD, 0);
 //        sound=parent.getPreferences().isMusicEnabled();
-        sound=true;
-        final TextButton soundBtn = new TextButton(sound?"Sound on":"Sound off", skin);
+        sound = true;
+        final TextButton soundBtn = new TextButton(sound ? "Sound on" : "Sound off", skin);
         soundBtn.pad(VPAD, 0, VPAD, 0);
         TextButton exit = new TextButton("Exit", skin);
         exit.pad(VPAD, 0, VPAD, 0);
@@ -177,36 +180,69 @@ public class Hud extends Table {
             }
         });
 
-        tempoMinusBtn.addListener(new ChangeListener() {
+//        tempoMinusBtn.addListener(new ChangeListener() {
+//            @Override
+//            public void changed(ChangeEvent event, Actor actor) {
+//                if (tempo < 0.45) return;
+//                tempo -= 0.1f;
+//                tempoNumberLabel.setText(String.format(Locale.UK, "%.1f", tempo));
+//                tempoSlider.setValue(tempo);
+//            }
+//        });
+//
+//
+//        tempoPlusBtn.addListener(new ChangeListener() {
+//            @Override
+//            public void changed(ChangeEvent event, Actor actor) {
+//                if (tempo > 1.95) return;
+//                tempo += 0.1f;
+//                tempoNumberLabel.setText(String.format(Locale.UK, "%.1f", tempo));
+//                tempoSlider.setValue(tempo);
+//            }
+//        });
+//
+//        tempoSlider.addListener(new ChangeListener() {
+//            @Override
+//            public void changed(ChangeEvent event, Actor actor) {
+//                tempo = tempoSlider.getValue();
+//                tempoNumberLabel.setText((String.format(Locale.UK, "%.1f", tempo)));
+////                parent.getPreferences().setTempVolume(tempo);
+//
+//            }
+//        });
+
+        IListener<Tempo> tempoListener = new IListener<Tempo>() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if (tempo < 0.45) return;
-                tempo -= 0.1f;
+            public void on(Tempo event) {
+                float tempo = event.getTempo();
                 tempoNumberLabel.setText(String.format(Locale.UK, "%.1f", tempo));
                 tempoSlider.setValue(tempo);
             }
-        });
+        };
 
+        model.tempo.getPublisher().addListener(tempoListener);
+
+        tempoMinusBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                controller.setTempo(model.tempo.getTempo() - 0.1f);
+            }
+        });
 
         tempoPlusBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (tempo > 1.95) return;
-                tempo += 0.1f;
-                tempoNumberLabel.setText(String.format(Locale.UK, "%.1f", tempo));
-                tempoSlider.setValue(tempo);
+                controller.setTempo(model.tempo.getTempo() + 0.1f);
             }
         });
 
         tempoSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                tempo = tempoSlider.getValue();
-                tempoNumberLabel.setText((String.format(Locale.UK, "%.1f", tempo)));
-//                parent.getPreferences().setTempVolume(tempo);
-
+                controller.setTempo(tempoSlider.getValue());
             }
         });
+
 
         qpsMinusBtn.addListener(new ChangeListener() {
             @Override
@@ -238,8 +274,7 @@ public class Hud extends Table {
 //                controller.setSound(sound);
                 if (sound) {
                     soundBtn.setText("Sound on");
-                }
-                else soundBtn.setText("Sound off");
+                } else soundBtn.setText("Sound off");
             }
         });
 
@@ -250,7 +285,6 @@ public class Hud extends Table {
 //                parent.getPreferences().setPause(!playPlusBtn1.isChecked());
             }
         });
-
 
 
         //        newGame.addListener(new ChangeListener() {
@@ -290,7 +324,7 @@ public class Hud extends Table {
         });
     }
 
-    private void setShiftLabel(){
+    private void setShiftLabel() {
         if (shift == 0) {
             shiftNumberLabel.setText("0");
             return;
@@ -298,7 +332,7 @@ public class Hud extends Table {
         shiftNumberLabel.setText(String.format("%+2d", shift));
     }
 
-    private void shiftTone(int shift){
+    private void shiftTone(int shift) {
 //        gameScreen.getBeeper().setShift(shift);
 //        parent.getPreferences().setShift(shift);
 //        gameScreen.getnButtonsRenderer().setNButtonsLabels();

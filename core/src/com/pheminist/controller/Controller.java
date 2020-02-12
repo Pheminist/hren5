@@ -49,4 +49,8 @@ public class Controller extends Game {
         screens.put(GScreen.class, new GScreen(this,model));
     }
 
+    public void setTempo(float tempo){
+        model.tempo.setTempo(tempo);
+    }
+
 }

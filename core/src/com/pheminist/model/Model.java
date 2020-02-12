@@ -8,6 +8,7 @@ public class Model {
     public final static String SKIN="skin/gr1.json";
 
     public final QPS gps = new QPS();
+    public final Tempo tempo = new Tempo();
     public final NoteEvent noteEvent = new NoteEvent();
 
     private HData hData;
