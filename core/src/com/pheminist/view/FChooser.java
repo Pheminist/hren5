@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.pheminist.Filer.FileItem;
 import com.pheminist.Filer.Filer;
 import com.pheminist.controller.Controller;
+import com.pheminist.model.MIDI.HData;
 import com.pheminist.model.Model;
 
 import java.util.List;
@@ -137,25 +138,8 @@ public class FChooser extends BaseScreen {
     }
 
     private void startGame(FileHandle file){
+        model.sethData(HData.getInstance(file));
         controller.changeScreen(GScreen.class);
-//        parent.hData= HData.getInstance(file);
-//        parent.changeScreen(Hren.APPLICATION);
-    }
-
-//    @Override
-//    public void render(float delta) {
-//        Gdx.gl.glClearColor(0, 0, 0, 1);
-//        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//
-//        stage.act(delta);
-//        stage.draw();
-//    }
-
-    @Override
-    public void resize(int width, int height) {
-        stage.getViewport().setWorldSize(V_WIDTH,V_WIDTH*(float)height/(float) width);
-        stage.getViewport().update(width, height,true);
     }
 
     @Override

@@ -54,13 +54,6 @@ public class GScreen extends BaseScreen {
     }
 
     @Override
-    public void resize(int width, int height) {
-        Viewport viewport = stage.getViewport();
-        viewport.setWorldSize(V_WIDTH, getV_Hight());
-        viewport.update(width, height, true);
-    }
-
-    @Override
     public void pause() {
 
     }

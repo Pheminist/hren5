@@ -20,8 +20,7 @@ public abstract class BaseScreen implements Screen {
         stage = new Stage(new FitViewport(V_WIDTH,getV_Height()));
     }
     private float getV_Height() {
-        float aspRatio = (float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth();
-        return V_WIDTH * aspRatio;
+        return V_WIDTH * (float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth();
     }
 
     // === Lifecycle Methods === //
@@ -53,7 +52,8 @@ public abstract class BaseScreen implements Screen {
     public void draw(float delta) {}
 
     @Override public void resize(int width, int height) {
-        stage.getViewport().update(width, height);
+        stage.getViewport().setWorldSize(V_WIDTH,V_WIDTH*(float)height/(float) width);
+        stage.getViewport().update(width, height,true);
     }
 
     @Override public void dispose() {

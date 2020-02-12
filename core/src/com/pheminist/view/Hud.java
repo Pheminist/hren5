@@ -154,6 +154,13 @@ public class Hud extends Table {
 
 //        System.out.println("show hud");
 
+        newGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+            }
+        });
+
         shiftMinusBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
