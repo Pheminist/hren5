@@ -180,37 +180,6 @@ public class Hud extends Table {
             }
         });
 
-//        tempoMinusBtn.addListener(new ChangeListener() {
-//            @Override
-//            public void changed(ChangeEvent event, Actor actor) {
-//                if (tempo < 0.45) return;
-//                tempo -= 0.1f;
-//                tempoNumberLabel.setText(String.format(Locale.UK, "%.1f", tempo));
-//                tempoSlider.setValue(tempo);
-//            }
-//        });
-//
-//
-//        tempoPlusBtn.addListener(new ChangeListener() {
-//            @Override
-//            public void changed(ChangeEvent event, Actor actor) {
-//                if (tempo > 1.95) return;
-//                tempo += 0.1f;
-//                tempoNumberLabel.setText(String.format(Locale.UK, "%.1f", tempo));
-//                tempoSlider.setValue(tempo);
-//            }
-//        });
-//
-//        tempoSlider.addListener(new ChangeListener() {
-//            @Override
-//            public void changed(ChangeEvent event, Actor actor) {
-//                tempo = tempoSlider.getValue();
-//                tempoNumberLabel.setText((String.format(Locale.UK, "%.1f", tempo)));
-////                parent.getPreferences().setTempVolume(tempo);
-//
-//            }
-//        });
-
         IListener<Tempo> tempoListener = new IListener<Tempo>() {
             @Override
             public void on(Tempo event) {

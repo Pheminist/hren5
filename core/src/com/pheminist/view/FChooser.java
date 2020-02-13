@@ -29,7 +29,6 @@ import java.util.List;
 import static com.pheminist.model.Model.SKIN;
 
 public class FChooser extends BaseScreen {
-    private final float V_WIDTH=1500f;
     private Skin skin;
     private List<FileItem> files;
     private Label pathLabel;
@@ -47,7 +46,6 @@ public class FChooser extends BaseScreen {
     @Override public void init() {
         table.clear();
         scrollTable.clear();
-//        float aspRatio = (float) Gdx.graphics.getHeight()/(float) Gdx.graphics.getWidth();
 
         files = filer.getFileItems(filer.getRoot());
 

@@ -2,7 +2,6 @@ package com.pheminist.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pheminist.controller.Controller;
 import com.pheminist.model.Model;
 
@@ -12,14 +11,10 @@ public class GScreen extends BaseScreen {
     private Table screenTable = new Table();
 
     private Hud hud;
+    private NR nr;
 
     public GScreen(Controller controller, Model model) {
         super(controller, model);
-    }
-
-    float getV_Hight() {
-        float aspRatio = (float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth();
-        return V_WIDTH * aspRatio;
     }
 
     @Override
@@ -28,9 +23,10 @@ public class GScreen extends BaseScreen {
 
         screenTable.clear();
         hud = new Hud(controller, model);
+        nr = new NR(model.nrModel);
 
         Table testTable = new Table();
-//        testTable.add(notesRenderer).expand().fill().row();
+        testTable.add(nr).expand().fill().row();
 //        nButtonsRenderer=new NButtonsRenderer(parent,parent.hData);
 //        addNoteListener(nButtonsRenderer);
 //
