@@ -13,6 +13,7 @@ public class Model {
 
     private HData hData;
 
+    public Beeper beeper = new Beeper(0);
     public NRModel nrModel = new NRModel(this);
 
     public HData gethData() {

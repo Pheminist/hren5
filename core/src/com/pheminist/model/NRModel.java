@@ -58,10 +58,12 @@ public class NRModel {
             if (hNote.getTime() < curTick && !isNoteOns[hNote.getNote()]) {
                 isNoteOns[hNote.getNote()] = true;
 //                notifyNoteListeners(hNote.getNote(), hData.getTones()[hNote.getNote()], true);
+                model.noteEvent.fireNoteEvent(hNote.getNote(), hData.getTones()[hNote.getNote()], true);
             }
             if (hNote.getTime() + hNote.getDuration() < curTick) {
                 isNoteOns[hNote.getNote()] = false;
 //                notifyNoteListeners(hNote.getNote(), hData.getTones()[hNote.getNote()], false);
+                model.noteEvent.fireNoteEvent(hNote.getNote(), hData.getTones()[hNote.getNote()], false);
 
                 iterator.remove();
             }

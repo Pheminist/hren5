@@ -14,6 +14,7 @@ import com.pheminist.model.MIDI.HData;
 import com.pheminist.model.MIDI.HNote;
 import com.pheminist.model.Model;
 import com.pheminist.model.NRModel;
+import com.pheminist.model.NoteEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,6 @@ import java.util.List;
 import static com.pheminist.model.Model.SKIN;
 
 public class NR extends Widget {
-    private final TextureRegion pixWhite;
     private Model model;
     private NRModel nrModel;
     private float quarterInScreen = 4f;
@@ -37,8 +37,6 @@ public class NR extends Widget {
     private Rectangle scissors;
     private Rectangle clipBounds;
 
-    private boolean[] isOns;
-
     public NR(final NRModel nrModel) {
         this.nrModel = nrModel;
         this.screenNotes = nrModel.screenNotes;
@@ -49,11 +47,9 @@ public class NR extends Widget {
 
         ticksInScreen = quarterInScreen * hData.getPpqn();//*model.getPreferences().getTempVolume();
 
-        isOns = new boolean[hData.getnTones()];
+//        isOns = new boolean[hData.getnTones()];
         Skin skin = model.assetManager.get(SKIN, Skin.class);
         img = skin.getRegion("grad");
-        pixWhite = skin.getRegion("pix_white");
-        font = skin.getFont("impact");
 
         scissors = new Rectangle();
         clipBounds = new Rectangle(x, y, winWidth, winHeight);
@@ -64,6 +60,8 @@ public class NR extends Widget {
                 nrModel.setPaused(!nrModel.isPaused());
             }
         });
+
+        model.noteEvent.getPublisher().addListener(model.beeper);
     }
 
     public void update(float delta){
