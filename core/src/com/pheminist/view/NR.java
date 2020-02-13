@@ -27,7 +27,6 @@ public class NR extends Widget {
     private float quarterInScreen = 4f;
 
     float ticksInScreen;
-    float curTick;
     private final List<HNote> screenNotes;
     private TextureRegion img;
     private BitmapFont font;
@@ -44,9 +43,9 @@ public class NR extends Widget {
         this.nrModel = nrModel;
         this.screenNotes = nrModel.screenNotes;
         this.model = nrModel.model;
-        this.hData = nrModel.hData;
 
         nrModel.init();
+        this.hData = nrModel.gethData();
 
         ticksInScreen = quarterInScreen * hData.getPpqn();//*model.getPreferences().getTempVolume();
 
@@ -67,8 +66,8 @@ public class NR extends Widget {
 //        });
     }
 
-    public void update(float curTick){
-        this.curTick=curTick;
+    public void update(float delta){
+        nrModel.update(delta);
     }
 
     @Override
@@ -80,6 +79,7 @@ public class NR extends Widget {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 //        super.draw(batch, parentAlpha);
+        float curTick =nrModel.getCurTick();
         x=getX();
         y=getY();
         winWidth=getWidth();

@@ -46,6 +46,11 @@ public class GScreen extends BaseScreen {
     }
 
     @Override
+    public void draw(float delta) {
+        nr.update(delta);
+    }
+
+    @Override
     public void dispose() {
     }
 

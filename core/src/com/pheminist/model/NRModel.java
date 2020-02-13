@@ -12,7 +12,7 @@ import java.util.List;
 public class NRModel {
     public final List<HNote> screenNotes = new ArrayList<>();
     public final Model model;
-    public final HData hData;
+    private HData hData;
     private float quarterInScreen;
     private float ticksInScreen;
     private float curTick;
@@ -23,10 +23,10 @@ public class NRModel {
 
     public NRModel(Model model) {
         this.model = model;
-        this.hData = model.gethData();
     }
 
     public void init(){
+        hData = model.gethData();
         isNoteOns = new boolean[hData.getnTones()];
         quarterInScreen = model.qps.getQps();
         ticksInScreen = quarterInScreen * hData.getPpqn();//*parent.getPreferences().getTempVolume();
@@ -85,5 +85,13 @@ public class NRModel {
                 iterator.remove();
             }
         }
+    }
+
+    public HData gethData() {
+        return hData;
+    }
+
+    public float getCurTick() {
+        return curTick;
     }
 }
