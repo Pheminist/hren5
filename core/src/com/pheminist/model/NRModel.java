@@ -18,8 +18,6 @@ public class NRModel {
     private float curTick;
     private boolean paused;
     private boolean isNoteOns[];
-//    private List<MPContract.NoteListener> noteListeners = new ArrayList<>();
-
 
     public NRModel(Model model) {
         this.model = model;
@@ -32,28 +30,11 @@ public class NRModel {
         ticksInScreen = quarterInScreen * hData.getPpqn();//*parent.getPreferences().getTempVolume();
     }
 
-//    public void addNoteListener(MPContract.NoteListener listener) {
-//        if (!noteListeners.contains(listener)) noteListeners.add(listener);
-//    }
-//
-//    public void removeNoteListener(MPContract.NoteListener listener) {
-//        noteListeners.remove(listener);
-//    }
-//
-//    public void removeAllNoteListener() {
-//        noteListeners.clear();
-//    }
-//
-//    protected void notifyNoteListeners(final int note, final int tone, final boolean isOn) {
-//        for (MPContract.NoteListener listener : noteListeners) {
-//            listener.noteEvent(note, tone, isOn);
-//        }
-
-
     public void update(float deltatime) {
 //        if(Gdx.input.justTouched()) paused=!paused;
-//        if (!model.isPaused())
-        curTick = curTick + Gdx.graphics.getDeltaTime() * 0.001f * hData.getTemp() * model.tempo.getTempo();
+        if (!paused)
+//        curTick = curTick + Gdx.graphics.getDeltaTime() * 0.001f * hData.getTemp() * model.tempo.getTempo();
+        curTick = curTick + deltatime * 0.001f * hData.getTemp() * model.tempo.getTempo();
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.BACK)) { // get back to menu ...
 //            beeper.allNotesOff();
 //            parent.changeScreen(Controller.MENU);
@@ -93,5 +74,13 @@ public class NRModel {
 
     public float getCurTick() {
         return curTick;
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
     }
 }

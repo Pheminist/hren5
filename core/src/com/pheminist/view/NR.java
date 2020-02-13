@@ -58,12 +58,12 @@ public class NR extends Widget {
         scissors = new Rectangle();
         clipBounds = new Rectangle(x, y, winWidth, winHeight);
 
-//        this.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                model.getPreferences().switchPause();
-//            }
-//        });
+        this.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                nrModel.setPaused(!nrModel.isPaused());
+            }
+        });
     }
 
     public void update(float delta){
@@ -78,7 +78,6 @@ public class NR extends Widget {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-//        super.draw(batch, parentAlpha);
         float curTick =nrModel.getCurTick();
         x=getX();
         y=getY();
