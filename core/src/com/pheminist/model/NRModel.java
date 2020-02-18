@@ -5,7 +5,9 @@ import com.badlogic.gdx.Input;
 import com.pheminist.model.MIDI.HData;
 import com.pheminist.model.MIDI.HNote;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class NRModel {
     private float curTick;
     private boolean paused;
     private boolean isNoteOns[];
+    private boolean isNoteAlives[];
 
     public NRModel(Model model) {
         this.model = model;
@@ -26,6 +29,8 @@ public class NRModel {
     public void init(){
         hData = model.gethData();
         isNoteOns = new boolean[hData.getnTones()];
+        isNoteAlives = new boolean[hData.getnTones()];
+        Arrays.fill(isNoteAlives,true);
         quarterInScreen = model.qps.getQps();
         ticksInScreen = quarterInScreen * hData.getPpqn();//*parent.getPreferences().getTempVolume();
     }

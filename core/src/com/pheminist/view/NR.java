@@ -29,7 +29,7 @@ public class NR extends Widget {
     float ticksInScreen;
     private final List<HNote> screenNotes;
     private TextureRegion img;
-    private BitmapFont font;
+//    private BitmapFont font;
     private final HData hData;
     private float x, y;
     private float winWidth = 100, winHeight = 100;
