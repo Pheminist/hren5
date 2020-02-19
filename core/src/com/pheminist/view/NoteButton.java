@@ -6,7 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.pheminist.model.MIDI.HData;
 import com.pheminist.model.Model;
+import com.pheminist.model.NRModel;
 import com.pheminist.utils.HUtils;
 
 import static com.pheminist.model.Model.SKIN;
@@ -15,10 +17,14 @@ public class NoteButton extends Table {
 //    private Hren parent;
 //    private HData hData;
     private Label label;
+    private final int note;
+    private Model model;
 
     private boolean isAlive=true;
 
     public NoteButton(Model model,int note) {
+        this.model = model;
+        this.note = note;
         Skin skin = model.assetManager.get(SKIN, Skin.class);
 
         this.setBackground(skin.getDrawable("knobwhite"));
@@ -88,7 +94,10 @@ public class NoteButton extends Table {
 
     public void setAlive(boolean alive) {
         isAlive = alive;
+        model.nrModel.setNoteAlive(note,isAlive);
+
         if(!isAlive) label.setColor(Color.DARK_GRAY);
+        else label.setColor(NR.getNoteColor(note));
     }
 
 }

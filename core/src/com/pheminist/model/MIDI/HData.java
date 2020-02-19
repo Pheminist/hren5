@@ -5,7 +5,6 @@ import com.badlogic.gdx.files.FileHandle;
 import java.io.Serializable;
 
 public class HData implements Serializable {
-    private static final String[] NOTE_NAMES = {"c","c#","d","d#","e","f","f#","g","g#","a","a#","b"};
     private HNote[] hNotes;
     private int ppqn; // Pulses Per Quarter Note
     private int nTones; // number of tones in the melody
@@ -14,18 +13,6 @@ public class HData implements Serializable {
     private int index = 0;
     private int tickDuration = 100;  // tick duration in microsecond
     private float temp;
-
-    public static String noteName(int tone){
-        return NOTE_NAMES[tone%12];
-    }
-
-    public static String octave(int tone){
-        return Integer.toString(tone/12-1);
-    }
-
-    public static String octaveAndNoteName(int tone){
-        return (octave(tone)+noteName(tone));
-    }
 
     public int getPpqn() {
         return ppqn;

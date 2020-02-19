@@ -24,6 +24,8 @@ public class NButtonsView extends Table implements IListener<NoteEvent> {
             this.add(noteButton).expandX().fillX().uniform().minWidth(10);
         }
 
+        model.noteEvent.getPublisher().addListener(this);
+
     }
 
 //    @Override

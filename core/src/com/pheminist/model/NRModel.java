@@ -19,8 +19,8 @@ public class NRModel {
     private float ticksInScreen;
     private float curTick;
     private boolean paused;
-    private boolean isNoteOns[];
-    private boolean isNoteAlives[];
+    private boolean[] isNoteOns;
+    private boolean[] isNoteAlives;
 
     public NRModel(Model model) {
         this.model = model;
@@ -29,8 +29,10 @@ public class NRModel {
     public void init(){
         hData = model.gethData();
         isNoteOns = new boolean[hData.getnTones()];
+
         isNoteAlives = new boolean[hData.getnTones()];
         Arrays.fill(isNoteAlives,true);
+
         quarterInScreen = model.qps.getQps();
         ticksInScreen = quarterInScreen * hData.getPpqn();//*parent.getPreferences().getTempVolume();
     }
@@ -60,15 +62,15 @@ public class NRModel {
         Iterator<HNote> iterator = screenNotes.iterator();
         while (iterator.hasNext()) {
             HNote hNote = iterator.next();
-            if (hNote.getTime() < curTick && !isNoteOns[hNote.getNote()]) {
-                isNoteOns[hNote.getNote()] = true;
-//                notifyNoteListeners(hNote.getNote(), hData.getTones()[hNote.getNote()], true);
-                model.noteEvent.fireNoteEvent(hNote.getNote(), hData.getTones()[hNote.getNote()], true);
+            int note =hNote.getNote();
+            if (hNote.getTime() < curTick && !isNoteOns[note]) {
+                isNoteOns[note] = true;
+                if(isNoteAlives[note])
+                model.noteEvent.fireNoteEvent(note, hData.getTones()[note], true);
             }
             if (hNote.getTime() + hNote.getDuration() < curTick) {
-                isNoteOns[hNote.getNote()] = false;
-//                notifyNoteListeners(hNote.getNote(), hData.getTones()[hNote.getNote()], false);
-                model.noteEvent.fireNoteEvent(hNote.getNote(), hData.getTones()[hNote.getNote()], false);
+                isNoteOns[note] = false;
+                model.noteEvent.fireNoteEvent(note, hData.getTones()[note], false);
 
                 iterator.remove();
             }
@@ -89,5 +91,9 @@ public class NRModel {
 
     public void setPaused(boolean paused) {
         this.paused = paused;
+    }
+
+    public void setNoteAlive(int i,boolean isAlive){
+        isNoteAlives[i]=isAlive;
     }
 }
