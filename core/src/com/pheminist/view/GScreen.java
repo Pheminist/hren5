@@ -12,6 +12,7 @@ public class GScreen extends BaseScreen {
 
     private Hud hud;
     private NR nr;
+    private NButtonsView nButtonsView;
 
     public GScreen(Controller controller, Model model) {
         super(controller, model);
@@ -24,9 +25,11 @@ public class GScreen extends BaseScreen {
         screenTable.clear();
         hud = new Hud(controller, model);
         nr = new NR(model.nrModel);
+        nButtonsView = new NButtonsView(model);
 
         Table testTable = new Table();
         testTable.add(nr).expand().fill().row();
+        testTable.add(nButtonsView).expandX().fillX();
 //        nButtonsRenderer=new NButtonsRenderer(parent,parent.hData);
 //        addNoteListener(nButtonsRenderer);
 //
