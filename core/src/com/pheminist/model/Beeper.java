@@ -7,7 +7,7 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Synthesizer;
 
 public class Beeper implements IListener<NoteEvent> {
-    MidiChannel[] channels;
+    private MidiChannel[] channels;
     private int shift;
 
     public Beeper(Model model){

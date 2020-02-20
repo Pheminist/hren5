@@ -239,11 +239,14 @@ public class Hud extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 sound = !sound;
-//                gameScreen.setSound(sound);
-//                controller.setSound(sound);
                 if (sound) {
                     soundBtn.setText("Sound on");
-                } else soundBtn.setText("Sound off");
+                    model.noteEvent.getPublisher().addListener(model.beeper);
+                } else {
+                    soundBtn.setText("Sound off");
+                    model.noteEvent.getPublisher().removeListener(model.beeper);
+                    model.beeper.allNotesOff();
+                }
             }
         });
 
