@@ -52,5 +52,6 @@ public class Controller extends Game {
     public void setTempo(float tempo){
         model.tempo.setTempo(tempo);
     }
+    public void setShift(int shift) {model.shift.setShift(shift);}
 
 }

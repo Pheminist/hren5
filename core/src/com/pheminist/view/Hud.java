@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import com.pheminist.controller.Controller;
 import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
+import com.pheminist.model.Shift;
 import com.pheminist.model.Tempo;
 
 import java.util.Locale;
@@ -46,7 +47,7 @@ public class Hud extends Table {
         shiftTable.background("button-pressed");
         shiftTable.pad(VPAD, 10, VPAD, 10);
 //        shiftTable.setDebug(true);
-        Label shiftTextLabel = new Label("Shift", skin);
+        final Label shiftTextLabel = new Label("Shift", skin);
         final TextButton shiftMinusBtn = new TextButton("-", skin);
         shiftNumberLabel = new Label("", skin);
         setShiftLabel();
@@ -191,6 +192,14 @@ public class Hud extends Table {
 
         model.tempo.getPublisher().addListener(tempoListener);
 
+        model.shift.getPublisher().addListener(new IListener<Shift>() {
+            @Override
+            public void on(Shift event) {
+                shift = event.getShift();
+                setShiftLabel();
+            }
+        });
+
         tempoMinusBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -302,9 +311,7 @@ public class Hud extends Table {
     }
 
     private void shiftTone(int shift) {
-//        gameScreen.getBeeper().setShift(shift);
-//        parent.getPreferences().setShift(shift);
-//        gameScreen.getnButtonsRenderer().setNButtonsLabels();
+        controller.setShift(shift);
         setShiftLabel();
     }
 }

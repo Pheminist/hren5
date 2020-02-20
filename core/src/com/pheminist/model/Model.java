@@ -9,12 +9,13 @@ public class Model {
 
     public final QPS qps = new QPS();
     public final Tempo tempo = new Tempo();
+    public final Shift shift = new Shift();
     public final NoteEvent noteEvent = new NoteEvent();
 
     private HData hData;
 
     public NRModel nrModel = new NRModel(this);
-    public Beeper beeper = new Beeper(0);
+    public Beeper beeper = new Beeper(this);
 
     public HData gethData() {
         return hData;

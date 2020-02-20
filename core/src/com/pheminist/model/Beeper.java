@@ -10,8 +10,16 @@ public class Beeper implements IListener<NoteEvent> {
     MidiChannel[] channels;
     private int shift;
 
-    public Beeper(int shift){
-        this.shift=shift;
+    public Beeper(Model model){
+
+        model.shift.getPublisher().addListener(new IListener<Shift>() {
+            @Override
+            public void on(Shift event) {
+                Beeper.this.setShift(event.getShift());
+            }
+        });
+
+//        this.shift=shift;
         try {
             Synthesizer synth = MidiSystem.getSynthesizer();
             synth.open();
