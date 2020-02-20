@@ -32,11 +32,13 @@ public class NRModel {
         isNoteAlives = new boolean[hData.getnTones()];
         Arrays.fill(isNoteAlives,true);
 
-        quarterInScreen = model.qps.getQps();
-        ticksInScreen = quarterInScreen * hData.getPpqn();
+//        quarterInScreen = model.qps.getQps();
+//        ticksInScreen = quarterInScreen * hData.getPpqn();
     }
 
     public void update(float deltatime) {
+        quarterInScreen = model.qps.getQps();
+        ticksInScreen = quarterInScreen * hData.getPpqn();
         if (!paused)
         curTick = curTick + deltatime * 0.001f * hData.getTemp() * model.tempo.getTempo();
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.BACK)) { // get back to menu ...

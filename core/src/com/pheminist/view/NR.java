@@ -24,9 +24,9 @@ import static com.pheminist.model.Model.SKIN;
 public class NR extends Widget {
     private Model model;
     private NRModel nrModel;
-    private float quarterInScreen = 4f;
+//    private float quarterInScreen = 4f;
 
-    float ticksInScreen;
+//    float ticksInScreen;
     private final List<HNote> screenNotes;
     private TextureRegion img;
 //    private BitmapFont font;
@@ -45,7 +45,7 @@ public class NR extends Widget {
         nrModel.init();
         this.hData = nrModel.gethData();
 
-        ticksInScreen = quarterInScreen * hData.getPpqn();//*model.getPreferences().getTempVolume();
+//        ticksInScreen = quarterInScreen * hData.getPpqn();//*model.getPreferences().getTempVolume();
 
 //        isOns = new boolean[hData.getnTones()];
         Skin skin = model.assetManager.get(SKIN, Skin.class);
@@ -77,13 +77,14 @@ public class NR extends Widget {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         float curTick =nrModel.getCurTick();
+        float quarterInScreen=model.qps.getQps();
+        float ticksInScreen = quarterInScreen * hData.getPpqn();//*parent.getPreferences().getTempVolume();
         x=getX();
         y=getY();
         winWidth=getWidth();
         winHeight=getHeight();
 
         clipBounds.set(x,y,winWidth,winHeight);
-        ticksInScreen = quarterInScreen * hData.getPpqn();//*parent.getPreferences().getTempVolume();
 
         float upq = winHeight / quarterInScreen; //Unit per quarter
         float upt = upq / hData.getPpqn();  //unit per tick
@@ -137,9 +138,4 @@ public class NR extends Widget {
     public static Color getNoteColor(int note) {
         return notesColors[note % NUM_OF_COLORS];
     }
-
-    public void setQuarterInScreen(float quarterInScreen) {
-        this.quarterInScreen = quarterInScreen;
-    }
-
 }
