@@ -16,6 +16,7 @@ import com.pheminist.model.Model;
 import com.pheminist.model.QPS;
 import com.pheminist.model.Shift;
 import com.pheminist.model.Tempo;
+import com.pheminist.view.menu.QPSView;
 import com.pheminist.view.menu.ShiftView;
 import com.pheminist.view.menu.TempoView;
 
@@ -28,8 +29,6 @@ public class Hud extends Table {
     private Controller controller;
     private Model model;
     private Skin skin;
-    private static final float qps = 4;
-    private Label qpsNumberLabel;
     private Slider playSlider;
     private boolean sound = false;
 
@@ -41,25 +40,6 @@ public class Hud extends Table {
     }
 
     private void show() {
-        Table qpsTable = new Table();
-        qpsTable.setSkin(skin);
-        qpsTable.background("button-pressed");
-        qpsTable.pad(VPAD, 10, VPAD, 10);
-        Label qpsTextLabel = new Label("Quarters per screen", skin);
-        qpsTextLabel.setWrap(true);
-        qpsTextLabel.setAlignment(Align.center);
-        TextButton qpsMinusBtn = new TextButton("-", skin);
-        qpsNumberLabel = new Label(String.format(Locale.UK, "%.0f", qps), skin);
-        qpsNumberLabel.setAlignment(Align.center);
-        TextButton qpsPlusBtn = new TextButton("+", skin);
-        qpsTable.defaults().pad(0, 5, 0, 5);
-//        qpsTextLabel.setFontScale(0.7f);
-        qpsTable.add(qpsTextLabel).expandX().fillX();//.colspan(3);
-        qpsTable.defaults().minHeight(40).prefHeight(40);
-        qpsTable.add(qpsMinusBtn).minWidth(40).prefWidth(40);
-        qpsTable.add(qpsNumberLabel).minWidth(50);
-        qpsTable.add(qpsPlusBtn).minWidth(40).prefWidth(40);
-
         TextButton newGame = new TextButton("New", skin);
         newGame.pad(VPAD, 0, VPAD, 0);
         TextButton openFile = new TextButton("Open", skin);
@@ -103,7 +83,7 @@ public class Hud extends Table {
         this.row().pad(0, 0, 0, 0);
         this.add(new TempoView(controller,model)).expandX().fillX().uniformX();
         this.row().pad(0, 0, 0, 0);
-        this.add(qpsTable).expandX().fillX().uniformX();
+        this.add(new QPSView(controller,model)).expandX().fillX().uniformX();
         this.row().pad(0, 0, 0, 0);
         this.add(soundBtn).expandX().fillX().uniformX();
         this.row().pad(0, 0, 0, 0);
@@ -117,27 +97,6 @@ public class Hud extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-            }
-        });
-
-        model.qps.getPublisher().addListener(new IListener<QPS>() {
-            @Override
-            public void on(QPS event) {
-                setQPSLabel(model.qps.getQps());
-            }
-        });
-
-        qpsMinusBtn.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                controller.setQPS(model.qps.getQps()-1f);
-            }
-        });
-
-        qpsPlusBtn.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                controller.setQPS(model.qps.getQps()+1f);
             }
         });
 
@@ -178,9 +137,5 @@ public class Hud extends Table {
                 Gdx.app.exit();
             }
         });
-    }
-
-    private void setQPSLabel(float qps){
-        qpsNumberLabel.setText(String.format(Locale.UK, "%.0f", qps));
     }
 }
