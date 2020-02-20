@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.pheminist.model.MIDI.HData;
 import com.pheminist.model.MIDI.HNote;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -34,13 +33,11 @@ public class NRModel {
         Arrays.fill(isNoteAlives,true);
 
         quarterInScreen = model.qps.getQps();
-        ticksInScreen = quarterInScreen * hData.getPpqn();//*parent.getPreferences().getTempVolume();
+        ticksInScreen = quarterInScreen * hData.getPpqn();
     }
 
     public void update(float deltatime) {
-//        if(Gdx.input.justTouched()) paused=!paused;
         if (!paused)
-//        curTick = curTick + Gdx.graphics.getDeltaTime() * 0.001f * hData.getTemp() * model.tempo.getTempo();
         curTick = curTick + deltatime * 0.001f * hData.getTemp() * model.tempo.getTempo();
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.BACK)) { // get back to menu ...
 //            beeper.allNotesOff();

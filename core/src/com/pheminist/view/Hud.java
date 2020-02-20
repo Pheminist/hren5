@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import com.pheminist.controller.Controller;
 import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
+import com.pheminist.model.QPS;
 import com.pheminist.model.Shift;
 import com.pheminist.model.Tempo;
 
@@ -22,14 +23,14 @@ import static com.pheminist.model.Model.SKIN;
 
 public class Hud extends Table {
     private static final float VPAD = 20;
+    private static final float tempo = 1;
+    private static final int shift = 0;
     private Controller controller;
     private Model model;
     private Skin skin;
-    private float tempo = 1;
     private Label tempoNumberLabel;
-    private int shift = 0;
     private Label shiftNumberLabel;
-    private float qps = 4;
+    private static final float qps = 4;
     private Label qpsNumberLabel;
     private Slider playSlider;
     private boolean sound = false;
@@ -50,7 +51,7 @@ public class Hud extends Table {
         final Label shiftTextLabel = new Label("Shift", skin);
         final TextButton shiftMinusBtn = new TextButton("-", skin);
         shiftNumberLabel = new Label("", skin);
-        setShiftLabel();
+        setShiftLabel(shift);
         shiftNumberLabel.setAlignment(Align.center);
         TextButton shiftPlusBtn = new TextButton("+", skin);
         shiftTable.defaults().minHeight(40).prefHeight(40).pad(0, 5, 0, 5);
@@ -63,12 +64,11 @@ public class Hud extends Table {
         Label tempoTextLabel = new Label("Tempo", skin);
         TextButton tempoMinusBtn = new TextButton("-", skin);
 //        tempo=parent.getPreferences().getTempVolume();
-        tempo = 1f;
         tempoNumberLabel = new Label(String.format(Locale.UK, "%.1f", tempo), skin);
         tempoNumberLabel.setAlignment(Align.center);
 //        tempoNumberLabel.setFontScale(0.5f);
         TextButton tempoPlusBtn = new TextButton("+", skin);
-        final Slider tempoSlider = new Slider(model.tempo.minTempo, model.tempo.maxTempo,
+        final Slider tempoSlider = new Slider(Tempo.minTempo, Tempo.maxTempo,
                 0.1f, false, skin);
 //        tempoSlider.setValue(parent.getPreferences().getTempVolume());
         tempoSlider.setValue(tempo);
@@ -156,8 +156,6 @@ public class Hud extends Table {
         this.row();
         this.add(playTable).expandX().fillX();
 
-//        System.out.println("show hud");
-
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -165,38 +163,33 @@ public class Hud extends Table {
             }
         });
 
+        model.shift.getPublisher().addListener(new IListener<Shift>() {
+            @Override
+            public void on(Shift event) {
+                setShiftLabel(event.getShift());
+            }
+        });
+
         shiftMinusBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                shift--;
-                shiftTone(shift);
+                controller.setShift(model.shift.getShift() - 1);
             }
         });
 
         shiftPlusBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                shift++;
-                shiftTone(shift);
+                controller.setShift(model.shift.getShift() + 1);
             }
         });
 
-        IListener<Tempo> tempoListener = new IListener<Tempo>() {
+        model.tempo.getPublisher().addListener(new IListener<Tempo>() {
             @Override
             public void on(Tempo event) {
                 float tempo = event.getTempo();
                 tempoNumberLabel.setText(String.format(Locale.UK, "%.1f", tempo));
                 tempoSlider.setValue(tempo);
-            }
-        };
-
-        model.tempo.getPublisher().addListener(tempoListener);
-
-        model.shift.getPublisher().addListener(new IListener<Shift>() {
-            @Override
-            public void on(Shift event) {
-                shift = event.getShift();
-                setShiftLabel();
             }
         });
 
@@ -221,26 +214,24 @@ public class Hud extends Table {
             }
         });
 
+        model.qps.getPublisher().addListener(new IListener<QPS>() {
+            @Override
+            public void on(QPS event) {
+                setQPSLabel(model.qps.getQps());
+            }
+        });
 
         qpsMinusBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (qps < 1.5) return;
-                qps -= 1f;
-                qpsNumberLabel.setText(String.format(Locale.UK, "%.0f", qps));
-//                controller.setQPS(qps);
-//                gameScreen.setQuarterInScreen(qps);
+                controller.setQPS(model.qps.getQps()-1f);
             }
         });
 
         qpsPlusBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (qps > 19.5) return;
-                qps += 1f;
-                qpsNumberLabel.setText(String.format(Locale.UK, "%.0f", qps));
-//                controller.setQPS(qps);
-                //                gameScreen.setQuarterInScreen(qps);
+                controller.setQPS(model.qps.getQps()+1f);
             }
         });
 
@@ -264,19 +255,6 @@ public class Hud extends Table {
             }
         });
 
-
-        //        newGame.addListener(new ChangeListener() {
-//            @Override
-//            public void changed(ChangeEvent event, Actor actor) {
-//                if(parent.hData==null)
-//                    parent.changeScreen(Controller.OPENFILE);
-//                else {
-//                    parent.hData.resetIndex();
-//                    parent.changeScreen(Controller.APPLICATION);
-//                }
-//            }
-//        });
-//
         openFile.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -284,16 +262,7 @@ public class Hud extends Table {
                 System.out.println("Why do I see this text when I am in OPENFILE screen");
             }
         });
-//
-//        soundBtn.addListener(new ChangeListener() {
-//            @Override
-//            public void changed(ChangeEvent event, Actor actor) {
-//
-//
-//                 parent.changeScreen(Controller.PREFERENCES);
-//            }
-//        });
-//
+
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -302,7 +271,7 @@ public class Hud extends Table {
         });
     }
 
-    private void setShiftLabel() {
+    private void setShiftLabel(int shift) {
         if (shift == 0) {
             shiftNumberLabel.setText("0");
             return;
@@ -310,8 +279,7 @@ public class Hud extends Table {
         shiftNumberLabel.setText(String.format("%+2d", shift));
     }
 
-    private void shiftTone(int shift) {
-        controller.setShift(shift);
-        setShiftLabel();
+    private void setQPSLabel(float qps){
+        qpsNumberLabel.setText(String.format(Locale.UK, "%.0f", qps));
     }
 }

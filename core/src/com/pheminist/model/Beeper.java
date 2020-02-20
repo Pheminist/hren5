@@ -19,7 +19,6 @@ public class Beeper implements IListener<NoteEvent> {
             }
         });
 
-//        this.shift=shift;
         try {
             Synthesizer synth = MidiSystem.getSynthesizer();
             synth.open();
