@@ -17,6 +17,7 @@ import com.pheminist.model.QPS;
 import com.pheminist.model.Shift;
 import com.pheminist.model.Tempo;
 import com.pheminist.view.menu.ShiftView;
+import com.pheminist.view.menu.TempoView;
 
 import java.util.Locale;
 
@@ -24,11 +25,9 @@ import static com.pheminist.model.Model.SKIN;
 
 public class Hud extends Table {
     public static final float VPAD = 20;
-    private static final float tempo = 1;
     private Controller controller;
     private Model model;
     private Skin skin;
-    private Label tempoNumberLabel;
     private static final float qps = 4;
     private Label qpsNumberLabel;
     private Slider playSlider;
@@ -42,30 +41,6 @@ public class Hud extends Table {
     }
 
     private void show() {
-        Table tempoTable = new Table();
-        Label tempoTextLabel = new Label("Tempo", skin);
-        TextButton tempoMinusBtn = new TextButton("-", skin);
-//        tempo=parent.getPreferences().getTempVolume();
-        tempoNumberLabel = new Label(String.format(Locale.UK, "%.1f", tempo), skin);
-        tempoNumberLabel.setAlignment(Align.center);
-//        tempoNumberLabel.setFontScale(0.5f);
-        TextButton tempoPlusBtn = new TextButton("+", skin);
-        final Slider tempoSlider = new Slider(Tempo.minTempo, Tempo.maxTempo,
-                0.1f, false, skin);
-//        tempoSlider.setValue(parent.getPreferences().getTempVolume());
-        tempoSlider.setValue(tempo);
-        tempoTable.pad(VPAD, 10, VPAD, 10);
-        tempoTable.setSkin(skin);
-        tempoTable.background("button-pressed");
-        tempoTable.defaults().minHeight(40).prefHeight(40).pad(0, 5, 0, 5);
-        tempoTable.add(tempoTextLabel).expandX();
-        tempoTable.add(tempoMinusBtn).minWidth(40).prefWidth(40);
-        tempoTable.add(tempoNumberLabel).minWidth(60);
-        tempoTable.add(tempoPlusBtn).minWidth(40).prefWidth(40);
-        tempoTable.row();
-        tempoTable.add(tempoSlider).colspan(4).expandX().fillX();
-//        tempoTable.setDebug(true);
-
         Table qpsTable = new Table();
         qpsTable.setSkin(skin);
         qpsTable.background("button-pressed");
@@ -126,7 +101,7 @@ public class Hud extends Table {
         this.row().pad(0, 0, 0, 0);
         this.add(new ShiftView(controller,model)).expandX().fillX().uniformX();
         this.row().pad(0, 0, 0, 0);
-        this.add(tempoTable).expandX().fillX().uniformX();
+        this.add(new TempoView(controller,model)).expandX().fillX().uniformX();
         this.row().pad(0, 0, 0, 0);
         this.add(qpsTable).expandX().fillX().uniformX();
         this.row().pad(0, 0, 0, 0);
@@ -142,36 +117,6 @@ public class Hud extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-            }
-        });
-
-        model.tempo.getPublisher().addListener(new IListener<Tempo>() {
-            @Override
-            public void on(Tempo event) {
-                float tempo = event.getTempo();
-                tempoNumberLabel.setText(String.format(Locale.UK, "%.1f", tempo));
-                tempoSlider.setValue(tempo);
-            }
-        });
-
-        tempoMinusBtn.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                controller.setTempo(model.tempo.getTempo() - 0.1f);
-            }
-        });
-
-        tempoPlusBtn.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                controller.setTempo(model.tempo.getTempo() + 0.1f);
-            }
-        });
-
-        tempoSlider.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                controller.setTempo(tempoSlider.getValue());
             }
         });
 
