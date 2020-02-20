@@ -19,12 +19,11 @@ import static com.pheminist.model.Model.SKIN;
 import static com.pheminist.view.Hud.VPAD;
 
 public class TempoView extends Table{
-    private final Skin skin;
     private Label tempoNumberLabel;
     private static final float tempo = 1;
 
     public TempoView(final Controller controller,final Model model) {
-        skin = model.assetManager.get(SKIN, Skin.class);
+        final Skin skin = model.assetManager.get(SKIN, Skin.class);
 
 //        Table tempoTable = new Table();
         Label tempoTextLabel = new Label("Tempo", skin);

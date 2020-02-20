@@ -11,7 +11,8 @@ import com.pheminist.controller.Controller;
 import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
 import com.pheminist.model.Shift;
-import com.pheminist.view.Hud;
+
+import java.util.Locale;
 
 import static com.pheminist.model.Model.SKIN;
 import static com.pheminist.view.Hud.VPAD;
@@ -19,14 +20,9 @@ import static com.pheminist.view.Hud.VPAD;
 public class ShiftView extends Table{
     private Label shiftNumberLabel;
     private static final int shift = 0;
-    private final Controller controller;
-    private final Model model;
-    private final Skin skin;
 
-    public ShiftView(Controller contr, Model mod) {
-        controller = contr;
-        model = mod;
-        skin=model.assetManager.get(SKIN, Skin.class);
+    public ShiftView(final Controller controller, final Model model) {
+        final Skin skin=model.assetManager.get(SKIN, Skin.class);
         setSkin(skin);
         background("button-pressed");
         pad(VPAD, 10, VPAD, 10);
@@ -71,7 +67,7 @@ public class ShiftView extends Table{
             shiftNumberLabel.setText("0");
             return;
         }
-        shiftNumberLabel.setText(String.format("%+2d", shift));
+        shiftNumberLabel.setText(String.format(Locale.UK,"%+2d", shift));
     }
 
 }

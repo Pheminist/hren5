@@ -36,7 +36,7 @@ public class QPSView extends Table {
         TextButton qpsPlusBtn = new TextButton("+", skin);
         defaults().pad(0, 5, 0, 5);
 //        qpsTextLabel.setFontScale(0.7f);
-        add(qpsTextLabel).expandX().fillX();//.colspan(3);
+        add(qpsTextLabel).expandX().fillX();
         defaults().minHeight(40).prefHeight(40);
         add(qpsMinusBtn).minWidth(40).prefWidth(40);
         add(qpsNumberLabel).minWidth(50);
