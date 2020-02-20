@@ -16,20 +16,19 @@ import com.pheminist.model.Model;
 import com.pheminist.model.QPS;
 import com.pheminist.model.Shift;
 import com.pheminist.model.Tempo;
+import com.pheminist.view.menu.ShiftView;
 
 import java.util.Locale;
 
 import static com.pheminist.model.Model.SKIN;
 
 public class Hud extends Table {
-    private static final float VPAD = 20;
+    public static final float VPAD = 20;
     private static final float tempo = 1;
-    private static final int shift = 0;
     private Controller controller;
     private Model model;
     private Skin skin;
     private Label tempoNumberLabel;
-    private Label shiftNumberLabel;
     private static final float qps = 4;
     private Label qpsNumberLabel;
     private Slider playSlider;
@@ -43,23 +42,6 @@ public class Hud extends Table {
     }
 
     private void show() {
-        Table shiftTable = new Table();
-        shiftTable.setSkin(skin);
-        shiftTable.background("button-pressed");
-        shiftTable.pad(VPAD, 10, VPAD, 10);
-//        shiftTable.setDebug(true);
-        final Label shiftTextLabel = new Label("Shift", skin);
-        final TextButton shiftMinusBtn = new TextButton("-", skin);
-        shiftNumberLabel = new Label("", skin);
-        setShiftLabel(shift);
-        shiftNumberLabel.setAlignment(Align.center);
-        TextButton shiftPlusBtn = new TextButton("+", skin);
-        shiftTable.defaults().minHeight(40).prefHeight(40).pad(0, 5, 0, 5);
-        shiftTable.add(shiftTextLabel).expandX();
-        shiftTable.add(shiftMinusBtn).minWidth(40).prefWidth(40);
-        shiftTable.add(shiftNumberLabel).minWidth(60);
-        shiftTable.add(shiftPlusBtn).minWidth(40).prefWidth(40);
-
         Table tempoTable = new Table();
         Label tempoTextLabel = new Label("Tempo", skin);
         TextButton tempoMinusBtn = new TextButton("-", skin);
@@ -142,7 +124,7 @@ public class Hud extends Table {
         this.add(newGame).expandX().fillX();
         this.defaults().expandY().fillY().growY();                                     ///////
         this.row().pad(0, 0, 0, 0);
-        this.add(shiftTable).expandX().fillX().uniformX();
+        this.add(new ShiftView(controller,model)).expandX().fillX().uniformX();
         this.row().pad(0, 0, 0, 0);
         this.add(tempoTable).expandX().fillX().uniformX();
         this.row().pad(0, 0, 0, 0);
@@ -160,27 +142,6 @@ public class Hud extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-            }
-        });
-
-        model.shift.getPublisher().addListener(new IListener<Shift>() {
-            @Override
-            public void on(Shift event) {
-                setShiftLabel(event.getShift());
-            }
-        });
-
-        shiftMinusBtn.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                controller.setShift(model.shift.getShift() - 1);
-            }
-        });
-
-        shiftPlusBtn.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                controller.setShift(model.shift.getShift() + 1);
             }
         });
 
@@ -272,14 +233,6 @@ public class Hud extends Table {
                 Gdx.app.exit();
             }
         });
-    }
-
-    private void setShiftLabel(int shift) {
-        if (shift == 0) {
-            shiftNumberLabel.setText("0");
-            return;
-        }
-        shiftNumberLabel.setText(String.format("%+2d", shift));
     }
 
     private void setQPSLabel(float qps){
