@@ -76,7 +76,7 @@ public class NR extends Widget {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        float curTick =nrModel.getCurTick();
+        float curTick =nrModel.tick.getTick();
         float quarterInScreen=model.qps.getQps();
         float ticksInScreen = quarterInScreen * hData.getPpqn();//*parent.getPreferences().getTempVolume();
         x=getX();
@@ -108,11 +108,6 @@ public class NR extends Widget {
 
 
     }
-
-//    @Override
-//    public void noteEvent(int note, int tone, boolean isOn) {
-//        isOns[note] = isOn;
-//    }
 
     private static final Color[] notesColors =
             {

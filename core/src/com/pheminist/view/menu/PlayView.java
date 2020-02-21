@@ -1,15 +1,17 @@
 package com.pheminist.view.menu;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.pheminist.controller.Controller;
+import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
+import com.pheminist.model.Tick;
 
 import static com.pheminist.model.Model.SKIN;
 import static com.pheminist.view.Hud.VPAD;
@@ -23,8 +25,8 @@ public class PlayView extends Table {
         playPlusBtn1.setChecked(true);
         Label playTimeLabel = new Label("44:44/44:44", skin);
         playTimeLabel.setFontScale(0.8f);
-//        playSlider = new Slider(0f, parent.hData.getTotalTicks(), 0.01f, false, skin);
-        final Slider playSlider = new Slider(0f, 200f, 0.01f, false, skin);
+        final Slider playSlider = new Slider(0f, model.gethData().getTotalTicks(), 100f, false, skin);
+//        final Slider playSlider = new Slider(0f, 200f, 0.01f, false, skin);
         pad(VPAD, 10, VPAD, 10);
 //        tempoTable.setDebug(true);
         setSkin(skin);
@@ -37,10 +39,19 @@ public class PlayView extends Table {
         row();
         add(playSlider).colspan(4).expandX().fillX();
 
-        playPlusBtn1.addListener(new ChangeListener() {
+
+        playSlider.addListener(new InputListener() {
+                                   @Override
+                                   public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                       model.nrModel.tick.setTick(playSlider.getValue());
+                                       return true;
+                                   }
+        });
+
+        model.nrModel.tick.getPublisher().addListener(new IListener<Tick>() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
-//                parent.getPreferences().setPause(!playPlusBtn1.isChecked());
+            public void on(Tick event) {
+              playSlider.setValue(model.nrModel.tick.getTick());
             }
         });
     }
