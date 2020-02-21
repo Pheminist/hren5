@@ -2,26 +2,16 @@ package com.pheminist.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
 import com.pheminist.controller.Controller;
-import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
-import com.pheminist.model.QPS;
-import com.pheminist.model.Shift;
-import com.pheminist.model.Tempo;
 import com.pheminist.view.menu.PlayView;
 import com.pheminist.view.menu.QPSView;
 import com.pheminist.view.menu.ShiftView;
 import com.pheminist.view.menu.TempoView;
-
-import java.util.Locale;
 
 import static com.pheminist.model.Model.SKIN;
 
@@ -30,7 +20,6 @@ public class Hud extends Table {
     private Controller controller;
     private Model model;
     private Skin skin;
-    private Slider playSlider;
     private boolean sound = false;
 
     Hud(Controller controller, Model model) {
