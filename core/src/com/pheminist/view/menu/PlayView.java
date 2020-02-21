@@ -13,17 +13,19 @@ import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
 import com.pheminist.model.Tick;
 
+import java.util.Locale;
+
 import static com.pheminist.model.Model.SKIN;
 import static com.pheminist.view.Hud.VPAD;
 
 public class PlayView extends Table {
     public PlayView(final Controller controller, final Model model) {
-        final Skin skin=model.assetManager.get(SKIN,Skin.class);
+        final Skin skin = model.assetManager.get(SKIN, Skin.class);
         TextButton playMinusBtn = new TextButton("-", skin);
         TextButton playPlusBtn = new TextButton("+", skin);
         final ImageButton playPlusBtn1 = new ImageButton(skin, "play");
         playPlusBtn1.setChecked(true);
-        Label playTimeLabel = new Label("44:44/44:44", skin);
+        final Label playTimeLabel = new Label("44:44/44:44", skin);
         playTimeLabel.setFontScale(0.8f);
         final Slider playSlider = new Slider(0f, model.gethData().getTotalTicks(), 100f, false, skin);
 //        final Slider playSlider = new Slider(0f, 200f, 0.01f, false, skin);
@@ -41,17 +43,21 @@ public class PlayView extends Table {
 
 
         playSlider.addListener(new InputListener() {
-                                   @Override
-                                   public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                                       model.nrModel.tick.setTick(playSlider.getValue());
-                                       return true;
-                                   }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                float sliderValue=playSlider.getValue();
+                model.gethData().setIndexByTick(sliderValue);
+                model.nrModel.tick.setTick(sliderValue);
+                return true;
+            }
         });
 
         model.nrModel.tick.getPublisher().addListener(new IListener<Tick>() {
             @Override
             public void on(Tick event) {
-              playSlider.setValue(model.nrModel.tick.getTick());
+                float tick = model.nrModel.tick.getTick();
+                playTimeLabel.setText(String.format(Locale.UK, "%.0f /44444", tick));
+                playSlider.setValue(tick);
             }
         });
     }

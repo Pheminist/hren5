@@ -81,6 +81,16 @@ public class HData implements Serializable {
         return (hn.getTime()+hn.getDuration());
     }
 
+    public void setIndexByTick(float tick){
+        resetIndex();
+        for (int i=0;i<getTotalTicks();i++){
+            if(hNotes[i].getTime()>tick) {
+                index=i;
+                return;
+            }
+        }
+    }
+
     public static HData getInstance(FileHandle file){
         MIDIData mMIDIData = new MIDIData(file.file());
         HData hData=mMIDIData.midiDataToHData();
