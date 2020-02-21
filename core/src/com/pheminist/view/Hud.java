@@ -16,6 +16,7 @@ import com.pheminist.model.Model;
 import com.pheminist.model.QPS;
 import com.pheminist.model.Shift;
 import com.pheminist.model.Tempo;
+import com.pheminist.view.menu.PlayView;
 import com.pheminist.view.menu.QPSView;
 import com.pheminist.view.menu.ShiftView;
 import com.pheminist.view.menu.TempoView;
@@ -32,7 +33,7 @@ public class Hud extends Table {
     private Slider playSlider;
     private boolean sound = false;
 
-    public Hud(Controller controller, Model model) {
+    Hud(Controller controller, Model model) {
         this.controller = controller;
         this.model = model;
         skin = model.assetManager.get(SKIN, Skin.class);
@@ -51,31 +52,6 @@ public class Hud extends Table {
         TextButton exit = new TextButton("Exit", skin);
         exit.pad(VPAD, 0, VPAD, 0);
 
-        Table playTable = new Table();
-        TextButton playMinusBtn = new TextButton("-", skin);
-        TextButton playPlusBtn = new TextButton("+", skin);
-        final ImageButton playPlusBtn1 = new ImageButton(skin, "play");
-        playPlusBtn1.setChecked(true);
-//        TextButton playPlusBtn2 =new TextButton("+",skin);
-//        TextButton playPlusBtn3 =new TextButton("+",skin);
-        Label playTimeLabel = new Label("44:44/44:44", skin);
-        playTimeLabel.setFontScale(0.8f);
-//        playSlider = new Slider(0f, parent.hData.getTotalTicks(), 0.01f, false, skin);
-        playSlider = new Slider(0f, 200f, 0.01f, false, skin);
-        playTable.pad(VPAD, 10, VPAD, 10);
-//        tempoTable.setDebug(true);
-        playTable.setSkin(skin);
-        playTable.background("button-pressed");
-        playTable.defaults().minHeight(40).prefHeight(40).pad(0, 2, 0, 2);
-        playTable.add(playMinusBtn).minWidth(40).prefWidth(40);
-        playTable.add(playPlusBtn).minWidth(40).prefWidth(40);
-        playTable.add(playPlusBtn1).minWidth(40).prefWidth(40);
-//        playTable.add(playPlusBtn2).minWidth(40).prefWidth(40);
-//        playTable.add(playPlusBtn3).minWidth(40).prefWidth(40);
-        playTable.add(playTimeLabel).expandX();
-        playTable.row();
-        playTable.add(playSlider).colspan(4).expandX().fillX();
-
         this.add(newGame).expandX().fillX();
         this.defaults().expandY().fillY().growY();                                     ///////
         this.row().pad(0, 0, 0, 0);
@@ -91,7 +67,7 @@ public class Hud extends Table {
         this.row().pad(0, 0, 0, 0);
         this.add(exit).minWidth(100).fillX().uniformX();
         this.row();
-        this.add(playTable).expandX().fillX();
+        this.add(new PlayView(controller,model)).expandX().fillX();
 
         newGame.addListener(new ChangeListener() {
             @Override
@@ -112,14 +88,6 @@ public class Hud extends Table {
                     model.noteEvent.getPublisher().removeListener(model.beeper);
                     model.beeper.allNotesOff();
                 }
-            }
-        });
-
-
-        playPlusBtn1.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-//                parent.getPreferences().setPause(!playPlusBtn1.isChecked());
             }
         });
 
