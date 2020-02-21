@@ -27,7 +27,7 @@ public class PlayView extends Table {
         playPlusBtn1.setChecked(true);
         final Label playTimeLabel = new Label("44:44/44:44", skin);
         playTimeLabel.setFontScale(0.8f);
-        final Slider playSlider = new Slider(0f, model.gethData().getTotalTicks(), 100f, false, skin);
+        final Slider playSlider = new Slider(0f, model.gethData().getTotalTicks(), 1000f, false, skin);
 //        final Slider playSlider = new Slider(0f, 200f, 0.01f, false, skin);
         pad(VPAD, 10, VPAD, 10);
 //        tempoTable.setDebug(true);

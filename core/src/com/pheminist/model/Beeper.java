@@ -23,7 +23,7 @@ public class Beeper implements IListener<NoteEvent> {
             Synthesizer synth = MidiSystem.getSynthesizer();
             synth.open();
             channels = synth.getChannels();
-            channels[0].programChange(21);
+            channels[0].programChange(22);
 //            synth.close();
         }  catch (Exception e) {
             e.printStackTrace();
@@ -42,7 +42,7 @@ public class Beeper implements IListener<NoteEvent> {
     @Override
     public void on(NoteEvent event) {
         int tone=event.getTone()+shift;
-        if(event.isOn()) channels[0].noteOn(tone+shift,80);
-        else channels[0].noteOff(tone+shift);
+        if(event.isOn()) channels[0].noteOn(tone,80);
+        else channels[0].noteOff(tone);
     }
 }
