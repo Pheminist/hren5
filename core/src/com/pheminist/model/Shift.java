@@ -1,8 +1,8 @@
 package com.pheminist.model;
 
 public class Shift extends SimpleEvent<Shift>{
-    public final static int minShift = -12;
-    public final static int maxShift = +12;
+    private final static int minShift = -12;
+    private final static int maxShift = +12;
 
     private int shift;
 

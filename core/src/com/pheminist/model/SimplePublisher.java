@@ -26,4 +26,9 @@ public class SimplePublisher<T> implements Publisher<T> {
     public void removeListener(IListener<T> listener) {
         listeners.remove(listener);
     }
+
+    @Override
+    public void removeAllListeners() {
+        listeners.clear();
+    }
 }

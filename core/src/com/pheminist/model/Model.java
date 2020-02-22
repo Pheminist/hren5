@@ -23,6 +23,7 @@ public class Model {
 
     public void sethData(HData hData) {
         this.hData = hData;
+        nrModel=new NRModel(this);
     }
 
     public final AssetManager assetManager;

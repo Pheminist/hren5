@@ -19,7 +19,6 @@ import static com.pheminist.view.Hud.VPAD;
 
 public class ShiftView extends Table{
     private Label shiftNumberLabel;
-    private static final int shift = 0;
 
     public ShiftView(final Controller controller, final Model model) {
         final Skin skin=model.assetManager.get(SKIN, Skin.class);
@@ -30,7 +29,7 @@ public class ShiftView extends Table{
         final Label shiftTextLabel = new Label("Shift", skin);
         final TextButton shiftMinusBtn = new TextButton("-", skin);
         shiftNumberLabel = new Label("", skin);
-        setShiftLabel(shift);
+        setShiftLabel(model.shift.getShift());
         shiftNumberLabel.setAlignment(Align.center);
         TextButton shiftPlusBtn = new TextButton("+", skin);
         defaults().minHeight(40).prefHeight(40).pad(0, 5, 0, 5);

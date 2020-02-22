@@ -20,23 +20,19 @@ import static com.pheminist.view.Hud.VPAD;
 
 public class TempoView extends Table{
     private Label tempoNumberLabel;
-    private static final float tempo = 1;
 
     public TempoView(final Controller controller,final Model model) {
         final Skin skin = model.assetManager.get(SKIN, Skin.class);
 
-//        Table tempoTable = new Table();
         Label tempoTextLabel = new Label("Tempo", skin);
         TextButton tempoMinusBtn = new TextButton("-", skin);
-//        tempo=parent.getPreferences().getTempVolume();
-        tempoNumberLabel = new Label(String.format(Locale.UK, "%.1f", tempo), skin);
+        tempoNumberLabel = new Label(String.format(Locale.UK, "%.1f", model.tempo.getTempo()), skin);
         tempoNumberLabel.setAlignment(Align.center);
 //        tempoNumberLabel.setFontScale(0.5f);
         TextButton tempoPlusBtn = new TextButton("+", skin);
         final Slider tempoSlider = new Slider(Tempo.minTempo, Tempo.maxTempo,
                 0.1f, false, skin);
-//        tempoSlider.setValue(parent.getPreferences().getTempVolume());
-        tempoSlider.setValue(tempo);
+        tempoSlider.setValue(model.tempo.getTempo());
         pad(VPAD, 10, VPAD, 10);
         setSkin(skin);
         background("button-pressed");

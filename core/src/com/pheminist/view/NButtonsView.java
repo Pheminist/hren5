@@ -17,6 +17,8 @@ public class NButtonsView extends Table implements IListener<NoteEvent> {
         this.model=model;
         hData = model.gethData();
 
+        System.out.println(" get number of tones ======= "+hData.getnTones());
+
         for (int i=0;i<hData.getnTones();i++){
             NoteButton noteButton=new NoteButton(model,i);
             this.add(noteButton).expandX().fillX().uniform().minWidth(10);

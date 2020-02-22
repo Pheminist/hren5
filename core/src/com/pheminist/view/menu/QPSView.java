@@ -18,7 +18,6 @@ import static com.pheminist.model.Model.SKIN;
 import static com.pheminist.view.Hud.VPAD;
 
 public class QPSView extends Table {
-    private static final float qps = 4;
     private final Label qpsNumberLabel;
 
     public QPSView(final Controller controller, final Model model) {
@@ -31,7 +30,7 @@ public class QPSView extends Table {
         qpsTextLabel.setWrap(true);
         qpsTextLabel.setAlignment(Align.center);
         TextButton qpsMinusBtn = new TextButton("-", skin);
-        qpsNumberLabel = new Label(String.format(Locale.UK, "%.0f", qps), skin);
+        qpsNumberLabel = new Label(String.format(Locale.UK, "%.0f", model.qps.getQps()), skin);
         qpsNumberLabel.setAlignment(Align.center);
         TextButton qpsPlusBtn = new TextButton("+", skin);
         defaults().pad(0, 5, 0, 5);

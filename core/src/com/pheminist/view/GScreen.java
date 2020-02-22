@@ -1,18 +1,14 @@
 package com.pheminist.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.pheminist.controller.Controller;
 import com.pheminist.model.Model;
 
 public class GScreen extends BaseScreen {
-    private final float V_WIDTH = 1366f;
 
     private Table screenTable = new Table();
 
-    private Hud hud;
     private NR nr;
-    private NButtonsView nButtonsView;
 
     public GScreen(Controller controller, Model model) {
         super(controller, model);
@@ -23,23 +19,13 @@ public class GScreen extends BaseScreen {
         stage.clear();
 
         screenTable.clear();
-        hud = new Hud(controller, model);
+        Hud hud = new Hud(controller, model);
         nr = new NR(model.nrModel);
-        nButtonsView = new NButtonsView(model);
+        NButtonsView nButtonsView = new NButtonsView(model);
 
         Table testTable = new Table();
         testTable.add(nr).expand().fill().row();
         testTable.add(nButtonsView).expandX().fillX();
-//        nButtonsRenderer=new NButtonsRenderer(parent,parent.hData);
-//        addNoteListener(nButtonsRenderer);
-//
-//        testTable.add(nButtonsRenderer).expandX().fillX();
-//        testTable.setDebug(tru[e);
-////        testTable.add(new TextButton("test  button 1",skin)).height(100).expandX().fill();
-
-//        this.add(testTable).expand().fill();
-//        this.add(hud).width(365).expandY().fillY();
-//        this.setDebug(true);
         screenTable.add(testTable).expand().fill();
         screenTable.add(hud).width(365).expandY().fillY();
         screenTable.setDebug(true);
@@ -69,6 +55,11 @@ public class GScreen extends BaseScreen {
 
     @Override
     public void hide() {
+        model.noteEvent.getPublisher().removeAllListeners();
+        model.qps.getPublisher().removeAllListeners();
+        model.shift.getPublisher().removeAllListeners();
+        model.tempo.getPublisher().removeAllListeners();
+        model.nrModel.tick.getPublisher().removeAllListeners();        // ?
     }
 
 }

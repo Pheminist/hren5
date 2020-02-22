@@ -15,9 +15,7 @@ public class NRModel {
     public final Model model;
     public final Tick tick = new Tick();
     private HData hData;
-    private float quarterInScreen;
-    private float ticksInScreen;
-//    private float curTick;
+    //    private float curTick;
     private boolean paused;
     private boolean[] isNoteOns;
     private boolean[] isNoteAlives;
@@ -38,8 +36,8 @@ public class NRModel {
     }
 
     public void update(float deltaTime) {
-        quarterInScreen = model.qps.getQps();
-        ticksInScreen = quarterInScreen * hData.getPpqn();
+        float quarterInScreen = model.qps.getQps();
+        float ticksInScreen = quarterInScreen * hData.getPpqn();
         float curTick=tick.getTick();
         if (!paused) {
             curTick = curTick + deltaTime * 0.001f * hData.getTemp() * model.tempo.getTempo();
