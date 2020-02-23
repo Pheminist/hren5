@@ -98,4 +98,13 @@ public class NRModel {
     public void setNoteAlive(int i, boolean isAlive) {
         isNoteAlives[i] = isAlive;
     }
+
+    public void allNotesOffByEvents(){
+        for (int i=0;i<isNoteOns.length;i++){
+            if(isNoteOns[i]){
+                isNoteOns[i]=false;
+                model.noteEvent.fireNoteEvent(i,hData.getTones()[i],false);
+            }
+        }
+    }
 }

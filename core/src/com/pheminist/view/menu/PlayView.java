@@ -46,7 +46,8 @@ public class PlayView extends Table {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 float sliderValue=playSlider.getValue();
-                model.beeper.allNotesOff();
+//                model.beeper.allNotesOff();
+                model.nrModel.allNotesOffByEvents();
                 model.gethData().setIndexByTick(sliderValue);
                 model.nrModel.tick.setTick(sliderValue);
                 return true;
