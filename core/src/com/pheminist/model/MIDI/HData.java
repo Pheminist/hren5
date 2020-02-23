@@ -83,7 +83,7 @@ public class HData implements Serializable {
 
     public void setIndexByTick(float tick){
         resetIndex();
-        for (int i=0;i<getTotalTicks();i++){
+        for (int i=0;i<hNotes.length;i++){
             if(hNotes[i].getTime()>tick) {
                 index=i;
                 return;
