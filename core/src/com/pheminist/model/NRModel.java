@@ -26,6 +26,7 @@ public class NRModel {
 
     public void init() {
         hData = model.gethData();
+        tick.setTick(- model.qps.getQps()*hData.getPpqn());
         isNoteOns = new boolean[hData.getnTones()];
 
         isNoteAlives = new boolean[hData.getnTones()];

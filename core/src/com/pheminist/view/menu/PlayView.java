@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.Align;
 import com.pheminist.controller.Controller;
 import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
@@ -26,6 +27,7 @@ public class PlayView extends Table {
         final ImageButton playPlusBtn1 = new ImageButton(skin, "play");
         playPlusBtn1.setChecked(true);
         final Label playTimeLabel = new Label("44:44/44:44", skin);
+        playTimeLabel.setAlignment(Align.right);
         playTimeLabel.setFontScale(0.8f);
         final Slider playSlider = new Slider(0f, model.gethData().getTotalTicks(), 1f, false, skin);
 //        final Slider playSlider = new Slider(0f, 200f, 0.01f, false, skin);
@@ -37,7 +39,7 @@ public class PlayView extends Table {
         add(playMinusBtn).minWidth(40).prefWidth(40);
         add(playPlusBtn).minWidth(40).prefWidth(40);
         add(playPlusBtn1).minWidth(40).prefWidth(40);
-        add(playTimeLabel).expandX();
+        add(playTimeLabel).expandX().align(Align.right).padRight(20);
         row();
         add(playSlider).colspan(4).expandX().fillX();
 
