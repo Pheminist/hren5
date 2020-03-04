@@ -29,7 +29,7 @@ public class PlayView extends Table {
         final Label playTimeLabel = new Label("44:44/44:44", skin);
         playTimeLabel.setAlignment(Align.right);
         playTimeLabel.setFontScale(0.8f);
-        final Slider playSlider = new Slider(0f, model.gethData().getTotalTicks(), 1f, false, skin);
+        final Slider playSlider = new Slider(0f, model.gethData().getTotalTime(), 1f, false, skin);
 //        final Slider playSlider = new Slider(0f, 200f, 0.01f, false, skin);
         pad(VPAD, 10, VPAD, 10);
 //        tempoTable.setDebug(true);
@@ -50,7 +50,7 @@ public class PlayView extends Table {
                 float sliderValue=playSlider.getValue();
 //                model.beeper.allNotesOff();
                 model.nrModel.allNotesOffByEvents();
-                model.gethData().setIndexByTick(sliderValue);
+                model.gethData().setIndexByTime(sliderValue);
                 model.nrModel.tick.setTick(sliderValue);
                 return true;
             }

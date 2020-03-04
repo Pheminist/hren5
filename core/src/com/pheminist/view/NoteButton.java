@@ -29,7 +29,7 @@ public class NoteButton extends Table {
 
         this.setBackground(skin.getDrawable("knobwhite"));
 //        label=new Label(HUtils.octaveAndNoteName(hData.getTones()[note]+parent.getPreferences().getShift()),skin);
-        label=new Label(HUtils.octaveAndNoteName(model.gethData().getTones()[note]),skin);
+        label=new Label(HUtils.octaveAndNoteName(model.gethData().getTone(note)),skin);
         label.setColor(NR.getNoteColor(note));
         this.add(label);
         this.setColor(Color.DARK_GRAY);

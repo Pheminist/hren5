@@ -5,21 +5,22 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.pheminist.interfaces.IListener;
 import com.pheminist.model.MIDI.HData;
+import com.pheminist.model.MIDI.HFNoteHandler;
 import com.pheminist.model.Model;
 import com.pheminist.model.NoteEvent;
 import com.pheminist.model.Shift;
 
 public class NButtonsView extends Table implements IListener<NoteEvent> {
     Model model;
-    HData hData;
+    HFNoteHandler hData;
 
     public NButtonsView(Model model) {
         this.model=model;
         hData = model.gethData();
 
-        System.out.println(" get number of tones ======= "+hData.getnTones());
+        System.out.println(" get number of tones ======= "+hData.getnSoundes());
 
-        for (int i=0;i<hData.getnTones();i++){
+        for (int i=0;i<hData.getnSoundes();i++){
             NoteButton noteButton=new NoteButton(model,i);
             this.add(noteButton).expandX().fillX().uniform().minWidth(10);
         }
@@ -38,7 +39,7 @@ public class NButtonsView extends Table implements IListener<NoteEvent> {
     public void setNButtonsLabels(){
         SnapshotArray<Actor> noteButtons=getChildren();
         for(int i=0;i<noteButtons.size;i++){
-            ((NoteButton)noteButtons.get(i)).setToneLabel(hData.getTones()[i]+model.shift.getShift());
+            ((NoteButton)noteButtons.get(i)).setToneLabel(hData.getTone(i)+model.shift.getShift());
         }
     }
 

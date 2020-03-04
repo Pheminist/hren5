@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.pheminist.model.MIDI.HData;
+import com.pheminist.model.MIDI.HFNote;
+import com.pheminist.model.MIDI.HFNoteHandler;
 import com.pheminist.model.MIDI.HNote;
 import com.pheminist.model.Model;
 import com.pheminist.model.NRModel;
@@ -27,10 +29,10 @@ public class NR extends Widget {
 //    private float quarterInScreen = 4f;
 
 //    float ticksInScreen;
-    private final List<HNote> screenNotes;
+    private final List<HFNote> screenNotes;
     private TextureRegion img;
 //    private BitmapFont font;
-    private final HData hData;
+    private final HFNoteHandler hData;
     private float x, y;
     private float winWidth = 100, winHeight = 100;
 
@@ -78,7 +80,7 @@ public class NR extends Widget {
     public void draw(Batch batch, float parentAlpha) {
         float curTick =nrModel.tick.getTick();
         float quarterInScreen=model.qps.getQps();
-        float ticksInScreen = quarterInScreen * hData.getPpqn();//*parent.getPreferences().getTempVolume();
+        float ticksInScreen = 2;///quarterInScreen * hData.getPpqn();//*parent.getPreferences().getTempVolume();
         x=getX();
         y=getY();
         winWidth=getWidth();
@@ -86,13 +88,14 @@ public class NR extends Widget {
 
         clipBounds.set(x,y,winWidth,winHeight);
 
-        float upq = winHeight / quarterInScreen; //Unit per quarter
-        float upt = upq / hData.getPpqn();  //unit per tick
-        float w = winWidth / ((float) hData.getnTones());
+//        float upq = winHeight / quarterInScreen; //Unit per quarter
+//        float upt = upq / hData.getPpqn();  //unit per tick
+        float upt = winHeight/ticksInScreen;
+        float w = winWidth / ((float) hData.getnSoundes());
 
         ScissorStack.calculateScissors(getStage().getCamera(), batch.getTransformMatrix(), clipBounds, scissors);
         if (ScissorStack.pushScissors(scissors)) {
-            for (HNote hn : screenNotes) {
+            for (HFNote hn : screenNotes) {
                 float x = hn.getNote() * w;
                 float y = winHeight - (curTick+ticksInScreen - (float) hn.getTime()) * upt;
                 float h = hn.getDuration() * upt;
