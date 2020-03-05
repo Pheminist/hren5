@@ -9,6 +9,10 @@ public class HFNote {
         return note;
     }
 
+    public void setNote(int note) {
+        this.note = note;
+    }
+
     public float getTime() {
         return time;
     }

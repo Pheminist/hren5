@@ -171,12 +171,14 @@ public class FChooser extends BaseScreen {
 //        model.sethData(HData.getInstance(file));
         model.sethData(new HFNoteHandler(new HFNoteProvider(new EventProvider(file.file()))));
 
-        HFNoteHandler handler=model.gethData();
+        HFNoteHandler handler = model.gethData();
 
         handler.setIndexByTime(0);
         while (handler.hasNext()) {
             HFNote note = handler.getNext();
-            System.out.printf("time  %10.3f duration  %10.3f  note %3d   \n",note.getTime(),note.getDuration(),note.getNote());
+            System.out.printf("time  %10.3f duration  %10.3f  note %3d chanel %3d  tone  %3d\n"
+                    , note.getTime(), note.getDuration(), note.getNote(), handler.getChannel(note.getNote())
+                    , handler.getTone(note.getNote()));
         }
         handler.setIndexByTime(0);
 

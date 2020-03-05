@@ -59,6 +59,36 @@ public class HFNoteProvider {
 
         notesArray=notes.toArray(new Note[0]);
 
+        int[] temp=new int[notesArray.length];
+        for (int j=0;j<notesArray.length;j++){
+            int n=0;
+            for (int i=0;i<notesArray.length;i++){
+                if(notesArray[i].channel<notesArray[j].channel) n++;
+                else if(notesArray[i].channel==notesArray[j].channel && notesArray[i].tone<notesArray[j].tone) n++;
+            }
+            temp[j]=n;
+        }
+
+        for(HFNote note:hfNotesArray){
+            note.setNote(temp[note.getNote()]);
+        }
+
+        Note[] tmp = notesArray.clone();
+
+//        tmp[1]=new Note(100,200);
+//        System.out.println(" ============= channel  tone "+notesArray[1].channel+"  "+notesArray[1].tone);
+
+        for (int i = 0; i < notesArray.length; i++) {
+            notesArray[temp[i]]=tmp[i];
+        }
+
+        System.out.printf("\n notesArray  ");
+        for(Note note:notesArray) System.out.printf("%3d",note.tone);
+        System.out.printf("\n tempNotes   ");
+        for(Note note:tmp) System.out.printf("%3d",note.tone);
+        System.out.printf("\n temp        ");
+        for(int i:temp) System.out.printf("%3d",i);
+
     }
 
     private int getNoteNumber(int channel, int tone) {
