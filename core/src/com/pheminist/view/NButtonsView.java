@@ -4,15 +4,14 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.pheminist.interfaces.IListener;
-import com.pheminist.model.MIDI.HData;
 import com.pheminist.model.MIDI.HFNoteHandler;
 import com.pheminist.model.Model;
 import com.pheminist.model.NoteEvent;
 import com.pheminist.model.Shift;
 
 public class NButtonsView extends Table implements IListener<NoteEvent> {
-    Model model;
-    HFNoteHandler hData;
+    private Model model;
+    private HFNoteHandler hData;
 
     public NButtonsView(Model model) {
         this.model=model;

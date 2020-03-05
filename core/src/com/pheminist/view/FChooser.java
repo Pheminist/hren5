@@ -2,11 +2,8 @@ package com.pheminist.view;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -14,35 +11,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.pheminist.Filer.FileItem;
 import com.pheminist.Filer.Filer;
 import com.pheminist.controller.Controller;
 import com.pheminist.model.MIDI.EventProvider;
-import com.pheminist.model.MIDI.EventWithTrack;
-import com.pheminist.model.MIDI.HData;
 import com.pheminist.model.MIDI.HFNote;
 import com.pheminist.model.MIDI.HFNoteHandler;
 import com.pheminist.model.MIDI.HFNoteProvider;
 import com.pheminist.model.Model;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiEvent;
-import javax.sound.midi.MidiMessage;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.ShortMessage;
-import javax.sound.midi.Track;
-
 import static com.pheminist.model.Model.SKIN;
-import static javax.sound.midi.ShortMessage.NOTE_OFF;
-import static javax.sound.midi.ShortMessage.NOTE_ON;
 
 public class FChooser extends BaseScreen {
     private final Table table = new Table();
@@ -153,19 +135,17 @@ public class FChooser extends BaseScreen {
     }
 
     private void startGame(FileHandle file) {
-        MidiEvent[] events = new EventProvider(file.file()).getEvents();
-
-        for (MidiEvent event : events) {
-            if (event.getMessage() instanceof ShortMessage) {
-                System.out.printf("ttttttttttt    %8d  %x\n",
-                        event.getTick(), event.getMessage().getStatus());
-                if (event.getMessage().getStatus() == 0xB0) {
-                    System.out.printf("aaaaaaaa   %x ", ((ShortMessage) event.getMessage()).getMessage()[1]);
-                    System.out.printf("dddddddd   %d ", ((ShortMessage) event.getMessage()).getMessage()[2]);
-                }
-            }
-
-        }
+//        for (MidiEvent event : events) {
+//            if (event.getMessage() instanceof ShortMessage) {
+//                System.out.printf("ttttttttttt    %8d  %x\n",
+//                        event.getTick(), event.getMessage().getStatus());
+//                if (event.getMessage().getStatus() == 0xB0) {
+//                    System.out.printf("aaaaaaaa   %x ", event.getMessage().getMessage()[1]);
+//                    System.out.printf("dddddddd   %d ", event.getMessage().getMessage()[2]);
+//                }
+//            }
+//
+//        }
 
 
 //        model.sethData(HData.getInstance(file));

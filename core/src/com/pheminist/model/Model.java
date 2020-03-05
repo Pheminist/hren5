@@ -2,7 +2,6 @@ package com.pheminist.model;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.pheminist.model.MIDI.HData;
 import com.pheminist.model.MIDI.HFNoteHandler;
 
 public class Model {

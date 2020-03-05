@@ -43,7 +43,7 @@ public class Controller extends Game {
 //		handle(new GameEvent("SCREEN_CHANGE").set("SCREEN", screens.get(key)));
     }
 
-    public void loadScreens() {
+    private void loadScreens() {
         screens.put(TestScreen.class, new TestScreen(this,model));
         screens.put(FChooser.class,new FChooser(this,model));
         screens.put(GScreen.class, new GScreen(this,model));

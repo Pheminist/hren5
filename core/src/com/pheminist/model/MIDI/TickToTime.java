@@ -9,13 +9,13 @@ import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
-public class TickToTime {
-    public static final int META_TEMPO_TYPE = 0x51;
+class TickToTime {
+    private static final int META_TEMPO_TYPE = 0x51;
     private float[] tickDurations;
     private long[] ticks;
     private final int size;
 
-    public TickToTime(Sequence sequence) {
+    TickToTime(Sequence sequence) {
         Track track = sequence.getTracks()[0];
         List<MidiEvent> tempoEvents = new ArrayList<>();
         float ppqn = sequence.getResolution();
@@ -42,7 +42,7 @@ public class TickToTime {
         }
     }
 
-    public static float getTempo(MidiMessage midiMsg) {
+    private static float getTempo(MidiMessage midiMsg) {
         // first check if it is a META message at all
         if (midiMsg.getLength() != 6
                 || midiMsg.getStatus() != MetaMessage.META) {
@@ -58,7 +58,7 @@ public class TickToTime {
         return (float)tempo / 1000000;
     }
 
-    public  float tickToSecond(long tick){
+    float tickToSecond(long tick){
         float time = 0;
         long curTick=0;
         int i;

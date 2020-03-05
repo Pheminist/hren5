@@ -12,7 +12,7 @@ public class SimplePublisher<T> implements Publisher<T> {
 
     @Override
     public void fire(T event) {
-        for (IListener l : listeners) {
+        for (IListener<T> l : listeners) {
             l.on(event);
         }
     }

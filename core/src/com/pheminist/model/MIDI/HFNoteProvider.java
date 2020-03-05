@@ -10,7 +10,6 @@ import javax.sound.midi.ShortMessage;
 
 public class HFNoteProvider {
     private List<Note> notes = new ArrayList<>();
-    private List<HFNote> hfNotes = new ArrayList<>();
     private HFNote[] hfNotesArray;
     private Note[] notesArray;
 
@@ -19,6 +18,7 @@ public class HFNoteProvider {
         MidiEvent[] events = eventProvider.getEvents();
         List<ActiveNote> activeNotes = new ArrayList<>();
 
+        List<HFNote> hfNotes = new ArrayList<>();
         for (MidiEvent event : events) {
             if (!(event.getMessage() instanceof ShortMessage)) continue;
             ShortMessage message = (ShortMessage) event.getMessage();
@@ -49,7 +49,7 @@ public class HFNoteProvider {
             }
         }
 
-        hfNotesArray =hfNotes.toArray(new HFNote[0]);
+        hfNotesArray = hfNotes.toArray(new HFNote[0]);
         Arrays.sort(hfNotesArray, new Comparator<HFNote>() {
             @Override
             public int compare(HFNote n1, HFNote n2) {
@@ -62,9 +62,10 @@ public class HFNoteProvider {
         int[] temp=new int[notesArray.length];
         for (int j=0;j<notesArray.length;j++){
             int n=0;
-            for (int i=0;i<notesArray.length;i++){
-                if(notesArray[i].channel<notesArray[j].channel) n++;
-                else if(notesArray[i].channel==notesArray[j].channel && notesArray[i].tone<notesArray[j].tone) n++;
+            for (Note note : notesArray) {
+                if (note.channel < notesArray[j].channel) n++;
+                else if (note.channel == notesArray[j].channel && note.tone < notesArray[j].tone)
+                    n++;
             }
             temp[j]=n;
         }
@@ -82,11 +83,11 @@ public class HFNoteProvider {
             notesArray[temp[i]]=tmp[i];
         }
 
-        System.out.printf("\n notesArray  ");
+        System.out.print("\n notesArray  ");
         for(Note note:notesArray) System.out.printf("%3d",note.tone);
-        System.out.printf("\n tempNotes   ");
+        System.out.print("\n tempNotes   ");
         for(Note note:tmp) System.out.printf("%3d",note.tone);
-        System.out.printf("\n temp        ");
+        System.out.print("\n temp        ");
         for(int i:temp) System.out.printf("%3d",i);
 
     }
@@ -100,13 +101,13 @@ public class HFNoteProvider {
         return notes.size() - 1;
     }
 
-    public HFNote[] getHNotes() {
+    HFNote[] getHNotes() {
         return hfNotesArray;
     }
 
-    public Note[] getNotes() {
+    Note[] getNotes() {
         return notesArray;
     }
 
-    public int numberOfSounds(){return notes.size();}
+    int numberOfSounds(){return notes.size();}
 }

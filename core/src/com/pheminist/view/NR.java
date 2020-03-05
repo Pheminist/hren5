@@ -2,7 +2,6 @@ package com.pheminist.view;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,15 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
-import com.pheminist.model.MIDI.HData;
 import com.pheminist.model.MIDI.HFNote;
 import com.pheminist.model.MIDI.HFNoteHandler;
-import com.pheminist.model.MIDI.HNote;
 import com.pheminist.model.Model;
 import com.pheminist.model.NRModel;
-import com.pheminist.model.NoteEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.pheminist.model.Model.SKIN;
@@ -97,7 +92,7 @@ public class NR extends Widget {
         if (ScissorStack.pushScissors(scissors)) {
             for (HFNote hn : screenNotes) {
                 float x = hn.getNote() * w;
-                float y = winHeight - (curTick+ticksInScreen - (float) hn.getTime()) * upt;
+                float y = winHeight - (curTick+ticksInScreen - hn.getTime()) * upt;
                 float h = hn.getDuration() * upt;
                 int n = hn.getNote();
 

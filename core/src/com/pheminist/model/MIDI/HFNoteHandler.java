@@ -5,9 +5,6 @@ public class HFNoteHandler {
     private int index;
     private HFNote[] notes;
     private int nSoundes; // number of sounds used in the melody
-    private int[] tones; // array of tones for each sound used in the melody
-    private int[] channels; // array of channels for each sound used in the melody
-
 
     public HFNoteHandler(final HFNoteProvider provider) {
         this.provider = provider;
@@ -24,17 +21,15 @@ public class HFNoteHandler {
         return notes[index++];
     }
 
-    public float getNextTime(){
-        return notes[index].getTime();
-    }
+//    public float getNextTime(){
+//        return notes[index].getTime();
+//    }
 
     public int getTone(int sound){
-//        return tones[sound];
         return provider.getNotes()[sound].tone;
     }
 
     public int getChannel(int sound){
-//        return channels[sound];
         return provider.getNotes()[sound].channel;
     }
 

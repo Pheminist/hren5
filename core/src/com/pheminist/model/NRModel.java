@@ -2,10 +2,8 @@ package com.pheminist.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.pheminist.model.MIDI.HData;
 import com.pheminist.model.MIDI.HFNote;
 import com.pheminist.model.MIDI.HFNoteHandler;
-import com.pheminist.model.MIDI.HNote;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -7,11 +7,11 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Synthesizer;
 
 public class Beeper implements IListener<NoteEvent> {
-    Synthesizer synth;
+    private Synthesizer synth;
     private MidiChannel[] channels;
     private int shift;
 
-    public Beeper(Model model) {
+    Beeper(Model model) {
 
         model.shift.getPublisher().addListener(new IListener<Shift>() {
             @Override
@@ -34,7 +34,7 @@ public class Beeper implements IListener<NoteEvent> {
         channels[0].allNotesOff();
     }
 
-    public void setShift(int shift) {
+    private void setShift(int shift) {
         allNotesOff();
         this.shift = shift;
     }
@@ -46,7 +46,7 @@ public class Beeper implements IListener<NoteEvent> {
         else channels[0].noteOff(tone);
     }
 
-    public void dispose() {
+    void dispose() {
         synth.close();
     }
 }

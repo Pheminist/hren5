@@ -16,9 +16,9 @@ import java.util.List;
 
 public class Filer {
     private List<FileItem> fileItems;
-    final String[] okFileExtensions = new String[] {"mid", "midi", "hren"};
+    private final String[] okFileExtensions = new String[] {"mid", "midi", "hren"};
 
-    FileNameComparator fileNameComparator=new FileNameComparator();
+    private FileNameComparator fileNameComparator=new FileNameComparator();
 
     public Filer() {
         fileItems = new ArrayList<>();
@@ -67,8 +67,7 @@ public class Filer {
 
         @Override
         public boolean accept(File pathname) {
-            if(pathname.isDirectory()) return true;
-            else return false;
+            return pathname.isDirectory();
         }
     }
 

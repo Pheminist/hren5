@@ -22,7 +22,7 @@ public class HFNote {
     }
 
 
-    public HFNote(int note, float time, float duration) {
+    HFNote(int note, float time, float duration) {
         this.note = note;
         this.time = time;
         this.duration = duration;

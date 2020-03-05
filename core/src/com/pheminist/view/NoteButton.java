@@ -6,9 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.pheminist.model.MIDI.HData;
 import com.pheminist.model.Model;
-import com.pheminist.model.NRModel;
 import com.pheminist.utils.HUtils;
 
 import static com.pheminist.model.Model.SKIN;
