@@ -13,7 +13,7 @@ import java.util.List;
 public class NRModel {
     public final List<HFNote> screenNotes = new ArrayList<>();
     public final Model model;
-    public final Tick tick = new Tick();
+    public final Time time = new Time();
     private HFNoteHandler hData;
     private boolean paused;
     private boolean[] isNoteOns;
@@ -25,8 +25,8 @@ public class NRModel {
 
     public void init() {
         hData = model.gethData();
-//        tick.setTick(- model.qps.getQps()*hData.getPpqn());
-        tick.setTick(- 1);
+//        time.setTime(- model.qps.getQps()*hData.getPpqn());
+        time.setTime(- 2);
         isNoteOns = new boolean[hData.getnSoundes()];
 
         isNoteAlives = new boolean[hData.getnSoundes()];
@@ -40,10 +40,10 @@ public class NRModel {
 //        float quarterInScreen = model.qps.getQps();
 //        float ticksInScreen = quarterInScreen * hData.getPpqn();
         float secondInScreen =2;
-        float curTick=tick.getTick();
+        float curTick= time.getTime();
         if (!paused) {
             curTick = curTick + deltaTime * model.tempo.getTempo();
-            tick.setTick(curTick);
+            time.setTime(curTick);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.BACK)) { // get back to menu ...

@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Align;
 import com.pheminist.controller.Controller;
 import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
-import com.pheminist.model.Tick;
+import com.pheminist.model.Time;
 
 import java.util.Locale;
 
@@ -20,8 +20,10 @@ import static com.pheminist.model.Model.SKIN;
 import static com.pheminist.view.Hud.VPAD;
 
 public class PlayView extends Table {
+    private  float totalTime;
     public PlayView(final Controller controller, final Model model) {
         final Skin skin = model.assetManager.get(SKIN, Skin.class);
+        totalTime=model.gethData().getTotalTime();
         TextButton playMinusBtn = new TextButton("-", skin);
         TextButton playPlusBtn = new TextButton("+", skin);
         final ImageButton playPlusBtn1 = new ImageButton(skin, "play");
@@ -29,7 +31,7 @@ public class PlayView extends Table {
         final Label playTimeLabel = new Label("44:44/44:44", skin);
         playTimeLabel.setAlignment(Align.right);
         playTimeLabel.setFontScale(0.8f);
-        final Slider playSlider = new Slider(0f, model.gethData().getTotalTime(), 1f, false, skin);
+        final Slider playSlider = new Slider(-2f, model.gethData().getTotalTime(), .1f, false, skin);
 //        final Slider playSlider = new Slider(0f, 200f, 0.01f, false, skin);
         pad(VPAD, 10, VPAD, 10);
 //        tempoTable.setDebug(true);
@@ -51,17 +53,17 @@ public class PlayView extends Table {
 //                model.beeper.allNotesOff();
                 model.nrModel.allNotesOffByEvents();
                 model.gethData().setIndexByTime(sliderValue);
-                model.nrModel.tick.setTick(sliderValue);
+                model.nrModel.time.setTime(sliderValue);
                 return true;
             }
         });
 
-        model.nrModel.tick.getPublisher().addListener(new IListener<Tick>() {
+        model.nrModel.time.getPublisher().addListener(new IListener<Time>() {
             @Override
-            public void on(Tick event) {
-                float tick = model.nrModel.tick.getTick();
-                playTimeLabel.setText(String.format(Locale.UK, "%.0f /44444", tick));
-                playSlider.setValue(tick);
+            public void on(Time event) {
+                float time = model.nrModel.time.getTime();
+                playTimeLabel.setText(String.format(Locale.UK, "%.0f /%.0f", time,totalTime));
+                playSlider.setValue(time);
             }
         });
     }

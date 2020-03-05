@@ -59,7 +59,7 @@ public class GScreen extends BaseScreen {
         model.qps.getPublisher().removeAllListeners();
         model.shift.getPublisher().removeAllListeners();
         model.tempo.getPublisher().removeAllListeners();
-        model.nrModel.tick.getPublisher().removeAllListeners();        // ?
+        model.nrModel.time.getPublisher().removeAllListeners();        // ?
     }
 
 }

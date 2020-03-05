@@ -138,7 +138,7 @@ public class FChooser extends BaseScreen {
 //        for (MidiEvent event : events) {
 //            if (event.getMessage() instanceof ShortMessage) {
 //                System.out.printf("ttttttttttt    %8d  %x\n",
-//                        event.getTick(), event.getMessage().getStatus());
+//                        event.getTime(), event.getMessage().getStatus());
 //                if (event.getMessage().getStatus() == 0xB0) {
 //                    System.out.printf("aaaaaaaa   %x ", event.getMessage().getMessage()[1]);
 //                    System.out.printf("dddddddd   %d ", event.getMessage().getMessage()[2]);

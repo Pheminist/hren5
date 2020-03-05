@@ -73,7 +73,7 @@ public class NR extends Widget {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        float curTick =nrModel.tick.getTick();
+        float curTick =nrModel.time.getTime();
         float quarterInScreen=model.qps.getQps();
         float ticksInScreen = 2;///quarterInScreen * hData.getPpqn();//*parent.getPreferences().getTempVolume();
         x=getX();
@@ -84,7 +84,7 @@ public class NR extends Widget {
         clipBounds.set(x,y,winWidth,winHeight);
 
 //        float upq = winHeight / quarterInScreen; //Unit per quarter
-//        float upt = upq / hData.getPpqn();  //unit per tick
+//        float upt = upq / hData.getPpqn();  //unit per time
         float upt = winHeight/ticksInScreen;
         float w = winWidth / ((float) hData.getnSoundes());
 
