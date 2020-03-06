@@ -21,14 +21,16 @@ public class GScreen extends BaseScreen {
         screenTable.clear();
         Hud hud = new Hud(controller, model);
         nr = new NR(model.nrModel);
+        LineView lineView=new LineView(model);
         NButtonsView nButtonsView = new NButtonsView(model);
 
         Table testTable = new Table();
         testTable.add(nr).expand().fill().row();
+        testTable.add(lineView).height(5f).expandX().fillX().row();
         testTable.add(nButtonsView).expandX().fillX();
         screenTable.add(testTable).expand().fill();
         screenTable.add(hud).width(365).expandY().fillY();
-        screenTable.setDebug(true);
+//        screenTable.setDebug(true);
 
         stage.addActor(screenTable);
         screenTable.setFillParent(true);

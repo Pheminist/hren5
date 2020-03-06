@@ -83,10 +83,8 @@ public class Hud extends Table {
         openFile.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-//                controller.changeScreen(Controller.OPENFILE);
                 model.beeper.allNotesOff();
                 controller.changeScreen(FChooser.class);
-                System.out.println("Why do I see this text when I am in OPENFILE screen");
             }
         });
 
