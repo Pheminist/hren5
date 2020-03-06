@@ -74,8 +74,8 @@ public class NR extends Widget {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         float curTick =nrModel.time.getTime();
-        float quarterInScreen=model.qps.getQps();
-        float ticksInScreen = 2;///quarterInScreen * hData.getPpqn();//*parent.getPreferences().getTempVolume();
+        float sps=model.sps.getSps();
+//        float sps = 2;///quarterInScreen * hData.getPpqn();//*parent.getPreferences().getTempVolume();
         x=getX();
         y=getY();
         winWidth=getWidth();
@@ -85,14 +85,14 @@ public class NR extends Widget {
 
 //        float upq = winHeight / quarterInScreen; //Unit per quarter
 //        float upt = upq / hData.getPpqn();  //unit per time
-        float upt = winHeight/ticksInScreen;
+        float upt = winHeight/sps;
         float w = winWidth / ((float) hData.getnSoundes());
 
         ScissorStack.calculateScissors(getStage().getCamera(), batch.getTransformMatrix(), clipBounds, scissors);
         if (ScissorStack.pushScissors(scissors)) {
             for (HFNote hn : screenNotes) {
                 float x = hn.getNote() * w;
-                float y = winHeight - (curTick+ticksInScreen - hn.getTime()) * upt;
+                float y = winHeight - (curTick+sps - hn.getTime()) * upt;
                 float h = hn.getDuration() * upt;
                 int n = hn.getNote();
 

@@ -7,7 +7,7 @@ import com.pheminist.model.MIDI.HFNoteHandler;
 public class Model {
     public final static String SKIN="skin/gr1.json";
 
-    public final QPS qps = new QPS();
+    public final SecondPerScreen sps = new SecondPerScreen();
     public final Tempo tempo = new Tempo();
     public final Shift shift = new Shift();
     public final NoteEvent noteEvent = new NoteEvent();

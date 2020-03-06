@@ -56,7 +56,7 @@ public class GScreen extends BaseScreen {
     @Override
     public void hide() {
         model.noteEvent.getPublisher().removeAllListeners();
-        model.qps.getPublisher().removeAllListeners();
+        model.sps.getPublisher().removeAllListeners();
         model.shift.getPublisher().removeAllListeners();
         model.tempo.getPublisher().removeAllListeners();
         model.nrModel.time.getPublisher().removeAllListeners();        // ?

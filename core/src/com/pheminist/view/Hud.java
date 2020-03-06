@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.pheminist.controller.Controller;
 import com.pheminist.model.Model;
 import com.pheminist.view.menu.PlayView;
-import com.pheminist.view.menu.QPSView;
+import com.pheminist.view.menu.SPSView;
 import com.pheminist.view.menu.ShiftView;
 import com.pheminist.view.menu.TempoView;
 
@@ -48,7 +48,7 @@ public class Hud extends Table {
         this.row().pad(0, 0, 0, 0);
         this.add(new TempoView(controller,model)).expandX().fillX().uniformX();
         this.row().pad(0, 0, 0, 0);
-        this.add(new QPSView(controller,model)).expandX().fillX().uniformX();
+        this.add(new SPSView(controller,model)).expandX().fillX().uniformX();
         this.row().pad(0, 0, 0, 0);
         this.add(soundBtn).expandX().fillX().uniformX();
         this.row().pad(0, 0, 0, 0);

@@ -62,7 +62,7 @@ public class PlayView extends Table {
             @Override
             public void on(Time event) {
                 float time = model.nrModel.time.getTime();
-                playTimeLabel.setText(String.format(Locale.UK, "%.0f /%.0f", time,totalTime));
+                playTimeLabel.setText(String.format(Locale.UK, "%.0f  /  %.0f", time,totalTime));
                 playSlider.setValue(time);
             }
         });

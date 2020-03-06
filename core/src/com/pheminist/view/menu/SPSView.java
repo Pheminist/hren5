@@ -10,27 +10,27 @@ import com.badlogic.gdx.utils.Align;
 import com.pheminist.controller.Controller;
 import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
-import com.pheminist.model.QPS;
+import com.pheminist.model.SecondPerScreen;
 
 import java.util.Locale;
 
 import static com.pheminist.model.Model.SKIN;
 import static com.pheminist.view.Hud.VPAD;
 
-public class QPSView extends Table {
+public class SPSView extends Table {
     private final Label qpsNumberLabel;
 
-    public QPSView(final Controller controller, final Model model) {
+    public SPSView(final Controller controller, final Model model) {
         final Skin skin = model.assetManager.get(SKIN, Skin.class);
 
         setSkin(skin);
         background("button-pressed");
         pad(VPAD, 10, VPAD, 10);
-        Label qpsTextLabel = new Label("Quarters per screen", skin);
+        Label qpsTextLabel = new Label("Seconds per screen", skin);
         qpsTextLabel.setWrap(true);
         qpsTextLabel.setAlignment(Align.center);
         TextButton qpsMinusBtn = new TextButton("-", skin);
-        qpsNumberLabel = new Label(String.format(Locale.UK, "%.0f", model.qps.getQps()), skin);
+        qpsNumberLabel = new Label(String.format(Locale.UK, "%.1f", model.sps.getSps()), skin);
         qpsNumberLabel.setAlignment(Align.center);
         TextButton qpsPlusBtn = new TextButton("+", skin);
         defaults().pad(0, 5, 0, 5);
@@ -41,30 +41,30 @@ public class QPSView extends Table {
         add(qpsNumberLabel).minWidth(50);
         add(qpsPlusBtn).minWidth(40).prefWidth(40);
 
-        model.qps.getPublisher().addListener(new IListener<QPS>() {
+        model.sps.getPublisher().addListener(new IListener<SecondPerScreen>() {
             @Override
-            public void on(QPS event) {
-                setQPSLabel(model.qps.getQps());
+            public void on(SecondPerScreen event) {
+                setQPSLabel(model.sps.getSps());
             }
         });
 
         qpsMinusBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                controller.setQPS(model.qps.getQps()-1f);
+                controller.setSPS(model.sps.getSps()-0.5f);
             }
         });
 
         qpsPlusBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                controller.setQPS(model.qps.getQps()+1f);
+                controller.setSPS(model.sps.getSps()+0.5f);
             }
         });
     }
 
-    private void setQPSLabel(float qps){
-        qpsNumberLabel.setText(String.format(Locale.UK, "%.0f", qps));
+    private void setQPSLabel(float sps){
+        qpsNumberLabel.setText(String.format(Locale.UK, "%.1f", sps));
     }
 
 }

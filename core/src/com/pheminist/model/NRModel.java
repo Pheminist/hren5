@@ -19,31 +19,26 @@ public class NRModel {
     private boolean[] isNoteOns;
     private boolean[] isNoteAlives;
 
-    public NRModel(Model model) {
+    NRModel(Model model) {
         this.model = model;
     }
 
     public void init() {
         hData = model.gethData();
-//        time.setTime(- model.qps.getQps()*hData.getPpqn());
+//        time.setTime(- model.qps.getSps()*hData.getPpqn());
         time.setTime(- 2);
         isNoteOns = new boolean[hData.getnSoundes()];
 
         isNoteAlives = new boolean[hData.getnSoundes()];
         Arrays.fill(isNoteAlives, true);
-
-//        quarterInScreen = model.qps.getQps();
-//        ticksInScreen = quarterInScreen * hData.getPpqn();
     }
 
     public void update(float deltaTime) {
-//        float quarterInScreen = model.qps.getQps();
-//        float ticksInScreen = quarterInScreen * hData.getPpqn();
-        float secondInScreen =2;
-        float curTick= time.getTime();
+        float secondInScreen =model.sps.getSps();
+        float curTime= time.getTime();
         if (!paused) {
-            curTick = curTick + deltaTime * model.tempo.getTempo();
-            time.setTime(curTick);
+            curTime = curTime + deltaTime * model.tempo.getTempo();
+            time.setTime(curTime);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.BACK)) { // get back to menu ...
@@ -53,12 +48,13 @@ public class NRModel {
         }
 
         if (!hData.hasNext() && screenNotes.isEmpty()) {
+            model.nrModel.setPaused(true);
 //            parent.changeScreen(Controller.MENU);
 //            return;
         }
 
         while (hData.hasNext())
-            if (hData.getNexTime() < curTick + secondInScreen) {
+            if (hData.getNexTime() < curTime + secondInScreen) {
                 HFNote hNote = hData.getNext();
                 screenNotes.add(hNote);
             } else break;
@@ -67,12 +63,12 @@ public class NRModel {
         while (iterator.hasNext()) {
             HFNote hNote = iterator.next();
             int note = hNote.getNote();
-            if (hNote.getTime() < curTick && !isNoteOns[note]) {
+            if (hNote.getTime() < curTime && !isNoteOns[note]) {
                 isNoteOns[note] = true;
                 if (isNoteAlives[note])
                     model.noteEvent.fireNoteEvent(note, hData.getTone(note), true);
             }
-            if (hNote.getTime() + hNote.getDuration() < curTick) {
+            if (hNote.getTime() + hNote.getDuration() < curTime) {
                 isNoteOns[note] = false;
                 model.noteEvent.fireNoteEvent(note, hData.getTone(note), false);
 
@@ -84,10 +80,6 @@ public class NRModel {
     public HFNoteHandler gethData() {
         return hData;
     }
-
-//    public float getCurTick() {
-//        return curTick;
-//    }
 
     public boolean isPaused() {
         return paused;

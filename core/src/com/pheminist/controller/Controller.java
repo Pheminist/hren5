@@ -54,6 +54,6 @@ public class Controller extends Game {
     }
     public void setShift(int shift) {model.shift.setShift(shift);}
 
-    public void setQPS(float qps) {model.qps.setQps(qps);}
+    public void setSPS(float qps) {model.sps.setSps(qps);}
 
 }
