@@ -44,7 +44,7 @@ public class Controller extends Game {
     }
 
     private void loadScreens() {
-        screens.put(TestScreen.class, new TestScreen(this,model));
+//        screens.put(TestScreen.class, new TestScreen(this,model));
         screens.put(FChooser.class,new FChooser(this,model));
         screens.put(GScreen.class, new GScreen(this,model));
     }

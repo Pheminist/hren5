@@ -41,22 +41,22 @@ public class Hud extends Table {
         TextButton exit = new TextButton("Exit", skin);
         exit.pad(VPAD, 0, VPAD, 0);
 
-        this.add(newGame).expandX().fillX();
-        this.defaults().expandY().fillY().growY();                                     ///////
-        this.row().pad(0, 0, 0, 0);
-        this.add(new ShiftView(controller,model)).expandX().fillX().uniformX();
-        this.row().pad(0, 0, 0, 0);
-        this.add(new TempoView(controller,model)).expandX().fillX().uniformX();
-        this.row().pad(0, 0, 0, 0);
-        this.add(new SPSView(controller,model)).expandX().fillX().uniformX();
-        this.row().pad(0, 0, 0, 0);
-        this.add(soundBtn).expandX().fillX().uniformX();
-        this.row().pad(0, 0, 0, 0);
-        this.add(openFile).minWidth(100).fillX().uniformX();
-        this.row().pad(0, 0, 0, 0);
-        this.add(exit).minWidth(100).fillX().uniformX();
+        this.defaults().expandY().fillY().growY().expandX().fillX().uniformX();                                     ///////
+        this.add(newGame);
         this.row();
-        this.add(new PlayView(controller,model)).expandX().fillX();
+        this.add(new ShiftView(controller,model));
+        this.row();
+        this.add(new TempoView(controller,model));
+        this.row();
+        this.add(new SPSView(controller,model));
+        this.row();
+        this.add(soundBtn);
+        this.row();
+        this.add(openFile);
+        this.row();
+        this.add(exit);
+        this.row();
+        this.add(new PlayView(controller,model)).uniform(false);
 
         newGame.addListener(new ChangeListener() {
             @Override

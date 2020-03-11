@@ -34,6 +34,7 @@ public class TempoView extends Table{
                 0.1f, false, skin);
         tempoSlider.setValue(model.tempo.getTempo());
         pad(VPAD, 10, VPAD, 10);
+//        pad(0, 10, 0, 10);
         setSkin(skin);
         background("button-pressed");
         defaults().minHeight(40).prefHeight(40).pad(0, 5, 0, 5);
