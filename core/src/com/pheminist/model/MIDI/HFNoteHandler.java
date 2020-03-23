@@ -1,12 +1,12 @@
 package com.pheminist.model.MIDI;
 
 public class HFNoteHandler {
-    private HFNoteProvider provider;
+    private HNoteProvider provider;
     private int index;
     private HFNote[] notes;
     private int nSoundes; // number of sounds used in the melody
 
-    public HFNoteHandler(final HFNoteProvider provider) {
+    public HFNoteHandler(final HNoteProvider provider) {
         this.provider = provider;
         notes=provider.getHNotes();
         nSoundes=provider.numberOfSounds();

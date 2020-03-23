@@ -1,7 +1,5 @@
 package com.pheminist.model.MIDI;
 
-import com.badlogic.gdx.files.FileHandle;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -14,21 +12,18 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
-public class EventProvider {
+public class OldEventProvider {
     private MidiEvent[] events;
     private Sequence sequence = null;
 
-    public EventProvider(FileHandle fileHandle) {
-//        try {
-//            sequence = MidiSystem.getSequence(file);
-//        } catch (InvalidMidiDataException e) {
-//            System.exit(0);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-        MidiData midiData=new MidiData(fileHandle);
-
+    public OldEventProvider(File file) {
+        try {
+            sequence = MidiSystem.getSequence(file);
+        } catch (InvalidMidiDataException e) {
+            System.exit(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Track[] tracks = Objects.requireNonNull(sequence).getTracks();
 

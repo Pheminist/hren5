@@ -24,8 +24,8 @@ public class MReader {
 
     public void skip(int i){index+=i;}
 
-    public byte readByte(){
-        return mBytes[index++];
+    public int readByte(){
+        return ((int)mBytes[index++]&0x0FF);
     }
 
     public int read16BigEndian(){
@@ -60,13 +60,13 @@ public class MReader {
 
     public int readVarLengthInt() { //todo exception for more then 4 bytes
 //        numOfBytesOfVarLength=0;
-        byte buffer; // Сюда кладем считанное значение.
+        int buffer; // Сюда кладем считанное значение.
         int result = 0; // Считанное время помещаем сюда.
         do {
 //            numOfBytesOfVarLength++;
             buffer = readByte(); // Читаем значение.
             result <<=  7; // Сдвигаем на 7 байт влево существующее значенеи времени (Т.к. 1 старший байт не используется).
-            result |= (byte)(buffer & (0x7F)); // На сдвинутый участок накладываем существующее время.
+            result |= buffer & 0x7F; // На сдвинутый участок накладываем существующее время.
         } while ((buffer & (1<<7)) != 0); // Выходим, как только прочитаем последний байт времени (старший бит = 0).
         return result;
     }

@@ -5,16 +5,17 @@ import com.badlogic.gdx.files.FileHandle;
 import java.util.Arrays;
 
 public class MidiData {
-    final static int HEADER_LENGTH = 14;
+    private final static int HEADER_LENGTH = 14;
     private Track[] tracks;
     private MIDIHeader midiHeader;
 
     public MidiData(FileHandle fileHandle) {
         byte[] fileBytes = fileHandle.readBytes();
         midiHeader = new MIDIHeader(fileBytes);
+        tracks = toTracks(fileBytes);
     }
 
-    public Track[] toTracks(byte[] bytes) {
+    private Track[] toTracks(byte[] bytes) {
         MReader mReader = new MReader(bytes);
         Track[] tracks = new Track[midiHeader.getNumOfTracks()];
         mReader.setIndex(HEADER_LENGTH);
@@ -32,4 +33,11 @@ public class MidiData {
 
     }
 
+    public Track[] getTracks() {
+        return tracks;
+    }
+
+    public MIDIHeader getMidiHeader() {
+        return midiHeader;
+    }
 }

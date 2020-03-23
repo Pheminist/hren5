@@ -19,7 +19,8 @@ import com.pheminist.controller.Controller;
 import com.pheminist.model.MIDI.EventProvider;
 import com.pheminist.model.MIDI.HFNote;
 import com.pheminist.model.MIDI.HFNoteHandler;
-import com.pheminist.model.MIDI.HFNoteProvider;
+import com.pheminist.model.MIDI.HNoteProvider;
+import com.pheminist.model.MIDI.MidiData;
 import com.pheminist.model.Model;
 
 import java.util.List;
@@ -149,7 +150,7 @@ public class FChooser extends BaseScreen {
 
 
 //        model.sethData(HData.getInstance(file));
-        model.sethData(new HFNoteHandler(new HFNoteProvider(new EventProvider(file.file()))));
+        model.sethData(new HFNoteHandler(new HNoteProvider(new MidiData(file))));
 
         HFNoteHandler handler = model.gethData();
 
