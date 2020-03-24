@@ -18,7 +18,7 @@ class TickToTime {
 
         while (mEventReader.readNext()) {
             if (mEventReader.getStatus() == TEMPO_STATUS) {
-                tempoEvents.add(new TempoEvent(mEventReader.getCurTick(), mEventReader.getTempo() / ppqn));
+                tempoEvents.add(new TempoEvent(mEventReader.getCurTick(), mEventReader.getTempo() / ppqn*0.000001f));
             }
         }
 

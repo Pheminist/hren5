@@ -5,6 +5,7 @@ public class MEventReader {
     public final static int NOTE_OFF = 0x80;
     public final static int META_TEMPO_TYPE = 0x51;
     public final static int TEMPO_STATUS = 0x51;
+    public final static int DEFAULT_STATUS = 0;
 
     public final static int META_EVENT = 0;
     public final static int SYSEX_EVENT = 1;
@@ -32,6 +33,7 @@ public class MEventReader {
         if (mReader.getIndex() >= track.bytes.length) return false;
 
         curTick += mReader.readVarLengthInt(); // Получаем реальное время.
+        status=DEFAULT_STATUS;
 
         int buffer = mReader.readByte();  // Сюда кладем считанное значение.
         // Если у нас не статус-байт
