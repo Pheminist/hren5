@@ -19,8 +19,9 @@ public class HNoteProvider {
         List<ActiveNote> activeNotes = new ArrayList<>();
         List<HFNote> hfNotes = new ArrayList<>();
 
-
+        System.out.println("HHHHHHH");
         for (Track track : midiData.getTracks()) {
+            System.out.println("TRACK+++++++++++++++++++");
             MEventReader mEventReader = new MEventReader(track);
             while (mEventReader.readNext()) {
                 int status = mEventReader.getStatus();
@@ -29,6 +30,7 @@ public class HNoteProvider {
                     case NOTE_ON:
                         noteNumber = getNoteNumber(mEventReader.getChannel(), mEventReader.getTone());
                         activeNotes.add(new ActiveNote(noteNumber,mEventReader.getCurTick()));
+                        System.out.println("ON");
                         break;
                     case NOTE_OFF:
                         noteNumber = getNoteNumber(mEventReader.getChannel(), mEventReader.getTone());
@@ -46,6 +48,7 @@ public class HNoteProvider {
                         float endTime=tickToTime.tickToSecond(mEventReader.getCurTick());
                         hfNotes.add(new HFNote(noteNumber, startTime, endTime-startTime));
                         activeNotes.remove(i);
+                        System.out.println("OFF");
                         break;
                 }
             }

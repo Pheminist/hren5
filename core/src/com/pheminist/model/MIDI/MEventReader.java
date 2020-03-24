@@ -54,12 +54,14 @@ public class MEventReader {
                 lastNoteOn = false;
                 tone = mReader.readByte();
                 mReader.readByte(); // value
+                status=NOTE_OFF;
                 break;
             case 0x90:   // Нажать клавишу.
                 channel = buffer & 0x0F;
                 lastNoteOn = true;
                 tone = mReader.readByte();
                 if (mReader.readByte() == 0) status = NOTE_OFF; // value
+                else status = NOTE_ON;
                 break;
             case 0xA0:  // Сменить силу нажатия клавишы.
                 mReader.skip(2);

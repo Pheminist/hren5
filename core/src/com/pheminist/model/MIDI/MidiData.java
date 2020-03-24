@@ -6,18 +6,14 @@ import java.util.Arrays;
 
 public class MidiData {
     private final static int HEADER_LENGTH = 14;
-    private Track[] tracks;
-    private MIDIHeader midiHeader;
+    private final Track[] tracks;
+    private final MIDIHeader midiHeader;
 
     public MidiData(FileHandle fileHandle) {
         byte[] fileBytes = fileHandle.readBytes();
         midiHeader = new MIDIHeader(fileBytes);
-        tracks = toTracks(fileBytes);
-    }
-
-    private Track[] toTracks(byte[] bytes) {
-        MReader mReader = new MReader(bytes);
-        Track[] tracks = new Track[midiHeader.getNumOfTracks()];
+        MReader mReader = new MReader(fileBytes);
+        tracks = new Track[midiHeader.getNumOfTracks()];
         mReader.setIndex(HEADER_LENGTH);
 
         for (int i = 0; i < midiHeader.getNumOfTracks(); i++) {  // fill the array of tracks
@@ -25,12 +21,10 @@ public class MidiData {
             int length = (int) mReader.read32BigEndian(); // 4 байта длинны всего блока.
             int startIndex = mReader.getIndex();
             int endIndex = startIndex + length;
-            Track track = new Track(Arrays.copyOfRange(bytes, startIndex, endIndex));
+            Track track = new Track(Arrays.copyOfRange(fileBytes, startIndex, endIndex));
             mReader.setIndex(endIndex);
             tracks[i] = track;
         }
-        return tracks;
-
     }
 
     public Track[] getTracks() {
