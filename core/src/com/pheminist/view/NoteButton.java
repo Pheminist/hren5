@@ -26,8 +26,7 @@ public class NoteButton extends Table {
         Skin skin = model.assetManager.get(SKIN, Skin.class);
 
         this.setBackground(skin.getDrawable("knobwhite"));
-//        label=new Label(HUtils.octaveAndNoteName(hData.getTones()[note]+parent.getPreferences().getShift()),skin);
-        label=new Label(HUtils.octaveAndNoteName(model.gethData().getTone(note)),skin);
+        label=new Label(HUtils.octaveAndNoteName(model.gethData().getTone(note)+model.shift.getShift()),skin);
         label.setColor(NR.getNoteColor(note));
         this.add(label);
         this.setColor(Color.DARK_GRAY);

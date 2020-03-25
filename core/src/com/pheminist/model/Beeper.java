@@ -6,25 +6,16 @@ import com.pheminist.interfaces.IListener;
 public class Beeper implements IListener<NoteEvent> {
     private IHorner horner;
     private int shift;
+    public final IListener<Shift> shiftListener;
 
     Beeper(Model model) {
         horner=model.horner;
-
-        model.shift.getPublisher().addListener(new IListener<Shift>() {
+        shiftListener=new IListener<Shift>() {
             @Override
             public void on(Shift event) {
-                Beeper.this.setShift(event.getShift());
+                setShift(event.getShift());
             }
-        });
-
-//        try {
-//            synth = MidiSystem.getSynthesizer();
-//            synth.open();
-//            channels = synth.getChannels();
-//            channels[0].programChange(22);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        };
     }
 
     public void allNotesOff() {

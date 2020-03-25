@@ -44,6 +44,7 @@ public class ShiftView extends Table{
                 setShiftLabel(event.getShift());
             }
         });
+        model.shift.getPublisher().addListener(model.beeper.shiftListener);
 
         shiftMinusBtn.addListener(new ChangeListener() {
             @Override

@@ -161,7 +161,7 @@ public class FChooser extends BaseScreen {
                     , note.getTime(), note.getDuration(), note.getNote(), handler.getChannel(note.getNote())
                     , handler.getTone(note.getNote()));
         }
-        handler.setIndexByTime(0);
+        handler.setIndexByTime(-0.1f);
 
         controller.changeScreen(GScreen.class);
     }
