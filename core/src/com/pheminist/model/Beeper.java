@@ -1,25 +1,22 @@
 package com.pheminist.model;
 
+import com.pheminist.interfaces.IHorner;
 import com.pheminist.interfaces.IListener;
 
-import javax.sound.midi.MidiChannel;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.Synthesizer;
-
 public class Beeper implements IListener<NoteEvent> {
-    private Synthesizer synth;
-    private MidiChannel[] channels;
+    private IHorner horner;
     private int shift;
 
     Beeper(Model model) {
+        horner=model.horner;
 
-//        model.shift.getPublisher().addListener(new IListener<Shift>() {
-//            @Override
-//            public void on(Shift event) {
-//                Beeper.this.setShift(event.getShift());
-//            }
-//        });
-//
+        model.shift.getPublisher().addListener(new IListener<Shift>() {
+            @Override
+            public void on(Shift event) {
+                Beeper.this.setShift(event.getShift());
+            }
+        });
+
 //        try {
 //            synth = MidiSystem.getSynthesizer();
 //            synth.open();
@@ -31,22 +28,22 @@ public class Beeper implements IListener<NoteEvent> {
     }
 
     public void allNotesOff() {
-//        channels[0].allNotesOff();
+        horner.allNotesOff();
     }
 
     private void setShift(int shift) {
-//        allNotesOff();
-//        this.shift = shift;
+        allNotesOff();
+        this.shift = shift;
     }
 
     @Override
     public void on(NoteEvent event) {
-//        int tone = event.getTone() + shift;
-//        if (event.isOn()) channels[0].noteOn(tone, 80);
-//        else channels[0].noteOff(tone);
+        int tone = event.getTone() + shift;
+        if (event.isOn()) horner.noteOn(0,tone);
+        else horner.noteOff(0,tone);
     }
 
     void dispose() {
-//        synth.close();
+        horner.dispose();
     }
 }

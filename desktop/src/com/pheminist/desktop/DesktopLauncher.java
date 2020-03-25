@@ -7,6 +7,6 @@ import com.pheminist.controller.Controller;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new Controller(), config);
+		new LwjglApplication(new Controller(new DesktopHorner()), config);
 	}
 }

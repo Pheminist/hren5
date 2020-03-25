@@ -2,6 +2,7 @@ package com.pheminist.controller;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.pheminist.interfaces.IHorner;
 import com.pheminist.model.Model;
 import com.pheminist.view.BaseScreen;
 import com.pheminist.view.FChooser;
@@ -11,11 +12,15 @@ import com.pheminist.view.TestScreen;
 public class Controller extends Game {
     private ObjectMap<Class<? extends BaseScreen>, BaseScreen> screens = new ObjectMap<>();
     private Model model;
+    private IHorner horner;
 
+    public Controller(IHorner horner) {
+        this.horner=horner;
+    }
 
     @Override
     public void create() {
-        model = new Model();
+        model = new Model(horner);
 
         // Load the screens
         loadScreens();

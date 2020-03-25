@@ -2,6 +2,7 @@ package com.pheminist.model;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.pheminist.interfaces.IHorner;
 import com.pheminist.model.MIDI.HFNoteHandler;
 
 public class Model {
@@ -11,12 +12,13 @@ public class Model {
     public final Tempo tempo = new Tempo();
     public final Shift shift = new Shift();
     public final NoteEvent noteEvent = new NoteEvent();
+    public final IHorner horner;
 
 //    private HData hData;
     private HFNoteHandler hData;
 
     public NRModel nrModel = new NRModel(this);
-    public Beeper beeper = new Beeper(this);
+    public Beeper beeper;
 
     public HFNoteHandler gethData() {
         return hData;
@@ -29,7 +31,9 @@ public class Model {
 
     public final AssetManager assetManager;
 
-    public Model() {
+    public Model(IHorner horner) {
+        this.horner=horner;
+        beeper = new Beeper(this);
         assetManager=new AssetManager();
         assetManager.load(SKIN, Skin.class);
         assetManager.finishLoading();
