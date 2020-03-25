@@ -9,24 +9,14 @@ import javax.sound.midi.Synthesizer;
 public class DesktopHorner implements IHorner {
     private Synthesizer synth;
     private MidiChannel[] channels;
-    private int shift;
 
     public DesktopHorner() {
-
-//        model.shift.getPublisher().addListener(new IListener<Shift>() {
-//            @Override
-//            public void on(Shift event) {
-//                Beeper.this.setShift(event.getShift());
-//            }
-//        });
-
         try {
             synth = MidiSystem.getSynthesizer();
             synth.open();
             channels = synth.getChannels();
             channels[0].programChange(22);
         } catch (Exception e) {
-            System.out.println(" problem with sinth +++++++++++++++");
             e.printStackTrace();
         }
     }
