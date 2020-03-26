@@ -31,8 +31,8 @@ public class Hud extends Table {
     }
 
     private void show() {
-        TextButton newGame = new TextButton("New", skin);
-        newGame.pad(VPAD, 0, VPAD, 0);
+        TextButton helpBtn = new TextButton("Help", skin);
+        helpBtn.pad(VPAD, 0, VPAD, 0);
         TextButton openFile = new TextButton("Open", skin);
         openFile.pad(VPAD, 0, VPAD, 0);
 //        sound=parent.getPreferences().isMusicEnabled();
@@ -43,7 +43,7 @@ public class Hud extends Table {
         exit.pad(VPAD, 0, VPAD, 0);
 
         this.defaults().expandY().fillY().growY().expandX().fillX().uniformX();                                     ///////
-        this.add(newGame);
+        this.add(helpBtn);
         this.row();
         this.add(new ShiftView(controller,model));
         this.row();
@@ -59,7 +59,7 @@ public class Hud extends Table {
         this.row();
         this.add(new PlayView(controller,model)).uniform(false);
 
-        newGame.addListener(new ChangeListener() {
+        helpBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
             }
