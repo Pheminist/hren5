@@ -12,6 +12,7 @@ public class Model {
     public final Tempo tempo = new Tempo();
     public final Shift shift = new Shift();
     public final NoteEvent noteEvent = new NoteEvent();
+    public final WindowSize windowSize = new WindowSize();
     public final IHorner horner;
 
 //    private HData hData;

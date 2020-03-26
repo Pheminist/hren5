@@ -1,5 +1,6 @@
 package com.pheminist.view.menu;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -31,7 +32,7 @@ public class PlayView extends Table {
         final Skin skin = model.assetManager.get(SKIN, Skin.class);
         totalTime=model.gethData().getTotalTime();
         TextButton replayButton = new TextButton("R", skin);
-        TextButton playPlusBtn = new TextButton("[ ]", skin);
+        TextButton fullScreenBtn = new TextButton("[ ]", skin);
         final ImageButton playPlusBtn1 = new ImageButton(skin, "play");
         playPlusBtn1.setChecked(true);
         final Label playTimeLabel = new Label("", skin);
@@ -43,7 +44,7 @@ public class PlayView extends Table {
         background("button-pressed");
         defaults().minHeight(40).prefHeight(40).pad(0, 2, 0, 2);
         add(replayButton).minWidth(40).prefWidth(40);
-        add(playPlusBtn).minWidth(40).prefWidth(40);
+        add(fullScreenBtn).minWidth(40).prefWidth(40);
         add(playPlusBtn1).minWidth(40).prefWidth(40);
         add(playTimeLabel).expandX().align(Align.right).padRight(20);
         row();
@@ -53,6 +54,20 @@ public class PlayView extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 setTime(START_TIME);
+            }
+        });
+
+        fullScreenBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(Gdx.graphics.isFullscreen()){
+                    Gdx.graphics.setWindowedMode(model.windowSize.getWidth(),model.windowSize.getHeight());
+                }
+                else {
+                    model.windowSize.storeSize();
+                    Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+                }
+//                System.out.println(" width = "+ Gdx.graphics.getWidth()+" height = "+ Gdx.graphics.getHeight());
             }
         });
 

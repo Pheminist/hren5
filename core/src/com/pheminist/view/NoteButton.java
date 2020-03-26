@@ -12,8 +12,6 @@ import com.pheminist.utils.HUtils;
 import static com.pheminist.model.Model.SKIN;
 
 public class NoteButton extends Table {
-//    private Hren parent;
-//    private HData hData;
     private Label label;
     private final int note;
     private Model model;

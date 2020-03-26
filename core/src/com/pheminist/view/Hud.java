@@ -1,6 +1,7 @@
 package com.pheminist.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -16,7 +17,7 @@ import com.pheminist.view.menu.TempoView;
 import static com.pheminist.model.Model.SKIN;
 
 public class Hud extends Table {
-    public static final float VPAD = 20;
+    public static final float VPAD = 10;
     private Controller controller;
     private Model model;
     private Skin skin;
@@ -61,7 +62,6 @@ public class Hud extends Table {
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
             }
         });
 
