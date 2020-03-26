@@ -10,7 +10,7 @@ public class HFNoteHandler {
         this.provider = provider;
         notes=provider.getHNotes();
         nSoundes=provider.numberOfSounds();
-
+        index=0;
     }
 
     public boolean hasNext(){

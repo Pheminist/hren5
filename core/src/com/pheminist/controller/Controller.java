@@ -1,8 +1,12 @@
 package com.pheminist.controller;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.pheminist.interfaces.IHorner;
+import com.pheminist.model.MIDI.HFNoteHandler;
+import com.pheminist.model.MIDI.HNoteProvider;
+import com.pheminist.model.MIDI.MidiData;
 import com.pheminist.model.Model;
 import com.pheminist.view.BaseScreen;
 import com.pheminist.view.FChooser;
@@ -24,7 +28,9 @@ public class Controller extends Game {
 
         // Load the screens
         loadScreens();
-        this.changeScreen(FChooser.class);
+//        this.changeScreen(FChooser.class);
+        model.sethData(new HFNoteHandler(new HNoteProvider(new MidiData(Gdx.files.internal("melodies/OldMaple.mid")))));
+        this.changeScreen(GScreen.class);
     }
 
 

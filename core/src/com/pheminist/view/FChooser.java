@@ -16,8 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pheminist.Filer.FileItem;
 import com.pheminist.Filer.Filer;
 import com.pheminist.controller.Controller;
-import com.pheminist.model.MIDI.EventProvider;
-import com.pheminist.model.MIDI.HFNote;
 import com.pheminist.model.MIDI.HFNoteHandler;
 import com.pheminist.model.MIDI.HNoteProvider;
 import com.pheminist.model.MIDI.MidiData;
@@ -111,11 +109,6 @@ public class FChooser extends BaseScreen {
         stage.addActor(table);
     }
 
-//    @Override
-//    public void init() {
-//
-//    }
-
     private void fillTable(List<FileItem> files) {
         scrollTable.clearChildren();
 
@@ -136,32 +129,20 @@ public class FChooser extends BaseScreen {
     }
 
     private void startGame(FileHandle file) {
-//        for (MidiEvent event : events) {
-//            if (event.getMessage() instanceof ShortMessage) {
-//                System.out.printf("ttttttttttt    %8d  %x\n",
-//                        event.getTime(), event.getMessage().getStatus());
-//                if (event.getMessage().getStatus() == 0xB0) {
-//                    System.out.printf("aaaaaaaa   %x ", event.getMessage().getMessage()[1]);
-//                    System.out.printf("dddddddd   %d ", event.getMessage().getMessage()[2]);
-//                }
-//            }
-//
-//        }
-
 
 //        model.sethData(HData.getInstance(file));
         model.sethData(new HFNoteHandler(new HNoteProvider(new MidiData(file))));
 
-        HFNoteHandler handler = model.gethData();
-
-        handler.setIndexByTime(0);
-        while (handler.hasNext()) {
-            HFNote note = handler.getNext();
-            System.out.printf("time  %10.3f duration  %10.3f  note %3d chanel %3d  tone  %3d\n"
-                    , note.getTime(), note.getDuration(), note.getNote(), handler.getChannel(note.getNote())
-                    , handler.getTone(note.getNote()));
-        }
-        handler.setIndexByTime(-0.1f);
+//        HFNoteHandler handler = model.gethData();
+//
+//        handler.setIndexByTime(0);
+//        while (handler.hasNext()) {
+//            HFNote note = handler.getNext();
+//            System.out.printf("time  %10.3f duration  %10.3f  note %3d chanel %3d  tone  %3d\n"
+//                    , note.getTime(), note.getDuration(), note.getNote(), handler.getChannel(note.getNote())
+//                    , handler.getTone(note.getNote()));
+//        }
+//        handler.setIndexByTime(-0.1f);
 
         controller.changeScreen(GScreen.class);
     }
