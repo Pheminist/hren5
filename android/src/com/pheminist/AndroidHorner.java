@@ -8,13 +8,14 @@ public class AndroidHorner implements IHorner {
     protected MidiDriver midi;
     private byte msg2[] = new byte[2];
     private byte msg3[] = new byte[3];
-    private final byte VALUE = 80;
+    private final byte VALUE = 127;
 
     public AndroidHorner() {
         midi = new MidiDriver();
         midi.start();
         msg2[0] = (byte) 0xc0;
-        msg2[1] = (byte) 21;
+//        msg2[1] = (byte) 21;  // accordion
+        msg2[1] = (byte) 76;  // bottle blow
         midi.write(msg2);
     }
 

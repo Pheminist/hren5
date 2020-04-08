@@ -28,7 +28,9 @@ public class Filer {
 
     public FileHandle getRoot(){
         return Gdx.files.absolute(Gdx.files.getExternalStoragePath());
+//        return Gdx.files.internal("");
     }
+
     public List<FileItem> getFileItems(FileHandle path){
         if(!path.isDirectory()) return null; //        if (!path.isDirectory) return arrayListOf()
 
@@ -36,7 +38,8 @@ public class Filer {
         if(files==null) return fileItems;
 
         fileItems.clear();
-        if(path.parent()!=null) {
+//        if(path.file().getParent()!=null) {           /////////////////////////////////////////////////
+            if(path.parent()!=null) {
             FileItem fileItem=new FileItem(this,path.parent());
             fileItem.setName("/..");
 

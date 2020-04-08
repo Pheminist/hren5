@@ -28,6 +28,7 @@ import static com.pheminist.model.Model.SKIN;
 public class FChooser extends BaseScreen {
     private final Table table = new Table();
     private final Table scrollTable = new Table();
+    private final Table driveTable = new Table();
     private Skin skin;
     private List<FileItem> files;
     private Label pathLabel;
@@ -44,6 +45,7 @@ public class FChooser extends BaseScreen {
     public void init() {
         table.clear();
         scrollTable.clear();
+        driveTable.clear();
 
         files = filer.getFileItems(filer.getRoot());
 
@@ -94,17 +96,20 @@ public class FChooser extends BaseScreen {
                 fillTable(files);
             }
         });
-        Button b2 = new Button(skin);
+        Button b2 = new TextButton("embedded",skin);
         Button b3 = new Button(skin);
 
-        table.add(b1).expandX().fill();
-        table.add(b2).expandX().fill();
-        table.add(b3).expandX().fill();
-        table.row();
         pathLabel.setWrap(true);
-        table.add(pathLabel).fillX().colspan(3);
-        table.row();
-        table.add(scroller).fillX().colspan(3);
+        driveTable.defaults().expandX().fill().row();
+        driveTable.add(b1).row();
+        driveTable.add(b2).row();
+        driveTable.add(b3).row();
+
+        table.add(pathLabel).colspan(2).expandX().fillX().center().row();
+        table.add(driveTable).width(300).top();
+//        table.add(pathLabel).fillX();
+//        table.row();
+        table.add(scroller).expandX().fillX();
 
         stage.addActor(table);
     }
@@ -129,21 +134,7 @@ public class FChooser extends BaseScreen {
     }
 
     private void startGame(FileHandle file) {
-
-//        model.sethData(HData.getInstance(file));
         model.sethData(new HFNoteHandler(new HNoteProvider(new MidiData(file))));
-
-//        HFNoteHandler handler = model.gethData();
-//
-//        handler.setIndexByTime(0);
-//        while (handler.hasNext()) {
-//            HFNote note = handler.getNext();
-//            System.out.printf("time  %10.3f duration  %10.3f  note %3d chanel %3d  tone  %3d\n"
-//                    , note.getTime(), note.getDuration(), note.getNote(), handler.getChannel(note.getNote())
-//                    , handler.getTone(note.getNote()));
-//        }
-//        handler.setIndexByTime(-0.1f);
-
         controller.changeScreen(GScreen.class);
     }
 
