@@ -54,39 +54,6 @@ public class HNoteProvider {
             }
         }
 
-
-//        List<HFNote> hfNotes = new ArrayList<>();
-//        for (MidiEvent event : events) {
-//            if (!(event.getMessage() instanceof ShortMessage)) continue;
-//            ShortMessage message = (ShortMessage) event.getMessage();
-//            int command = message.getCommand();
-//            if (command == ShortMessage.NOTE_ON && message.getData2() != 0) {
-//                int noteNumber = getNoteNumber(message.getChannel(), message.getData1());
-//                activeNotes.add(new ActiveNote(noteNumber, event.getTick()));
-//                System.out.println("NOTE_ON " + event.getTick());
-//
-//            } else if (command == ShortMessage.NOTE_OFF
-//                    || (command == ShortMessage.NOTE_ON && message.getData2() == 0)) {
-//                int noteNumber = getNoteNumber(message.getChannel(), message.getData1());
-//
-//                long timeInTicks = 0;
-//                int i;
-//                for (i = 0; i < activeNotes.size(); i++) {
-//                    ActiveNote an = activeNotes.get(i);
-//                    if (an.number == noteNumber) {
-//                        timeInTicks = an.time;
-//                        System.out.println(" timeInTicks  " + timeInTicks);
-//                        break;
-//                    }
-//                }
-////                long timeInTicks = activeNotes.get(noteNumber).time;
-//                long durationInTicks = event.getTick() - timeInTicks;
-//                hfNotes.add(new HFNote(noteNumber, tickToTime.tickToSecond(timeInTicks)
-//                        , tickToTime.tickToSecond(durationInTicks)));
-//                activeNotes.remove(i);
-//            }
-//        }
-
         hfNotesArray = hfNotes.toArray(new HFNote[0]);
         Arrays.sort(hfNotesArray, new Comparator<HFNote>() {
             @Override
@@ -113,9 +80,6 @@ public class HNoteProvider {
         }
 
         Note[] tmp = notesArray.clone();
-
-//        tmp[1]=new Note(100,200);
-//        System.out.println(" ============= channel  tone "+notesArray[1].channel+"  "+notesArray[1].tone);
 
         for (int i = 0; i < notesArray.length; i++) {
             notesArray[temp[i]] = tmp[i];
