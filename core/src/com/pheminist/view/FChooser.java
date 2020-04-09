@@ -3,6 +3,7 @@ package com.pheminist.view;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pheminist.Filer.FileItem;
 import com.pheminist.Filer.Filer;
@@ -39,6 +41,7 @@ public class FChooser extends BaseScreen {
         super(controller, model);
         skin = this.model.assetManager.get(SKIN, Skin.class);
         filer = new Filer();
+        files = filer.getFileItems(filer.getRoot());
     }
 
     @Override
@@ -47,7 +50,7 @@ public class FChooser extends BaseScreen {
         scrollTable.clear();
         driveTable.clear();
 
-        files = filer.getFileItems(filer.getRoot());
+//        files = filer.getFileItems(filer.getRoot());
 
         pathLabel = new Label(filer.getRoot().path(), skin);
         fillTable(files);
@@ -97,6 +100,15 @@ public class FChooser extends BaseScreen {
             }
         });
         Button b2 = new TextButton("embedded",skin);
+        b2.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                FileHandle file = filer.getInternal();
+                files = filer.getFileItems(file);
+                pathLabel.setText(file.path());
+                fillTable(files);
+            }
+        });
         Button b3 = new Button(skin);
 
         pathLabel.setWrap(true);

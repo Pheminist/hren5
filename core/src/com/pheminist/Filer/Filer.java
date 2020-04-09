@@ -1,5 +1,6 @@
 package com.pheminist.Filer;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
@@ -9,20 +10,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.List;
-
 
 public class Filer {
     private List<FileItem> fileItems;
     private final String[] okFileExtensions = new String[] {"mid", "midi", "hren"};
+    private final String[] internalFiles = new String[]  {"OldMaple.mid","SmokeOn.mid"};
+    private List<FileItem> internalFileItems;
 
     private FileNameComparator fileNameComparator=new FileNameComparator();
 
     public Filer() {
         fileItems = new ArrayList<>();
         fileItems = getFileItems(getRoot());
+        initInternalFileItems();
         System.out.println("- root -  "+getRoot());
     }
 
@@ -31,9 +31,15 @@ public class Filer {
 //        return Gdx.files.internal("");
     }
 
-    public List<FileItem> getFileItems(FileHandle path){
-        if(!path.isDirectory()) return null; //        if (!path.isDirectory) return arrayListOf()
+    public FileHandle getInternal(){
+        return Gdx.files.internal("");
+    }
 
+    public List<FileItem> getFileItems(FileHandle path){
+        if(path.type()== Files.FileType.Internal){
+            return internalFileItems;
+        }
+        if(!path.isDirectory()) return null; //        if (!path.isDirectory) return arrayListOf()
         FileHandle[] files = path.list(new DirFilter());
         if(files==null) return fileItems;
 
@@ -92,6 +98,13 @@ public class Filer {
     class FileNameComparator implements Comparator<FileHandle> {
         public int compare(FileHandle a, FileHandle b ) {
             return a.name().compareTo( b.name() );
+        }
+    }
+
+    private void initInternalFileItems(){
+        internalFileItems=new ArrayList<>(internalFiles.length);
+        for(String ifi: internalFiles){
+            internalFileItems.add(new FileItem(this,Gdx.files.internal("melodies/"+ifi)));
         }
     }
 }
