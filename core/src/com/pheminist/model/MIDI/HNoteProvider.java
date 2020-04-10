@@ -28,27 +28,38 @@ public class HNoteProvider {
                 int noteNumber;
                 switch (status) {
                     case NOTE_ON:
+                        System.out.printf("\n ON : %3d  %3d  %10d",
+                                mEventReader.getChannel(),mEventReader.getTone(),mEventReader.getCurTick());
                         noteNumber = getNoteNumber(mEventReader.getChannel(), mEventReader.getTone());
                         activeNotes.add(new ActiveNote(noteNumber,mEventReader.getCurTick()));
-                        System.out.println("ON");
                         break;
                     case NOTE_OFF:
+                        System.out.printf("\nOFF : %3d  %3d  %10d",
+                                mEventReader.getChannel(),mEventReader.getTone(),mEventReader.getCurTick());
                         noteNumber = getNoteNumber(mEventReader.getChannel(), mEventReader.getTone());
                         long timeInTicks = 0;
                         int i;
+                        boolean founded = false;
                         for (i = 0; i < activeNotes.size(); i++) {
                             ActiveNote an = activeNotes.get(i);
                             if (an.number == noteNumber) {
                                 timeInTicks = an.time;
-                                System.out.println(" timeInTicks  " + timeInTicks);
+                                founded = true;
+//                                System.out.println(" timeInTicks  " + timeInTicks);
                                 break;
                             }
                         }
                         float startTime=tickToTime.tickToSecond(timeInTicks);
                         float endTime=tickToTime.tickToSecond(mEventReader.getCurTick());
                         hfNotes.add(new HFNote(noteNumber, startTime, endTime-startTime));
-                        activeNotes.remove(i);
-                        System.out.println("OFF");
+
+
+//                        if(activeNotes.size()==0) break;
+
+
+                        if(founded)
+                            activeNotes.remove(i);
+//                        System.out.println("OFF");
                         break;
                 }
             }

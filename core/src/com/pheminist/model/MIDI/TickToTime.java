@@ -35,13 +35,14 @@ class TickToTime {
 
     float tickToSecond(long tick) {
         float time = 0;
-        long curTick = 0;
         int i;
-        for (i = 0; i < size && ticks[i] <= tick; i++) {
-            time = time + (ticks[i] - curTick) * tickDurations[i];
-            curTick = ticks[i];
+        for (i = 0; i < size-1; i++) {
+            if(ticks[i+1]>=tick) {
+                break;
+            }
+            time = time + (ticks[i+1] - ticks[i]) * tickDurations[i];
         }
-        return time + (tick - curTick) * tickDurations[i - 1];
+        return time + (tick-ticks[i]) * tickDurations[i];
     }
 
     private class TempoEvent {
@@ -55,64 +56,3 @@ class TickToTime {
     }
 }
 
-//class TickToTime {
-////    private static final int META_TEMPO_TYPE = 0x51;
-//    private float[] tickDurations;
-//    private long[] ticks;
-//    private final int size;
-//
-//    TickToTime(MidiData midiData) {
-//        Track track = midiData.getTracks()[0];
-//
-//        List<MidiEvent> tempoEvents = new ArrayList<>();
-//        float ppqn = midiData.getMidiHeader().ppq;
-//
-//        for (int i = 0; i < track.size(); i++) {
-//            MidiEvent event = track.get(i);
-//            MidiMessage message = event.getMessage();
-//            float tempo = getTempo(message);
-//            if (tempo > -0.1) {
-//                tempoEvents.add(event);
-//            }
-//        }
-//
-//        size = tempoEvents.size();
-//        tickDurations = new float[size];
-//        ticks = new long[size];
-//
-//        for (int i = 0; i < size; i++) {
-//            MidiEvent event = tempoEvents.get(i);
-//            MetaMessage message = (MetaMessage) event.getMessage();
-//            ticks[i] = event.getTick();
-//            float tempo = getTempo(message);
-//            tickDurations[i] = tempo / ppqn;
-//        }
-//    }
-//
-//    private static float getTempo(MidiMessage midiMsg) {
-//        // first check if it is a META message at all
-//        if (midiMsg.getLength() != 6
-//                || midiMsg.getStatus() != MetaMessage.META) {
-//            return -1;
-//        }
-//        byte[] msg = midiMsg.getMessage();
-//        if (((msg[1] & 0xFF) != META_TEMPO_TYPE) || (msg[2] != 3)) {
-//            return -1;
-//        }
-//        int tempo = (msg[5] & 0xFF)
-//                | ((msg[4] & 0xFF) << 8)
-//                | ((msg[3] & 0xFF) << 16);
-//        return (float)tempo / 1000000;
-//    }
-//
-//    float tickToSecond(long tick){
-//        float time = 0;
-//        long curTick=0;
-//        int i;
-//        for (i=0;i<size && ticks[i]<=tick;i++){
-//                time=time+(ticks[i]-curTick)*tickDurations[i];
-//                curTick=ticks[i];
-//        }
-//        return time+(tick-curTick)*tickDurations[i-1];
-//    }
-//}
