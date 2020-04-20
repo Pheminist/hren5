@@ -23,6 +23,8 @@ public class Hud extends Table {
     private Skin skin;
     private boolean sound = false;
 
+    private boolean record = false;
+
     Hud(Controller controller, Model model) {
         this.controller = controller;
         this.model = model;
@@ -31,7 +33,7 @@ public class Hud extends Table {
     }
 
     private void show() {
-        TextButton helpBtn = new TextButton("Help", skin);
+        final TextButton helpBtn = new TextButton("Help", skin);
         helpBtn.pad(VPAD, 0, VPAD, 0);
         TextButton openFile = new TextButton("Open", skin);
         openFile.pad(VPAD, 0, VPAD, 0);
@@ -45,11 +47,11 @@ public class Hud extends Table {
         this.defaults().expandY().fillY().growY().expandX().fillX().uniformX();                                     ///////
         this.add(helpBtn);
         this.row();
-        this.add(new ShiftView(controller,model));
+        this.add(new ShiftView(controller, model));
         this.row();
-        this.add(new TempoView(controller,model));
+        this.add(new TempoView(controller, model));
         this.row();
-        this.add(new SPSView(controller,model));
+        this.add(new SPSView(controller, model));
         this.row();
         this.add(soundBtn);
         this.row();
@@ -57,19 +59,29 @@ public class Hud extends Table {
         this.row();
         this.add(exit);
         this.row();
-        this.add(new PlayView(controller,model)).uniform(false);
+        this.add(new PlayView(controller, model)).uniform(false);
 
         helpBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                model.nrModel.setPaused(true);
-                model.nrModel.allNotesOffByEvents();
-                model.gethData().setIndexByTime(-2f);
-                model.nrModel.time.setTime(-2);
+                if (!record) {
+                    record=true;
+                    model.nrModel.setPaused(true);
+                    model.nrModel.allNotesOffByEvents();
+                    model.gethData().setIndexByTime(-2f);
+                    model.nrModel.time.setTime(-2);
+                    helpBtn.getLabel().setText("record");
 
-                String fileName="hhh"+model.nrModel.getDeadNotes()+".mp4";
-                model.nrModel.setPaused(false);
-                controller.startRecord(fileName);
+                    String fileName = "hhh" + model.nrModel.getDeadNotes() + ".mp4";
+                    model.nrModel.setPaused(false);
+                    controller.startRecord(fileName);
+                }
+                else {
+                    record=false;
+                    helpBtn.getLabel().setText("not rec");
+                    model.nrModel.setPaused(true);
+                    controller.startRecord("");
+                }
             }
         });
 
