@@ -3,6 +3,7 @@ package com.pheminist.controller;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.pheminist.IVideoController;
 import com.pheminist.interfaces.IHorner;
 import com.pheminist.model.MIDI.HFNoteHandler;
 import com.pheminist.model.MIDI.HNoteProvider;
@@ -17,9 +18,11 @@ public class Controller extends Game {
     private ObjectMap<Class<? extends BaseScreen>, BaseScreen> screens = new ObjectMap<>();
     private Model model;
     private IHorner horner;
+    private IVideoController videoController;
 
-    public Controller(IHorner horner) {
+    public Controller(IHorner horner, IVideoController videoController) {
         this.horner=horner;
+        this.videoController=videoController;
     }
 
     @Override

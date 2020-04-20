@@ -15,7 +15,7 @@ import com.badlogic.gdx.backends.android.AndroidApplication
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
 import com.pheminist.controller.Controller
 
-class AndroidLauncher : AndroidApplication(), LifecycleOwner {
+class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     private val lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
     override fun getLifecycle(): Lifecycle {
         return lifecycleRegistry
@@ -30,7 +30,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val config = AndroidApplicationConfiguration()
-        val gdxView = initializeForView(Controller(AndroidHorner()), config)
+        val gdxView = initializeForView(Controller(AndroidHorner(),this), config)
         val context = context
         val inflater = LayoutInflater.from(context)
         val layout = RelativeLayout(this)
@@ -53,5 +53,13 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner {
 
     init {
         lifecycleRegistry.currentState = Lifecycle.State.CREATED
+    }
+
+    override fun stopHRecord() {
+        TODO("Not yet implemented")
+    }
+
+    override fun startHRecord(fileName: String?) {
+        TODO("Not yet implemented")
     }
 }
