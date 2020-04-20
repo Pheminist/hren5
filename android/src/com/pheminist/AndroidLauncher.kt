@@ -144,7 +144,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     }
 
     private fun recordVideo(videoRecordingFilePath: String) {
-        camera_view.startRecording(File(videoRecordingFilePath), ContextCompat.getMainExecutor(this), object: VideoCapture.OnVideoSavedCallback {
+        cameraView.startRecording(File(videoRecordingFilePath), ContextCompat.getMainExecutor(this), object: VideoCapture.OnVideoSavedCallback {
             override fun onVideoSaved(file: File) {
 //                Toast.makeText(this@AndroidLancher, "Recording Saved", Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "onVideoSaved $videoRecordingFilePath")
@@ -178,13 +178,13 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     override fun startHRecord(fileName: String?) {
         if (isRecording) {
             isRecording = false
-            video_record.text = "Record Video"
-            Toast.makeText(this, "Recording Stopped", Toast.LENGTH_SHORT).show()
-            camera_view.stopRecording()
+//            video_record.text = "Record Video"
+//            Toast.makeText(this, "Recording Stopped", Toast.LENGTH_SHORT).show()
+            cameraView.stopRecording()
         } else {
             isRecording = true
-            video_record.text = "Stop Recording"
-            Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show()
+//            video_record.text = "Stop Recording"
+//            Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show()
             recordVideo(videoRecordingPath+"mmm_video.mp4")
 
         }
