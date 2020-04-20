@@ -62,6 +62,7 @@ project(":android") {
     dependencies {
         implementation project(":core")
         implementation 'com.github.billthefarmer:mididriver:v1.18'
+
         api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
