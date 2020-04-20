@@ -101,4 +101,14 @@ public class NRModel {
             }
         }
     }
+
+    public String getDeadNotes(){
+        String str="";
+        for(int i=0;i<isNoteAlives.length;i++){
+            if(!isNoteAlives[i] ){
+                str=str+"_"+Integer.toString(i);
+            }
+        }
+        return str;
+    }
 }

@@ -70,8 +70,8 @@ public class Controller extends Game {
 
     public void setSPS(float qps) {model.sps.setSps(qps);}
 
-    public void startRecord(){
-        videoController.startHRecord("hhh");
+    public void startRecord(String fileName){
+        videoController.startHRecord("hhh"+fileName);
     }
 
     public void stopRecord(){

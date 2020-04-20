@@ -185,7 +185,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
             isRecording = true
 //            video_record.text = "Stop Recording"
 //            Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show()
-            recordVideo(videoRecordingPath+"mmm_video.mp4")
+            recordVideo(videoRecordingPath+fileName)
 
         }
     }

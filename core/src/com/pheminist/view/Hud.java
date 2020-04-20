@@ -62,7 +62,14 @@ public class Hud extends Table {
         helpBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                controller.startRecord();
+                model.nrModel.setPaused(true);
+                model.nrModel.allNotesOffByEvents();
+                model.gethData().setIndexByTime(-2f);
+                model.nrModel.time.setTime(-2);
+
+                String fileName="hhh"+model.nrModel.getDeadNotes()+".mp4";
+                model.nrModel.setPaused(false);
+                controller.startRecord(fileName);
             }
         });
 
