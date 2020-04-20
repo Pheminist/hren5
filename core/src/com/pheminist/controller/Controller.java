@@ -69,4 +69,12 @@ public class Controller extends Game {
     public void setShift(int shift) {model.shift.setShift(shift);}
 
     public void setSPS(float qps) {model.sps.setSps(qps);}
+
+    public void startRecord(){
+        videoController.startHRecord("hhh");
+    }
+
+    public void stopRecord(){
+        videoController.stopHRecord();
+    }
 }
