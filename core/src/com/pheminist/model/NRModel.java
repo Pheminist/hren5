@@ -15,7 +15,7 @@ public class NRModel {
     public final Model model;
     public final Time time = new Time();
     private HFNoteHandler hData;
-    private boolean paused;
+    private boolean paused=true;
     private boolean[] isNoteOns;
     private boolean[] isNoteAlives;
 
