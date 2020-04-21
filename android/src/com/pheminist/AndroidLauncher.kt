@@ -80,28 +80,11 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
 
         if (checkPermissions()) startCameraSession()  else requestPermissions()
 
-//        video_record.setOnClickListener {
-//            if (isRecording) {
-//                isRecording = false
-//                video_record.text = "Record Video"
-//                Toast.makeText(this, "Recording Stopped", Toast.LENGTH_SHORT).show()
-//                camera_view.stopRecording()
-//            } else {
-//                isRecording = true
-//                video_record.text = "Stop Recording"
-//                Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show()
-//                recordVideo(videoRecordingPath+)
-//            }
-//        }
-
-
     }
 
     init {
         lifecycleRegistry.currentState = Lifecycle.State.CREATED
     }
-
-
 
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(this, arrayOf(CAMERA_PERMISSION, RECORD_AUDIO_PERMISSION), RC_PERMISSION)
