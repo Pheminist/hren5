@@ -9,7 +9,7 @@ import com.pheminist.controller.Controller;
 import com.pheminist.model.Model;
 
 public abstract class BaseScreen implements Screen {
-    private final float V_WIDTH =  1366f;
+    private float V_WIDTH =  1366f;
     protected Controller controller;
     protected Model model;
     protected Stage stage;
@@ -17,10 +17,10 @@ public abstract class BaseScreen implements Screen {
     public BaseScreen(Controller controller, Model model) {
         this.controller = controller;
         this.model=model;
-        stage = new Stage(new FitViewport(V_WIDTH,getV_Height()));
+        stage = new Stage(new FitViewport(V_WIDTH,getV_Height(V_WIDTH)));
     }
-    private float getV_Height() {
-        return V_WIDTH * (float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth();
+    private float getV_Height(float width) {
+        return width * (float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth();
     }
 
     // === Lifecycle Methods === //
@@ -59,5 +59,11 @@ public abstract class BaseScreen implements Screen {
     @Override public void dispose() {
         if(stage != null) stage.dispose();
         stage = null;
+    }
+
+    void setWorldWidth (int width){
+        V_WIDTH=width;
+        stage.getViewport().setWorldSize(width,getV_Height(width));
+        stage.getViewport().update( Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), true);
     }
 }

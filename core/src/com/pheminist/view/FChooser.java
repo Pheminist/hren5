@@ -54,6 +54,7 @@ public class FChooser extends BaseScreen {
                 return false;
             }
         });
+        setWorldWidth(800);
     }
 
     @Override
