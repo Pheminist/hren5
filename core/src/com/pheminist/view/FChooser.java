@@ -124,16 +124,18 @@ public class FChooser extends BaseScreen {
         Button b3 = new Button(skin);
 
         pathLabel.setWrap(true);
-        driveTable.defaults().expandX().fill().row();
+        driveTable.defaults().prefHeight(80);
+        driveTable.defaults().expand().fill().row();
         driveTable.add(b1).row();
         driveTable.add(b2).row();
         driveTable.add(b3).row();
 
-        table.add(pathLabel).colspan(2).expandX().fillX().center().row();
-        table.add(driveTable).width(300).top();
+        table.add();
+        table.add(pathLabel).expandX().fillX().center().row();
+        table.add(driveTable).width(300).bottom().expandY();
 //        table.add(pathLabel).fillX();
 //        table.row();
-        table.add(scroller).expandX().fillX();
+        table.add(scroller).expandX().fillX().top();
 
         stage.addActor(table);
     }
