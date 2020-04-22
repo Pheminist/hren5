@@ -1,5 +1,9 @@
 package com.pheminist.view;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.pheminist.controller.Controller;
 import com.pheminist.model.Model;
@@ -10,13 +14,24 @@ public class GScreen extends BaseScreen {
 
     private NR nr;
 
-    public GScreen(Controller controller, Model model) {
+    public GScreen(final Controller controller, Model model) {
         super(controller, model);
+        Gdx.input.setCatchKey(Input.Keys.BACK,true);
     }
 
     @Override
     public void init() {
         stage.clear();
+        stage.addListener(new InputListener(){
+            @Override
+            public boolean keyUp(InputEvent event, int keycode) {
+                if(keycode == Input.Keys.BACK){
+                    Gdx.app.exit();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         screenTable.clear();
         Hud hud = new Hud(controller, model);

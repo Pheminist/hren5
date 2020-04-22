@@ -2,9 +2,11 @@ package com.pheminist.view;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -37,11 +39,21 @@ public class FChooser extends BaseScreen {
     private Filer filer;
 
 
-    public FChooser(Controller controller, Model model) {
+    public FChooser(final Controller controller, Model model) {
         super(controller, model);
         skin = this.model.assetManager.get(SKIN, Skin.class);
         filer = new Filer();
         files = filer.getFileItems(filer.getRoot());
+        stage.addListener(new InputListener(){
+            @Override
+            public boolean keyUp(InputEvent event, int keycode) {
+                if(keycode == Input.Keys.BACK){
+                    controller.changeScreen(GScreen.class);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -167,6 +179,8 @@ public class FChooser extends BaseScreen {
         stage.dispose();
         skin.dispose();
     }
+
+
 
 }
 
