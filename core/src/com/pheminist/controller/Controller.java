@@ -81,6 +81,7 @@ public class Controller extends Game {
 
     public void removeCameraView(){
         videoController.removeCameraView();
+
     }
 
     public void addCameraView(){

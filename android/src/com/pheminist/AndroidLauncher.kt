@@ -25,15 +25,6 @@ import java.io.File
 class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     private val lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
 
-    val LOG_TAG = "myLogs"
-
-    val CAMERAVIEW_ADD = 0
-
-    val CAMERAVIEW_REMOVE = 1
-
-    lateinit var camHandler:Handler
-
-
     lateinit var layout:RelativeLayout
 
     val TAG = AndroidLauncher::class.java.simpleName
@@ -68,7 +59,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
         layout.addView(gdxView)
         //		CameraView cameraView = new CameraView(this);
 //		cameraView.setLayoutParams(new FrameLayout.LayoutParams(100,100));
-        button=Button(this);
+        button= Button(this)
 
 //		ConstraintLayout cameraView = (ConstraintLayout) inflater.inflate(R.layout.camera_view,null,false);
 //		layout.addView(cameraView);
@@ -81,21 +72,6 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
 
         setContentView(layout)
 //        layout.addView(cameraView)
-
-        camHandler = object : Handler() {
-            override fun handleMessage(msg: Message) {
-                when (msg.what) {
-                    CAMERAVIEW_ADD -> {
-                        layout.addView(button)
-                     }
-                    CAMERAVIEW_REMOVE -> {
-                        layout.removeView(button)
-                    }
-                }
-            }
-        }
-        camHandler.sendEmptyMessage(CAMERAVIEW_REMOVE)
-
 
         // Part from CameraX
         val recordFiles = ContextCompat.getExternalFilesDirs(this, Environment.DIRECTORY_MOVIES)
@@ -185,10 +161,14 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     }
 
     override fun removeCameraView(){
-        camHandler.sendEmptyMessage(CAMERAVIEW_REMOVE)
+        runOnUiThread {
+            layout.removeView(button)
+        }
     }
 
     override fun addCameraView() {
-        camHandler.sendEmptyMessage(CAMERAVIEW_ADD)
+        runOnUiThread{
+            layout.addView(button)
+        }
     }
 }
