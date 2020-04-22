@@ -32,6 +32,7 @@ public class GScreen extends BaseScreen {
                 return false;
             }
         });
+        controller.addCameraView();
 
         screenTable.clear();
         Hud hud = new Hud(controller, model);

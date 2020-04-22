@@ -59,6 +59,7 @@ public class FChooser extends BaseScreen {
 
     @Override
     public void init() {
+        controller.removeCameraView();
         table.clear();
         scrollTable.clear();
         driveTable.clear();

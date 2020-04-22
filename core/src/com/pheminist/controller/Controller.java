@@ -78,4 +78,12 @@ public class Controller extends Game {
     public void stopRecord(){
         videoController.stopHRecord();
     }
+
+    public void removeCameraView(){
+        videoController.removeCameraView();
+    }
+
+    public void addCameraView(){
+        videoController.addCameraView();
+    }
 }
