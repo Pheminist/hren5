@@ -33,7 +33,7 @@ public class Hud extends Table {
     }
 
     private void show() {
-        final TextButton helpBtn = new TextButton("Help", skin);
+        final TextButton helpBtn = new TextButton("not rec", skin);
         helpBtn.pad(VPAD, 0, VPAD, 0);
         TextButton openFile = new TextButton("Open", skin);
         openFile.pad(VPAD, 0, VPAD, 0);

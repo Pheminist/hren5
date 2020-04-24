@@ -5,12 +5,16 @@ import android.annotation.TargetApi
 import android.content.pm.PackageManager
 import android.hardware.camera2.CameraCharacteristics
 import android.os.*
+import android.provider.Settings
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.camera.core.CameraX
 import androidx.camera.core.VideoCapture
+import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.CameraView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -21,6 +25,7 @@ import com.badlogic.gdx.backends.android.AndroidApplication
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
 import com.pheminist.controller.Controller
 import java.io.File
+import kotlin.system.exitProcess
 
 class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     private val lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
@@ -36,7 +41,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     private var RC_PERMISSION = 101
 
     lateinit var cameraView:CameraView
-    lateinit var button: Button
+//    lateinit var button: Button
     private lateinit var videoRecordingPath:String
 
     override fun getLifecycle(): Lifecycle {
@@ -59,7 +64,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
         layout.addView(gdxView)
         //		CameraView cameraView = new CameraView(this);
 //		cameraView.setLayoutParams(new FrameLayout.LayoutParams(100,100));
-        button= Button(this)
+//        button= Button(this)
 
 //		ConstraintLayout cameraView = (ConstraintLayout) inflater.inflate(R.layout.camera_view,null,false);
 //		layout.addView(cameraView);
@@ -71,7 +76,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
 //        cameraView.bindToLifecycle(this)
 
         setContentView(layout)
-//        layout.addView(cameraView)
+        layout.addView(cameraView)
 
         // Part from CameraX
         val recordFiles = ContextCompat.getExternalFilesDirs(this, Environment.DIRECTORY_MOVIES)
@@ -162,13 +167,42 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
 
     override fun removeCameraView(){
         runOnUiThread {
-            layout.removeView(button)
+//            layout.removeView(cameraView)
+            cameraView.visibility=View.GONE
         }
     }
 
     override fun addCameraView() {
         runOnUiThread{
-            layout.addView(button)
+//            layout.addView(cameraView)
+            cameraView.visibility=View.VISIBLE
         }
+    }
+
+    // todo костыль
+    override fun onPause() {
+        super.onPause()
+        Log.d("HrenAndroid","onPause  before finish()")
+//        finish()
+//        finishAndRemoveTask ()
+//        exitProcess(0)
+        Log.d("HrenAndroid","onPause  after finish()")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleRegistry.currentState = Lifecycle.State.STARTED
+
+    }
+    override fun onStop() {
+        lifecycleRegistry.currentState = Lifecycle.State.CREATED
+        super.onStop()
+
+        Log.d("HrenAndroid","onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("HrenAndroid","onDestroy")
     }
 }

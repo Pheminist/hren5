@@ -38,7 +38,6 @@ public class FChooser extends BaseScreen {
     private Label pathLabel;
     private Filer filer;
 
-
     public FChooser(final Controller controller, Model model) {
         super(controller, model);
         skin = this.model.assetManager.get(SKIN, Skin.class);
@@ -134,7 +133,7 @@ public class FChooser extends BaseScreen {
 
         table.add();
         table.add(pathLabel).expandX().fillX().center().row();
-        table.add(driveTable).width(300).bottom().expandY();
+        table.add(driveTable).width(300).top().expandY();
 //        table.add(pathLabel).fillX();
 //        table.row();
         table.add(scroller).expandX().fillX().top();
@@ -183,8 +182,5 @@ public class FChooser extends BaseScreen {
         stage.dispose();
         skin.dispose();
     }
-
-
-
 }
 

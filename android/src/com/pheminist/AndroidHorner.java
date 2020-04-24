@@ -1,5 +1,7 @@
 package com.pheminist;
 
+import android.util.Log;
+
 import com.pheminist.interfaces.IHorner;
 
 import org.billthefarmer.mididriver.MidiDriver;
@@ -53,6 +55,8 @@ public class AndroidHorner implements IHorner {
 
     @Override
     public void dispose() {
+        Log.d("HrenAndroid","before midi.stop()");
         midi.stop();
+        Log.d("HrenAndroid","after midi.stop()");
     }
 }
