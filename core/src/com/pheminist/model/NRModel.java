@@ -25,7 +25,6 @@ public class NRModel {
 
     public void init() {
         hData = model.gethData();
-//        time.setTime(- model.qps.getSps()*hData.getPpqn());
         time.setTime(- 2);
         isNoteOns = new boolean[hData.getnSoundes()];
 
@@ -41,16 +40,8 @@ public class NRModel {
             time.setTime(curTime);
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.BACK)) { // get back to menu ...
-//            beeper.allNotesOff();
-//            parent.changeScreen(Controller.MENU);
-            return;
-        }
-
         if (!hData.hasNext() && screenNotes.isEmpty()) {
             model.nrModel.setPaused(true);
-//            parent.changeScreen(Controller.MENU);
-//            return;
         }
 
         while (hData.hasNext())
@@ -106,7 +97,7 @@ public class NRModel {
         String str="";
         for(int i=0;i<isNoteAlives.length;i++){
             if(!isNoteAlives[i] ){
-                str=str+"_"+Integer.toString(i);
+                str=str+"_"+ (i+1);
             }
         }
         return str;
