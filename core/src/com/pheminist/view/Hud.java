@@ -75,12 +75,14 @@ public class Hud extends Table {
                     String fileName = "hhh" + model.nrModel.getDeadNotes() + ".mp4";
                     model.nrModel.setPaused(false);
                     controller.startRecord(fileName);
+                    helpBtn.setChecked(true);
                 }
                 else {
                     record=false;
                     helpBtn.getLabel().setText("not rec");
                     model.nrModel.setPaused(true);
                     controller.startRecord("");
+                    helpBtn.setChecked(false);
                 }
             }
         });
