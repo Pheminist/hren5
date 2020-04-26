@@ -1,9 +1,12 @@
 package com.pheminist.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.pheminist.interfaces.IHorner;
 import com.pheminist.model.MIDI.HFNoteHandler;
+import com.pheminist.model.MIDI.HNoteProvider;
+import com.pheminist.model.MIDI.MidiData;
 
 public class Model {
     public final static String SKIN="skin/gr1.json";
@@ -14,7 +17,7 @@ public class Model {
     public final NoteEvent noteEvent = new NoteEvent();
     public final WindowSize windowSize = new WindowSize();
     public final IHorner horner;
-
+    public final InputFile inputFile = new InputFile(Gdx.files.internal("melodies/OldMaple.mid"));
 //    private HData hData;
     private HFNoteHandler hData;
 
@@ -38,6 +41,7 @@ public class Model {
         assetManager=new AssetManager();
         assetManager.load(SKIN, Skin.class);
         assetManager.finishLoading();
+        sethData(new HFNoteHandler(new HNoteProvider(new MidiData(inputFile.getFile()))));
     }
 
     public void dispose(){

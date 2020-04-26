@@ -33,7 +33,7 @@ public class Controller extends Game {
         // Load the screens
         loadScreens();
 //        this.changeScreen(FChooser.class);
-        model.sethData(new HFNoteHandler(new HNoteProvider(new MidiData(Gdx.files.internal("melodies/OldMaple.mid")))));
+//        model.sethData(new HFNoteHandler(new HNoteProvider(new MidiData(Gdx.files.internal("melodies/OldMaple.mid")))));
         this.changeScreen(GScreen.class);
     }
 
@@ -72,7 +72,7 @@ public class Controller extends Game {
     public void setSPS(float qps) {model.sps.setSps(qps);}
 
     public void startRecord(String fileName){
-        videoController.startHRecord("hhh"+fileName);
+        videoController.startHRecord(fileName);
     }
 
     public void stopRecord(){

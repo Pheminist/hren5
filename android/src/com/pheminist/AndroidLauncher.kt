@@ -56,6 +56,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycleRegistry.currentState = Lifecycle.State.CREATED
         val config = AndroidApplicationConfiguration()
         val gdxView = initializeForView(Controller(AndroidHorner(),this), config)
 //        val context = context
@@ -88,9 +89,9 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
 
     }
 
-    init {
-        lifecycleRegistry.currentState = Lifecycle.State.CREATED
-    }
+//    init {
+//        lifecycleRegistry.currentState = Lifecycle.State.CREATED
+//    }
 
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(this, arrayOf(CAMERA_PERMISSION, RECORD_AUDIO_PERMISSION), RC_PERMISSION)
@@ -181,6 +182,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
 
     // todo костыль
     override fun onPause() {
+        lifecycleRegistry.currentState = Lifecycle.State.STARTED
         super.onPause()
         Log.d("HrenAndroid","onPause  before finish()")
 //        finish()
@@ -191,7 +193,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
 
     override fun onResume() {
         super.onResume()
-        lifecycleRegistry.currentState = Lifecycle.State.STARTED
+        lifecycleRegistry.currentState = Lifecycle.State.RESUMED
 
     }
     override fun onStop() {
@@ -202,6 +204,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     }
 
     override fun onDestroy() {
+        lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
         super.onDestroy()
         Log.d("HrenAndroid","onDestroy")
     }

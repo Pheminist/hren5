@@ -5,4 +5,5 @@ public interface IVideoController {
     void stopHRecord();
     void addCameraView();
     void removeCameraView();
+//    String getOutputPath();
 }

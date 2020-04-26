@@ -34,7 +34,7 @@ public class PlayView extends Table {
         TextButton replayButton = new TextButton("R", skin);
         TextButton fullScreenBtn = new TextButton("[ ]", skin);
         final ImageButton playPlusBtn1 = new ImageButton(skin, "play");
-        playPlusBtn1.setChecked(true);
+//        playPlusBtn1.setChecked(true);
         final Label playTimeLabel = new Label("", skin);
         playTimeLabel.setAlignment(Align.right);
         playTimeLabel.setFontScale(0.8f);

@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.pheminist.controller.Controller;
 import com.pheminist.model.Model;
 import com.pheminist.view.menu.PlayView;
+import com.pheminist.view.menu.RecButton;
 import com.pheminist.view.menu.SPSView;
 import com.pheminist.view.menu.ShiftView;
 import com.pheminist.view.menu.TempoView;
@@ -33,8 +34,8 @@ public class Hud extends Table {
     }
 
     private void show() {
-        final TextButton helpBtn = new TextButton("not rec", skin);
-        helpBtn.pad(VPAD, 0, VPAD, 0);
+        final TextButton recBtn = new RecButton(controller, model);
+        recBtn.pad(VPAD, 0, VPAD, 0);
         TextButton openFile = new TextButton("Open", skin);
         openFile.pad(VPAD, 0, VPAD, 0);
 //        sound=parent.getPreferences().isMusicEnabled();
@@ -45,7 +46,7 @@ public class Hud extends Table {
         exit.pad(VPAD, 0, VPAD, 0);
 
         this.defaults().expandY().fillY().growY().expandX().fillX().uniformX();                                     ///////
-        this.add(helpBtn);
+        this.add(recBtn);
         this.row();
         this.add(new ShiftView(controller, model));
         this.row();
@@ -60,32 +61,6 @@ public class Hud extends Table {
         this.add(exit);
         this.row();
         this.add(new PlayView(controller, model)).uniform(false);
-
-        helpBtn.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if (!record) {
-                    record=true;
-                    model.nrModel.setPaused(true);
-                    model.nrModel.allNotesOffByEvents();
-                    model.gethData().setIndexByTime(-2f);
-                    model.nrModel.time.setTime(-2);
-                    helpBtn.getLabel().setText("record");
-
-                    String fileName = "hhh" + model.nrModel.getDeadNotes() + ".mp4";
-                    model.nrModel.setPaused(false);
-                    controller.startRecord(fileName);
-                    helpBtn.setChecked(true);
-                }
-                else {
-                    record=false;
-                    helpBtn.getLabel().setText("not rec");
-                    model.nrModel.setPaused(true);
-                    controller.startRecord("");
-                    helpBtn.setChecked(false);
-                }
-            }
-        });
 
         soundBtn.addListener(new ChangeListener() {
             @Override
