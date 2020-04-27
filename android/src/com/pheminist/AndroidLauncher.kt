@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.camera.core.CameraX
 import androidx.camera.core.VideoCapture
@@ -136,7 +137,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     private fun recordVideo(videoRecordingFilePath: String) {
         cameraView.startRecording(File(videoRecordingFilePath), ContextCompat.getMainExecutor(this), object : VideoCapture.OnVideoSavedCallback {
             override fun onVideoSaved(file: File) {
-//                Toast.makeText(this@AndroidLancher, "Recording Saved", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Recording Saved", Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "onVideoSaved $videoRecordingFilePath")
             }
 
@@ -151,7 +152,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
         if (isRecording) {
             isRecording = false
 //            video_record.text = "Record Video"
-//            Toast.makeText(this, "Recording Stopped", Toast.LENGTH_SHORT).show()
+//            runOnUiThread {Toast.makeText(this, "Recording Stopped", Toast.LENGTH_SHORT).show()}
             cameraView.stopRecording()
         }
     }
@@ -159,8 +160,6 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     override fun startHRecord(fileName: String?) {
         if (!isRecording) {
             isRecording = true
-//            video_record.text = "Stop Recording"
-//            Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show()
             recordVideo(videoRecordingPath + fileName)
         }
     }
@@ -183,11 +182,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     override fun onPause() {
         lifecycleRegistry.currentState = Lifecycle.State.STARTED
         super.onPause()
-        Log.d("HrenAndroid", "onPause  before finish()")
-//        finish()
-//        finishAndRemoveTask ()
-//        exitProcess(0)
-        Log.d("HrenAndroid", "onPause  after finish()")
+        Log.d("HrenAndroid", "onPause  after super.onPause()")
     }
 
     override fun onResume() {

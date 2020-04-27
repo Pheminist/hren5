@@ -33,15 +33,20 @@ public class NRModel {
     }
 
     public void update(float deltaTime) {
+        if(paused) return;
+
         float secondInScreen =model.sps.getSps();
         float curTime= time.getTime();
-        if (!paused) {
+//        if (!paused) {
             curTime = curTime + deltaTime * model.tempo.getTempo();
             time.setTime(curTime);
-        }
+//        }
 
         if (!hData.hasNext() && screenNotes.isEmpty()) {
             model.nrModel.setPaused(true);
+
+            model.gethData().setIndexByTime(-2f);
+            model.nrModel.time.setTime(-2);
         }
 
         while (hData.hasNext())
