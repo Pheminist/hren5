@@ -40,7 +40,7 @@ public class RecButton extends TextButton {
                     record=false;
                     getLabel().setText(REC_OFF);
                     model.nrModel.setPaused(true);
-                    controller.startRecord("");
+                    controller.stopRecord();
                     setChecked(false);
                 }
             }

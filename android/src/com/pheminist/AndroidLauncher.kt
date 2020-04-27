@@ -30,7 +30,7 @@ import kotlin.system.exitProcess
 class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     private val lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
 
-    lateinit var layout:RelativeLayout
+    lateinit var layout: RelativeLayout
 
     val TAG = AndroidLauncher::class.java.simpleName
     private var isRecording = false
@@ -40,9 +40,10 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
 
     private var RC_PERMISSION = 101
 
-    lateinit var cameraView:CameraView
-//    lateinit var button: Button
-    private lateinit var videoRecordingPath:String
+    lateinit var cameraView: CameraView
+
+    //    lateinit var button: Button
+    private lateinit var videoRecordingPath: String
 
     override fun getLifecycle(): Lifecycle {
         return lifecycleRegistry
@@ -58,7 +59,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
         super.onCreate(savedInstanceState)
         lifecycleRegistry.currentState = Lifecycle.State.CREATED
         val config = AndroidApplicationConfiguration()
-        val gdxView = initializeForView(Controller(AndroidHorner(),this), config)
+        val gdxView = initializeForView(Controller(AndroidHorner(), this), config)
 //        val context = context
 //        val inflater = LayoutInflater.from(context)
         layout = RelativeLayout(this)
@@ -85,7 +86,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
 //        val videoRecordingFilePath = "${storageDirectory.absoluteFile}/${System.currentTimeMillis()}_video.mp4"
         videoRecordingPath = "${storageDirectory.absoluteFile}/"
 
-        if (checkPermissions()) startCameraSession()  else requestPermissions()
+        if (checkPermissions()) startCameraSession() else requestPermissions()
 
     }
 
@@ -104,7 +105,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode) {
+        when (requestCode) {
             RC_PERMISSION -> {
                 var allPermissionsGranted = false
                 for (result in grantResults) {
@@ -121,7 +122,6 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     }
 
     private fun startCameraSession() {
-//        camera_view.bindToLifecycle(this)
         cameraView.bindToLifecycle(this)
     }
 
@@ -134,7 +134,7 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     }
 
     private fun recordVideo(videoRecordingFilePath: String) {
-        cameraView.startRecording(File(videoRecordingFilePath), ContextCompat.getMainExecutor(this), object: VideoCapture.OnVideoSavedCallback {
+        cameraView.startRecording(File(videoRecordingFilePath), ContextCompat.getMainExecutor(this), object : VideoCapture.OnVideoSavedCallback {
             override fun onVideoSaved(file: File) {
 //                Toast.makeText(this@AndroidLancher, "Recording Saved", Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "onVideoSaved $videoRecordingFilePath")
@@ -148,35 +148,34 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     }
 
     override fun stopHRecord() {
-        TODO("Not yet implemented")
-    }
-
-    override fun startHRecord(fileName: String?) {
         if (isRecording) {
             isRecording = false
 //            video_record.text = "Record Video"
 //            Toast.makeText(this, "Recording Stopped", Toast.LENGTH_SHORT).show()
             cameraView.stopRecording()
-        } else {
-            isRecording = true
-//            video_record.text = "Stop Recording"
-//            Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show()
-            recordVideo(videoRecordingPath+fileName)
-
         }
     }
 
-    override fun removeCameraView(){
+    override fun startHRecord(fileName: String?) {
+        if (!isRecording) {
+            isRecording = true
+//            video_record.text = "Stop Recording"
+//            Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show()
+            recordVideo(videoRecordingPath + fileName)
+        }
+    }
+
+    override fun removeCameraView() {
         runOnUiThread {
 //            layout.removeView(cameraView)
-            cameraView.visibility=View.GONE
+            cameraView.visibility = View.GONE
         }
     }
 
     override fun addCameraView() {
-        runOnUiThread{
+        runOnUiThread {
 //            layout.addView(cameraView)
-            cameraView.visibility=View.VISIBLE
+            cameraView.visibility = View.VISIBLE
         }
     }
 
@@ -184,11 +183,11 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
     override fun onPause() {
         lifecycleRegistry.currentState = Lifecycle.State.STARTED
         super.onPause()
-        Log.d("HrenAndroid","onPause  before finish()")
+        Log.d("HrenAndroid", "onPause  before finish()")
 //        finish()
 //        finishAndRemoveTask ()
 //        exitProcess(0)
-        Log.d("HrenAndroid","onPause  after finish()")
+        Log.d("HrenAndroid", "onPause  after finish()")
     }
 
     override fun onResume() {
@@ -196,16 +195,17 @@ class AndroidLauncher : AndroidApplication(), LifecycleOwner, IVideoController {
         lifecycleRegistry.currentState = Lifecycle.State.RESUMED
 
     }
+
     override fun onStop() {
         lifecycleRegistry.currentState = Lifecycle.State.CREATED
         super.onStop()
 
-        Log.d("HrenAndroid","onStop")
+        Log.d("HrenAndroid", "onStop")
     }
 
     override fun onDestroy() {
         lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
         super.onDestroy()
-        Log.d("HrenAndroid","onDestroy")
+        Log.d("HrenAndroid", "onDestroy")
     }
 }
