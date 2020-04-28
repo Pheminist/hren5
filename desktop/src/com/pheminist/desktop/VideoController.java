@@ -1,6 +1,7 @@
 package com.pheminist.desktop;
 
 import com.pheminist.IVideoController;
+import com.pheminist.model.NRState;
 
 public class VideoController implements IVideoController {
     @Override
@@ -25,6 +26,11 @@ public class VideoController implements IVideoController {
 
     @Override
     public void startCameraSession() {
+
+    }
+
+    @Override
+    public void on(NRState event) {
 
     }
 }
