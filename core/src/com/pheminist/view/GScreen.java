@@ -6,13 +6,16 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.pheminist.controller.Controller;
+import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
+import com.pheminist.model.NRState;
 
 public class GScreen extends BaseScreen {
 
     private Table screenTable = new Table();
 
     private NR nr;
+    private Hud hud;
 
     public GScreen(final Controller controller, Model model) {
         super(controller, model);
@@ -35,7 +38,9 @@ public class GScreen extends BaseScreen {
         controller.addCameraView();
 
         screenTable.clear();
-        Hud hud = new Hud(controller, model);
+        hud = new Hud(controller, model);
+        model.nrState.getPublisher().addListener(hud.recBtn);
+
         nr = new NR(model.nrModel);
         LineView lineView=new LineView(model);
         NButtonsView nButtonsView = new NButtonsView(model);
@@ -63,7 +68,8 @@ public class GScreen extends BaseScreen {
 
     @Override
     public void pause() {
-
+        controller.stopRecord();
+        model.beeper.allNotesOff();
     }
 
     @Override
@@ -73,6 +79,9 @@ public class GScreen extends BaseScreen {
 
     @Override
     public void hide() {
+        controller.stopRecord();
+        model.nrState.getPublisher().removeListener(hud.recBtn);
+
         model.noteEvent.getPublisher().removeAllListeners();
         model.sps.getPublisher().removeAllListeners();
         model.shift.getPublisher().removeAllListeners();

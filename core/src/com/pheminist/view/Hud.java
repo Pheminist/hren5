@@ -8,7 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.pheminist.controller.Controller;
+import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
+import com.pheminist.model.NRState;
 import com.pheminist.view.menu.PlayView;
 import com.pheminist.view.menu.RecButton;
 import com.pheminist.view.menu.SPSView;
@@ -24,6 +26,8 @@ public class Hud extends Table {
     private Skin skin;
     private boolean sound = false;
 
+    public RecButton recBtn;
+
     private boolean record = false;
 
     Hud(Controller controller, Model model) {
@@ -34,7 +38,7 @@ public class Hud extends Table {
     }
 
     private void show() {
-        final TextButton recBtn = new RecButton(controller, model);
+        recBtn = new RecButton(controller, model);
         recBtn.pad(VPAD, 0, VPAD, 0);
         TextButton openFile = new TextButton("Open", skin);
         openFile.pad(VPAD, 0, VPAD, 0);
