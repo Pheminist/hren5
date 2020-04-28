@@ -15,6 +15,8 @@ import androidx.camera.core.VideoCapture
 import androidx.camera.view.CameraView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.pheminist.interfaces.IListener
+import com.pheminist.model.NRState
 import java.io.File
 
 class Camera(private val context: AndroidLauncher):IVideoController {
@@ -33,7 +35,6 @@ class Camera(private val context: AndroidLauncher):IVideoController {
         val recordFiles = ContextCompat.getExternalFilesDirs(context, Environment.DIRECTORY_MOVIES)
         val storageDirectory = recordFiles[0]
         videoRecordingPath = "${storageDirectory.absoluteFile}/"
-
     }
 
     override fun startCameraSession() {
@@ -82,6 +83,10 @@ class Camera(private val context: AndroidLauncher):IVideoController {
 //            layout.addView(cameraView)
             cameraView.visibility = View.VISIBLE
         }
+    }
+
+    override fun on(event: NRState?) {
+        if(event?.state==NRState.PAUSED) stopHRecord();
     }
 
 }

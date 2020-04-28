@@ -1,6 +1,9 @@
 package com.pheminist;
 
-public interface IVideoController {
+import com.pheminist.interfaces.IListener;
+import com.pheminist.model.NRState;
+
+public interface IVideoController extends IListener<NRState> {
     void startHRecord(String fileName);
     void stopHRecord();
     void addCameraView();

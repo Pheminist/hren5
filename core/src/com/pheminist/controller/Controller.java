@@ -28,8 +28,9 @@ public class Controller extends Game {
 
     @Override
     public void create() {
-        model = new Model(horner);
 
+        model = new Model(horner);
+        model.nrState.getPublisher().addListener(videoController);
         // Load the screens
         loadScreens();
 //        this.changeScreen(FChooser.class);
@@ -72,7 +73,7 @@ public class Controller extends Game {
     public void setSPS(float qps) {model.sps.setSps(qps);}
 
     public void startRecord(String fileName){
-        videoController.startHRecord(fileName);
+        videoController.startHRecord( fileName);
     }
 
     public void stopRecord(){

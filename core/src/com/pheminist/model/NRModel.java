@@ -43,7 +43,8 @@ public class NRModel {
 //        }
 
         if (!hData.hasNext() && screenNotes.isEmpty()) {
-            model.nrModel.setPaused(true);
+            setPaused(true);
+            model.nrState.setState(NRState.PAUSED);
 
             model.gethData().setIndexByTime(-2f);
             model.nrModel.time.setTime(-2);
