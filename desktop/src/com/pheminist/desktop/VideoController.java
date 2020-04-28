@@ -22,4 +22,9 @@ public class VideoController implements IVideoController {
     public void removeCameraView() {
 
     }
+
+    @Override
+    public void startCameraSession() {
+
+    }
 }
