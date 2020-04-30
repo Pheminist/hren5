@@ -24,8 +24,10 @@ import static com.pheminist.view.Hud.VPAD;
 
 public class PlayView extends Table {
     private final static float START_TIME=-2f;
-    private  float totalTime;
     private final Model model;
+    private  float totalTime;
+    final Slider playSlider;
+    final Label playTimeLabel;
 
     public PlayView(final Controller controller, final Model model) {
         this.model=model;
@@ -35,10 +37,10 @@ public class PlayView extends Table {
         TextButton fullScreenBtn = new TextButton("[ ]", skin);
         final ImageButton playPlusBtn1 = new ImageButton(skin, "play");
 //        playPlusBtn1.setChecked(true);
-        final Label playTimeLabel = new Label("", skin);
+        playTimeLabel = new Label("", skin);
         playTimeLabel.setAlignment(Align.right);
         playTimeLabel.setFontScale(0.8f);
-        final Slider playSlider = new Slider(START_TIME, model.gethData().getTotalTime(), .1f, false, skin);
+        playSlider = new Slider(START_TIME, totalTime, .1f, false, skin);
         pad(VPAD, 10, VPAD, 10);
         setSkin(skin);
         background("button-pressed");
@@ -79,19 +81,27 @@ public class PlayView extends Table {
             }
         });
 
-        model.nrModel.time.getPublisher().addListener(new IListener<Time>() {
+        model.time.getPublisher().addListener(new IListener<Time>() {
             @Override
             public void on(Time event) {
-                float time = model.nrModel.time.getTime();
+                float time = model.time.getTime();
                 playTimeLabel.setText(String.format(Locale.UK, "%.0f  /  %.0f", time,totalTime));
                 playSlider.setValue(time);
             }
         });
     }
 
+    public void update(){
+        totalTime=model.gethData().getTotalTime();
+        playSlider.setRange(START_TIME,totalTime);
+        playTimeLabel.setText(String.format(Locale.UK, "%.0f  /  %.0f", START_TIME,totalTime));
+        playSlider.setValue(START_TIME);
+
+    }
+
     private void setTime(float time){
         model.nrModel.allNotesOffByEvents();
         model.gethData().setIndexByTime(time);
-        model.nrModel.time.setTime(time);
+        model.time.setTime(time);
     }
 }

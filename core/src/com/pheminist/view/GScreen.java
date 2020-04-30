@@ -15,15 +15,19 @@ public class GScreen extends BaseScreen {
     private Table screenTable = new Table();
 
     private NR nr;
+    private NButtonsView nButtonsView;
     private Hud hud;
 
     public GScreen(final Controller controller, Model model) {
         super(controller, model);
         Gdx.input.setCatchKey(Input.Keys.BACK,true);
+        hud = new Hud(controller, model);
+        model.nrState.getPublisher().addListener(hud.recBtn);
     }
 
     @Override
     public void init() {
+        hud.playView.update();
         stage.clear();
         stage.addListener(new InputListener(){
             @Override
@@ -38,12 +42,13 @@ public class GScreen extends BaseScreen {
         controller.addCameraView();
 
         screenTable.clear();
-        hud = new Hud(controller, model);
-        model.nrState.getPublisher().addListener(hud.recBtn);
+//        hud = new Hud(controller, model);
+//        model.nrState.getPublisher().addListener(hud.recBtn);
 
         nr = new NR(model.nrModel);
         LineView lineView=new LineView(model);
-        NButtonsView nButtonsView = new NButtonsView(model);
+        nButtonsView = new NButtonsView(model);
+        nButtonsView.addListeners();
 
         Table testTable = new Table();
         testTable.add(nr).expand().fill().row();
@@ -80,13 +85,14 @@ public class GScreen extends BaseScreen {
     @Override
     public void hide() {
         controller.stopRecord();
-        model.nrState.getPublisher().removeListener(hud.recBtn);
+        nButtonsView.removeListeners();
+//        model.nrState.getPublisher().removeListener(hud.recBtn);
 
-        model.noteEvent.getPublisher().removeAllListeners();
-        model.sps.getPublisher().removeAllListeners();
-        model.shift.getPublisher().removeAllListeners();
-        model.tempo.getPublisher().removeAllListeners();
-        model.nrModel.time.getPublisher().removeAllListeners();        // ?
+//        model.noteEvent.getPublisher().removeAllListeners();
+//        model.sps.getPublisher().removeAllListeners();
+//        model.shift.getPublisher().removeAllListeners();
+//        model.tempo.getPublisher().removeAllListeners();
+//        model.time.getPublisher().removeAllListeners();        // ?
     }
 
 }

@@ -1,7 +1,7 @@
 package com.pheminist.model;
 
 public class Time extends SimpleEvent<Time> {
-    private float time;
+    private float time=-2f;
 
     public float getTime() {
         return time;

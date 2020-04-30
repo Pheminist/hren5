@@ -12,6 +12,7 @@ public class Model {
     public final static String SKIN="skin/gr1.json";
 
     public final SecondPerScreen sps = new SecondPerScreen();
+    public final Time time = new Time();
     public final Tempo tempo = new Tempo();
     public final Shift shift = new Shift();
     public final NoteEvent noteEvent = new NoteEvent();

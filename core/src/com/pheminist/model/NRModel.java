@@ -13,7 +13,7 @@ import java.util.List;
 public class NRModel {
     public final List<HFNote> screenNotes = new ArrayList<>();
     public final Model model;
-    public final Time time = new Time();
+//    public final Time time = new Time();
     private HFNoteHandler hData;
     private boolean paused=true;
     private boolean[] isNoteOns;
@@ -25,7 +25,7 @@ public class NRModel {
 
     public void init() {
         hData = model.gethData();
-        time.setTime(- 2);
+        model.time.setTime(- 2);
         isNoteOns = new boolean[hData.getnSoundes()];
 
         isNoteAlives = new boolean[hData.getnSoundes()];
@@ -36,10 +36,10 @@ public class NRModel {
         if(paused) return;
 
         float secondInScreen =model.sps.getSps();
-        float curTime= time.getTime();
+        float curTime= model.time.getTime();
 //        if (!paused) {
             curTime = curTime + deltaTime * model.tempo.getTempo();
-            time.setTime(curTime);
+            model.time.setTime(curTime);
 //        }
 
         if (!hData.hasNext() && screenNotes.isEmpty()) {
@@ -47,7 +47,7 @@ public class NRModel {
             model.nrState.setState(NRState.PAUSED);
 
             model.gethData().setIndexByTime(-2f);
-            model.nrModel.time.setTime(-2);
+            model.time.setTime(-2);
         }
 
         while (hData.hasNext())
@@ -63,7 +63,7 @@ public class NRModel {
             if (hNote.getTime() < curTime && !isNoteOns[note]) {
                 isNoteOns[note] = true;
                 if (isNoteAlives[note])
-                    model.noteEvent.fireNoteEvent(note, hData.getTone(note), true);
+                    model.noteEvent. fireNoteEvent(note, hData.getTone(note), true);
             }
             if (hNote.getTime() + hNote.getDuration() < curTime) {
                 isNoteOns[note] = false;

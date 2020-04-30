@@ -97,7 +97,7 @@ public class NR extends Widget {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        float curTick = nrModel.time.getTime();
+        float curTick = model.time.getTime();
         float sps = model.sps.getSps();
 
         x = getX();

@@ -26,18 +26,14 @@ public class Hud extends Table {
     private Skin skin;
     private boolean sound = false;
 
-    public RecButton recBtn;
+    public final RecButton recBtn;
+    public final PlayView playView;
 
-    private boolean record = false;
-
-    Hud(Controller controller, Model model) {
-        this.controller = controller;
-        this.model = model;
+    Hud(Controller contr, Model mod) {
+        this.controller = contr;
+        this.model = mod;
         skin = model.assetManager.get(SKIN, Skin.class);
-        show();
-    }
 
-    private void show() {
         recBtn = new RecButton(controller, model);
         recBtn.pad(VPAD, 0, VPAD, 0);
         TextButton openFile = new TextButton("Open", skin);
@@ -48,6 +44,8 @@ public class Hud extends Table {
         soundBtn.pad(VPAD, 0, VPAD, 0);
         TextButton exit = new TextButton("Exit", skin);
         exit.pad(VPAD, 0, VPAD, 0);
+
+        playView=new PlayView(controller, model);
 
         this.defaults().expandY().fillY().growY().expandX().fillX().uniformX();                                     ///////
         this.add(recBtn);
@@ -64,7 +62,7 @@ public class Hud extends Table {
         this.row();
         this.add(exit);
         this.row();
-        this.add(new PlayView(controller, model)).uniform(false);
+        this.add(playView).uniform(false);
 
         soundBtn.addListener(new ChangeListener() {
             @Override

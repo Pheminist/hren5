@@ -34,7 +34,7 @@ public class RecButton extends TextButton implements IListener<NRState> {
                     model.nrModel.setPaused(true);
                     model.nrModel.allNotesOffByEvents();
                     model.gethData().setIndexByTime(-2f);
-                    model.nrModel.time.setTime(-2);
+                    model.time.setTime(-2);
                     getLabel().setText(REC_ON);
                     getLabel().setColor(Color.RED);
 
