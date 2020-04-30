@@ -1,26 +1,23 @@
 package com.pheminist
 
-import android.Manifest
-import android.app.Activity
-import android.content.Context
-import android.content.pm.PackageManager
 import android.hardware.camera2.CameraCharacteristics
 import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.camera.core.VideoCapture
 import androidx.camera.view.CameraView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.pheminist.interfaces.IListener
-import com.pheminist.model.NRState
+import com.pheminist.model.Pause
 import java.io.File
 
 class Camera(private val context: AndroidLauncher):IVideoController {
     val cameraView: CameraView = CameraView(context)
+    private val pauseListener = IListener<Pause>{
+        if(it.isPaused) stopHRecord();
+    }
     private var isRecording = false
     private var videoRecordingPath: String
     val TAG = AndroidLauncher::class.java.simpleName
@@ -71,6 +68,11 @@ class Camera(private val context: AndroidLauncher):IVideoController {
         }
     }
 
+    override fun getPauseListener(): IListener<Pause> {
+        return pauseListener
+
+    }
+
     override fun removeCameraView() {
         context.runOnUiThread {
 //            layout.removeView(cameraView)
@@ -84,9 +86,4 @@ class Camera(private val context: AndroidLauncher):IVideoController {
             cameraView.visibility = View.VISIBLE
         }
     }
-
-    override fun on(event: NRState?) {
-        if(event?.state==NRState.PAUSED) stopHRecord();
-    }
-
 }

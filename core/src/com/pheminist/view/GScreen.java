@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.pheminist.controller.Controller;
 import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
-import com.pheminist.model.NRState;
 
 public class GScreen extends BaseScreen {
 
@@ -22,7 +21,8 @@ public class GScreen extends BaseScreen {
         super(controller, model);
         Gdx.input.setCatchKey(Input.Keys.BACK,true);
         hud = new Hud(controller, model);
-        model.nrState.getPublisher().addListener(hud.recBtn);
+        model.pause.getPublisher().addListener(hud.recBtn.getPauseListener());
+        model.noteEvent.getPublisher().addListener(model.beeper);
     }
 
     @Override
@@ -39,6 +39,7 @@ public class GScreen extends BaseScreen {
                 return false;
             }
         });
+
         controller.addCameraView();
 
         screenTable.clear();
@@ -60,6 +61,7 @@ public class GScreen extends BaseScreen {
 
         stage.addActor(screenTable);
         screenTable.setFillParent(true);
+        hud.updateSoundState();
     }
 
     @Override
@@ -88,7 +90,7 @@ public class GScreen extends BaseScreen {
         nButtonsView.removeListeners();
 //        model.nrState.getPublisher().removeListener(hud.recBtn);
 
-//        model.noteEvent.getPublisher().removeAllListeners();
+        model.noteEvent.getPublisher().removeAllListeners();
 //        model.sps.getPublisher().removeAllListeners();
 //        model.shift.getPublisher().removeAllListeners();
 //        model.tempo.getPublisher().removeAllListeners();

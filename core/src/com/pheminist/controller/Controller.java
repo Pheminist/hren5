@@ -30,7 +30,7 @@ public class Controller extends Game {
     public void create() {
 
         model = new Model(horner);
-        model.nrState.getPublisher().addListener(videoController);
+        model.pause.getPublisher().addListener(videoController.getPauseListener());
         // Load the screens
         loadScreens();
 //        this.changeScreen(FChooser.class);
@@ -71,6 +71,19 @@ public class Controller extends Game {
     public void setShift(int shift) {model.shift.setShift(shift);}
 
     public void setSPS(float qps) {model.sps.setSps(qps);}
+
+    public void setSound(boolean sound){
+        if(model.sound == sound) return;
+        model.sound=sound;
+        if (sound) {
+            model.noteEvent.getPublisher().addListener(model.beeper);
+        } else {
+            model.noteEvent.getPublisher().removeListener(model.beeper);
+            model.beeper.allNotesOff();
+        }
+//        publisher.fire(this);
+
+    }
 
     public void startRecord(String fileName){
         videoController.startHRecord( fileName);

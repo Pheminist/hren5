@@ -1,7 +1,5 @@
 package com.pheminist.model;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.pheminist.model.MIDI.HFNote;
 import com.pheminist.model.MIDI.HFNoteHandler;
 
@@ -13,9 +11,7 @@ import java.util.List;
 public class NRModel {
     public final List<HFNote> screenNotes = new ArrayList<>();
     public final Model model;
-//    public final Time time = new Time();
     private HFNoteHandler hData;
-    private boolean paused=true;
     private boolean[] isNoteOns;
     private boolean[] isNoteAlives;
 
@@ -25,7 +21,7 @@ public class NRModel {
 
     public void init() {
         hData = model.gethData();
-        model.time.setTime(- 2);
+        model.time.setTime(-2);
         isNoteOns = new boolean[hData.getnSoundes()];
 
         isNoteAlives = new boolean[hData.getnSoundes()];
@@ -33,22 +29,12 @@ public class NRModel {
     }
 
     public void update(float deltaTime) {
-        if(paused) return;
+        if (model.pause.isPaused()) return;
 
-        float secondInScreen =model.sps.getSps();
-        float curTime= model.time.getTime();
-//        if (!paused) {
-            curTime = curTime + deltaTime * model.tempo.getTempo();
-            model.time.setTime(curTime);
-//        }
-
-        if (!hData.hasNext() && screenNotes.isEmpty()) {
-            setPaused(true);
-            model.nrState.setState(NRState.PAUSED);
-
-            model.gethData().setIndexByTime(-2f);
-            model.time.setTime(-2);
-        }
+        float secondInScreen = model.sps.getSps();
+        float curTime = model.time.getTime();
+        curTime = curTime + deltaTime * model.tempo.getTempo();
+        model.time.setTime(curTime);
 
         while (hData.hasNext())
             if (hData.getNexTime() < curTime + secondInScreen) {
@@ -63,7 +49,7 @@ public class NRModel {
             if (hNote.getTime() < curTime && !isNoteOns[note]) {
                 isNoteOns[note] = true;
                 if (isNoteAlives[note])
-                    model.noteEvent. fireNoteEvent(note, hData.getTone(note), true);
+                    model.noteEvent.fireNoteEvent(note, hData.getTone(note), true);
             }
             if (hNote.getTime() + hNote.getDuration() < curTime) {
                 isNoteOns[note] = false;
@@ -71,19 +57,17 @@ public class NRModel {
 
                 iterator.remove();
             }
+            if (!hData.hasNext() && screenNotes.isEmpty()) {
+                model.pause.setPause(true);
+                model.gethData().setIndexByTime(-2f);
+                model.time.setTime(-2);
+            }
+
         }
     }
 
     public HFNoteHandler gethData() {
         return hData;
-    }
-
-    public boolean isPaused() {
-        return paused;
-    }
-
-    public void setPaused(boolean paused) {
-        this.paused = paused;
     }
 
     public void setNoteAlive(int i, boolean isAlive) {
@@ -99,13 +83,13 @@ public class NRModel {
         }
     }
 
-    public String getDeadNotes(){
-        String str="";
-        for(int i=0;i<isNoteAlives.length;i++){
-            if(!isNoteAlives[i] ){
-                str=str+"_"+ (i+1);
+    public String getDeadNotes() {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < isNoteAlives.length; i++) {
+            if (!isNoteAlives[i]) {
+                str.append("_").append(i + 1);
             }
         }
-        return str;
+        return str.toString();
     }
 }

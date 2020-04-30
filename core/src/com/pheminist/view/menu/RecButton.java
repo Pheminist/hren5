@@ -8,30 +8,41 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.pheminist.controller.Controller;
 import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
-import com.pheminist.model.NRState;
+import com.pheminist.model.Pause;
 
 import static com.pheminist.model.Model.SKIN;
 
-public class RecButton extends TextButton implements IListener<NRState> {
+public class RecButton extends TextButton {
+    private final static String REC_OFF = "Start record";
+    private final static String REC_ON = "Stop record";
+    private final Color offColor;
     private Controller controller;
     private Model model;
-    private final static String REC_OFF = "Start record";
-    private final static String REC_ON  = "Stop record";
     private boolean record = false;
-    private final Color offColor;
+    private final IListener<Pause> pauseIListener = new IListener<Pause>() {
+        @Override
+        public void on(Pause event) {
+            if (event.isPaused()) {
+                record = false;
+                getLabel().setText(REC_OFF);
+                getLabel().setColor(offColor);
+                controller.stopRecord();
+            }
+        }
+    };
 
     public RecButton(final Controller controller, final Model model) {
         super(REC_OFF, model.assetManager.get(SKIN, Skin.class));
-        this.controller=controller;
-        this.model=model;
-        offColor=new Color(getLabel().getColor());
+        this.controller = controller;
+        this.model = model;
+        offColor = new Color(getLabel().getColor());
 
         addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (!record) {
-                    record=true;
-                    model.nrModel.setPaused(true);
+                    model.pause.setPause(true);
+                    record = true;
                     model.nrModel.allNotesOffByEvents();
                     model.gethData().setIndexByTime(-2f);
                     model.time.setTime(-2);
@@ -43,15 +54,10 @@ public class RecButton extends TextButton implements IListener<NRState> {
 //                    file.getParentFile().mkdirs();
 //                    FileWriter writer = new FileWriter(file);
                     controller.startRecord(fileName);
-                    model.nrModel.setPaused(false);
+                    model.pause.setPause(false);
 //                    setChecked(true);
-                }
-                else {
-                    record=false;
-                    getLabel().setText(REC_OFF);
-                    getLabel().setColor(offColor);
-                    model.nrModel.setPaused(true);
-                    controller.stopRecord();
+                } else {
+                    model.pause.setPause(true);
 //                    setChecked(false);
                 }
             }
@@ -59,15 +65,7 @@ public class RecButton extends TextButton implements IListener<NRState> {
 
     }
 
-    @Override
-    public void on(NRState event) {
-        if(event.getState()==NRState.PAUSED) {
-            record=false;
-            getLabel().setText(REC_OFF);
-            getLabel().setColor(offColor);
-            model.nrModel.setPaused(true);
-            controller.stopRecord();
-
-        }
+    public IListener<Pause> getPauseListener() {
+        return pauseIListener;
     }
 }

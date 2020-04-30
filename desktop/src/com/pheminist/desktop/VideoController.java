@@ -1,9 +1,17 @@
 package com.pheminist.desktop;
 
 import com.pheminist.IVideoController;
-import com.pheminist.model.NRState;
+import com.pheminist.interfaces.IListener;
+import com.pheminist.model.Pause;
 
 public class VideoController implements IVideoController {
+    private IListener<Pause> pauseListener=new IListener<Pause>() {
+        @Override
+        public void on(Pause event) {
+
+        }
+    };
+
     @Override
     public void startHRecord(String fileName) {
 
@@ -30,7 +38,7 @@ public class VideoController implements IVideoController {
     }
 
     @Override
-    public void on(NRState event) {
-
+    public IListener<Pause> getPauseListener() {
+        return pauseListener;
     }
 }

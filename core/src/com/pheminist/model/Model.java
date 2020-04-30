@@ -13,18 +13,19 @@ public class Model {
 
     public final SecondPerScreen sps = new SecondPerScreen();
     public final Time time = new Time();
+    public final Pause pause = new Pause(true);
     public final Tempo tempo = new Tempo();
     public final Shift shift = new Shift();
     public final NoteEvent noteEvent = new NoteEvent();
-    public final NRState nrState = new NRState(NRState.PAUSED);
     public final WindowSize windowSize = new WindowSize();
     public final IHorner horner;
+    public boolean sound=true;
     public final InputFile inputFile = new InputFile(Gdx.files.internal("melodies/OldMaple.mid"));
 //    private HData hData;
     private HFNoteHandler hData;
 
-    public NRModel nrModel = new NRModel(this);
-    public Beeper beeper;
+    public NRModel nrModel;// = new NRModel(this);
+    public final Beeper beeper;
 
     public HFNoteHandler gethData() {
         return hData;

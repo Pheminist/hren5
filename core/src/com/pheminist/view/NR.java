@@ -74,11 +74,11 @@ public class NR extends Widget {
         this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                nrModel.setPaused(!nrModel.isPaused());
+                model.pause.setPause(!model.pause.isPaused());
             }
         });
 
-        model.noteEvent.getPublisher().addListener(model.beeper);
+//        model.noteEvent.getPublisher().addListener(model.beeper);
     }
 
     public static Color getNoteColor(int note) {
@@ -126,7 +126,7 @@ public class NR extends Widget {
 
         }
 
-        if (nrModel.isPaused()) {
+        if (model.pause.isPaused()) {
             font.setColor(Color.YELLOW);
             font.draw(batch, "press to start", 0, winHeight/2,winWidth, Align.center,false);
         }

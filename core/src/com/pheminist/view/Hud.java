@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.pheminist.controller.Controller;
 import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
-import com.pheminist.model.NRState;
 import com.pheminist.view.menu.PlayView;
 import com.pheminist.view.menu.RecButton;
 import com.pheminist.view.menu.SPSView;
@@ -21,13 +20,12 @@ import static com.pheminist.model.Model.SKIN;
 
 public class Hud extends Table {
     public static final float VPAD = 10;
+    public final RecButton recBtn;
+    public final PlayView playView;
     private Controller controller;
     private Model model;
     private Skin skin;
     private boolean sound = false;
-
-    public final RecButton recBtn;
-    public final PlayView playView;
 
     Hud(Controller contr, Model mod) {
         this.controller = contr;
@@ -45,7 +43,7 @@ public class Hud extends Table {
         TextButton exit = new TextButton("Exit", skin);
         exit.pad(VPAD, 0, VPAD, 0);
 
-        playView=new PlayView(controller, model);
+        playView = new PlayView(controller, model);
 
         this.defaults().expandY().fillY().growY().expandX().fillX().uniformX();                                     ///////
         this.add(recBtn);
@@ -64,17 +62,21 @@ public class Hud extends Table {
         this.row();
         this.add(playView).uniform(false);
 
+        model.pause.getPublisher().addListener(recBtn.getPauseListener());
+
         soundBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 sound = !sound;
                 if (sound) {
                     soundBtn.setText("Sound on");
-                    model.noteEvent.getPublisher().addListener(model.beeper);
+                    controller.setSound(true);
+                    //                    model.noteEvent.getPublisher().addListener(model.beeper);
                 } else {
                     soundBtn.setText("Sound off");
-                    model.noteEvent.getPublisher().removeListener(model.beeper);
-                    model.beeper.allNotesOff();
+                    controller.setSound(false);
+                    //                    model.noteEvent.getPublisher().removeListener(model.beeper);
+//                    model.beeper.allNotesOff();
                 }
             }
         });
@@ -82,7 +84,8 @@ public class Hud extends Table {
         openFile.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                model.beeper.allNotesOff();
+                controller.setSound(false);
+//                model.beeper.allNotesOff();
                 controller.changeScreen(FChooser.class);
             }
         });
@@ -93,5 +96,9 @@ public class Hud extends Table {
                 Gdx.app.exit();
             }
         });
+    }
+
+    public void updateSoundState(){
+        controller.setSound(sound);
     }
 }
