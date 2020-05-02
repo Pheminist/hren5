@@ -43,6 +43,7 @@ public class FChooser extends BaseScreen {
         skin = this.model.assetManager.get(SKIN, Skin.class);
         filer = new Filer();
         files = filer.getFileItems(filer.getRoot());
+        pathLabel = new Label(filer.getRoot().path(), skin);
         stage.addListener(new InputListener(){
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
@@ -65,7 +66,6 @@ public class FChooser extends BaseScreen {
 
 //        files = filer.getFileItems(filer.getRoot());
 
-        pathLabel = new Label(filer.getRoot().path(), skin);
         fillTable(files);
 
         scrollTable.addListener(new ActorGestureListener() {
@@ -76,14 +76,14 @@ public class FChooser extends BaseScreen {
                 if (Gdx.app.getType() == Application.ApplicationType.Desktop && count < 2) return;
 
                 int row = scrollTable.getRow(y);
-                System.out.println("------row------ " + row + "   y=  " + y);
+//                System.out.println("------row------ " + row + "   y=  " + y);
                 if (row > files.size() - 1)
                     return;   //  костыль ( бывает y <0 и соотв-но несуществующая row)
 
                 FileHandle file = files.get(row).getFile();
 
                 if (filer.isDir(file)) {
-                    System.out.println("---- is dir ------");
+//                    System.out.println("---- is dir ------");
                     files = filer.getFileItems(file);
                     pathLabel.setText(file.file().getAbsolutePath().replace('\\', '/'));
                     fillTable(files);
