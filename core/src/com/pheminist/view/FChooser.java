@@ -47,7 +47,7 @@ public class FChooser extends BaseScreen {
         stage.addListener(new InputListener(){
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
-                if(keycode == Input.Keys.BACK){
+                if(keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE){
                     controller.changeScreen(GScreen.class);
                     return true;
                 }
