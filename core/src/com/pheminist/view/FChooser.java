@@ -122,18 +122,18 @@ public class FChooser extends BaseScreen {
                 fillTable(files);
             }
         });
-        Button b3 = new Button(skin);
+//        Button b3 = new TextButton("back",skin);
 
         pathLabel.setWrap(true);
-        driveTable.defaults().prefHeight(80);
+        driveTable.defaults().prefHeight(70);
         driveTable.defaults().expand().fill().row();
         driveTable.add(b1).row();
         driveTable.add(b2).row();
-        driveTable.add(b3).row();
+//        driveTable.add(b3).row();
 
-        table.add();
-        table.add(pathLabel).expandX().fillX().center().row();
-        table.add(driveTable).width(300).top().expandY();
+//        table.add();
+        table.add(pathLabel).expandX().fillX().center().colspan(2).pad(5).row();
+        table.add(driveTable).width(180).pad(5).top().expandY();
 //        table.add(pathLabel).fillX();
 //        table.row();
         table.add(scroller).expandX().fillX().top();
