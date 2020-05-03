@@ -90,7 +90,7 @@ public class GScreen extends BaseScreen {
         nButtonsView.removeListeners();
         model.noteEvent.getPublisher().removeAllListeners();
         controller.setSound(false);
-
+        model.pause.setPause(true);
     }
 
 }

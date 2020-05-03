@@ -98,4 +98,7 @@ public class NRModel {
     public boolean[] getIsNoteOns(){
         return isNoteOns;
     }
+    public boolean[] getIsNoteAlives(){
+        return isNoteAlives;
+    }
 }
