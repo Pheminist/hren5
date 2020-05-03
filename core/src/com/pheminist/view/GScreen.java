@@ -65,7 +65,7 @@ public class GScreen extends BaseScreen {
 
     @Override
     public void draw(float delta) {
-        nr.update(delta);
+        nr.update(Gdx.graphics.getRawDeltaTime());
     }
 
     @Override
