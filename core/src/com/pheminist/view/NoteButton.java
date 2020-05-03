@@ -25,7 +25,7 @@ public class NoteButton extends Table {
 
         this.setBackground(skin.getDrawable("knobwhite"));
         label=new Label(HUtils.octaveAndNoteName(model.gethData().getTone(note)+model.shift.getShift()),skin);
-        if(!model.nrModel.isNoteAlive(note)) label.setColor(Color.DARK_GRAY);
+        if(!model.nrModel.isNoteAlive(note)) label.setColor(Color.BLACK);
         else label.setColor(NR.getNoteColor(note));
 
         this.add(label);
@@ -89,7 +89,7 @@ public class NoteButton extends Table {
 //        isAlive = alive;
         model.nrModel.setNoteAlive(note,alive);
 
-        if(!model.nrModel.isNoteAlive(note)) label.setColor(Color.DARK_GRAY);
+        if(!model.nrModel.isNoteAlive(note)) label.setColor(Color.BLACK);
         else label.setColor(NR.getNoteColor(note));
     }
 
