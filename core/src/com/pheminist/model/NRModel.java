@@ -48,7 +48,7 @@ public class NRModel {
             int note = hNote.getNote();
             if (hNote.getTime() < curTime && !isNoteOns[note]) {
                 isNoteOns[note] = true;
-                if (isNoteAlives[note])
+//                if (isNoteAlives[note])
                     model.noteEvent.fireNoteEvent(note, hData.getTone(note), true);
             }
             if (hNote.getTime() + hNote.getDuration() < curTime) {

@@ -43,6 +43,7 @@ public class Beeper implements IListener<NoteEvent> {
 
     @Override
     public void on(NoteEvent event) {
+        if(!model.nrModel.isNoteAlive(event.getNote())) return;
         int tone = event.getTone() + shift;
         if (event.isOn()) horner.noteOn(0, tone);
         else horner.noteOff(0, tone);
