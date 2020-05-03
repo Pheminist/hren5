@@ -16,6 +16,7 @@ import com.pheminist.controller.Controller;
 import com.pheminist.interfaces.IListener;
 import com.pheminist.model.Model;
 import com.pheminist.model.Time;
+import com.pheminist.view.NoteButtonsScreen;
 
 import java.util.Locale;
 
@@ -70,6 +71,13 @@ public class PlayView extends Table {
                     Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
                 }
 //                System.out.println(" width = "+ Gdx.graphics.getWidth()+" height = "+ Gdx.graphics.getHeight());
+            }
+        });
+
+        playPlusBtn1.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                controller.changeScreen(NoteButtonsScreen.class);
             }
         });
 

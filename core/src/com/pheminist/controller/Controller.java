@@ -13,6 +13,7 @@ import com.pheminist.model.Model;
 import com.pheminist.view.BaseScreen;
 import com.pheminist.view.FChooser;
 import com.pheminist.view.GScreen;
+import com.pheminist.view.NoteButtonsScreen;
 import com.pheminist.view.TestScreen;
 
 public class Controller extends Game {
@@ -63,6 +64,7 @@ public class Controller extends Game {
 //        screens.put(TestScreen.class, new TestScreen(this,model));
         screens.put(FChooser.class,new FChooser(this,model));
         screens.put(GScreen.class, new GScreen(this,model));
+        screens.put(NoteButtonsScreen.class, new NoteButtonsScreen(this,model));
     }
 
     public void setTempo(float tempo){

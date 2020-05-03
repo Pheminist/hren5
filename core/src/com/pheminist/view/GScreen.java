@@ -87,6 +87,7 @@ public class GScreen extends BaseScreen {
     @Override
     public void hide() {
         controller.stopRecord();
+        controller.removeCameraView();
         nButtonsView.removeListeners();
 //        model.nrState.getPublisher().removeListener(hud.recBtn);
 

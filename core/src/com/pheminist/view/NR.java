@@ -61,9 +61,6 @@ public class NR extends Widget {
         nrModel.init();
         this.hData = nrModel.gethData();
 
-//        ticksInScreen = quarterInScreen * hData.getPpqn();//*model.getPreferences().getTempVolume();
-
-//        isOns = new boolean[hData.getnTones()];
         Skin skin = model.assetManager.get(SKIN, Skin.class);
         img = skin.getRegion("grad");
         font = skin.getFont("impact");

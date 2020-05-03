@@ -16,23 +16,26 @@ public class NoteButton extends Table {
     private final int note;
     private Model model;
 
-    private boolean isAlive=true;
+//    private boolean isAlive=true;
 
-    public NoteButton(Model model,int note) {
+    public NoteButton(final Model model, final int note) {
         this.model = model;
         this.note = note;
         Skin skin = model.assetManager.get(SKIN, Skin.class);
 
         this.setBackground(skin.getDrawable("knobwhite"));
         label=new Label(HUtils.octaveAndNoteName(model.gethData().getTone(note)+model.shift.getShift()),skin);
-        label.setColor(NR.getNoteColor(note));
+        if(!model.nrModel.isNoteAlive(note)) label.setColor(Color.DARK_GRAY);
+        else label.setColor(NR.getNoteColor(note));
+
+        //        label.setColor(NR.getNoteColor(note));
         this.add(label);
         this.setColor(Color.DARK_GRAY);
 
         addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                setAlive(!isAlive());
+                setAlive(!model.nrModel.isNoteAlive(note));
             }
         });
 
@@ -52,7 +55,7 @@ public class NoteButton extends Table {
 //        invalidate();
 //        invalidateHierarchy();
 
-        System.out.println("noteButton changed size");
+//        System.out.println("noteButton changed size");
     }
 
     public void setNote(boolean isOn){
@@ -83,15 +86,15 @@ public class NoteButton extends Table {
         return prefHeight;//50f;
     }
 
-    public boolean isAlive() {
-        return isAlive;
-    }
+//    public boolean isAlive() {
+//        return isAlive;
+//    }
 
     public void setAlive(boolean alive) {
-        isAlive = alive;
-        model.nrModel.setNoteAlive(note,isAlive);
+//        isAlive = alive;
+        model.nrModel.setNoteAlive(note,alive);
 
-        if(!isAlive) label.setColor(Color.DARK_GRAY);
+        if(!model.nrModel.isNoteAlive(note)) label.setColor(Color.DARK_GRAY);
         else label.setColor(NR.getNoteColor(note));
     }
 

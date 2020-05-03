@@ -31,7 +31,7 @@ public class NButtonsView extends Table {
         this.model = model;
         hData = model.gethData();
 
-        System.out.println(" get number of tones ======= " + hData.getnSoundes());
+//        System.out.println(" get number of tones ======= " + hData.getnSoundes());
 
         for (int i = 0; i < hData.getnSoundes(); i++) {
             NoteButton noteButton = new NoteButton(model, i);

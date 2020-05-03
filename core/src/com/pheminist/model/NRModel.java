@@ -17,15 +17,15 @@ public class NRModel {
 
     NRModel(Model model) {
         this.model = model;
+        hData = model.gethData();
+        isNoteOns = new boolean[hData.getnSoundes()];
+        isNoteAlives = new boolean[hData.getnSoundes()];
+        Arrays.fill(isNoteAlives, true);
     }
 
     public void init() {
-        hData = model.gethData();
         model.time.setTime(-2);
-        isNoteOns = new boolean[hData.getnSoundes()];
-
-        isNoteAlives = new boolean[hData.getnSoundes()];
-        Arrays.fill(isNoteAlives, true);
+        Arrays.fill(isNoteOns, false);
     }
 
     public void update(float deltaTime) {
@@ -73,6 +73,8 @@ public class NRModel {
     public void setNoteAlive(int i, boolean isAlive) {
         isNoteAlives[i] = isAlive;
     }
+
+    public boolean isNoteAlive (int i){return isNoteAlives[i];}
 
     public void allNotesOffByEvents(){
         for (int i=0;i<isNoteOns.length;i++){
