@@ -40,6 +40,9 @@ public class Hud extends Table {
         TextButton deadNotesButton = new TextButton("Dead notes", skin);
         deadNotesButton.pad(VPAD, 0, VPAD, 0);
 
+        TextButton helpButton = new TextButton("Help",skin);
+        helpButton.pad(VPAD, 0, VPAD, 0);
+
 //        sound=parent.getPreferences().isMusicEnabled();
         sound = true;
         final TextButton soundBtn = new TextButton(sound ? "Sound on" : "Sound off", skin);
@@ -63,6 +66,8 @@ public class Hud extends Table {
         this.add(openFile);
         this.row();
         this.add(deadNotesButton);
+        this.row();
+        this.add(helpButton);
         this.row();
         this.add(exit);
         this.row();
@@ -100,6 +105,13 @@ public class Hud extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 controller.changeScreen(NoteButtonsScreen.class);
+            }
+        });
+
+        helpButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                controller.changeScreen(HelpScreen.class);
             }
         });
 
