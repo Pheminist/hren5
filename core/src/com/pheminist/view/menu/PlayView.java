@@ -56,7 +56,7 @@ public class PlayView extends Table {
         replayButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                setTime(START_TIME);
+                controller.setTime(START_TIME);
             }
         });
 
@@ -74,17 +74,10 @@ public class PlayView extends Table {
             }
         });
 
-        playPlusBtn1.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                controller.changeScreen(NoteButtonsScreen.class);
-            }
-        });
-
         playSlider.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                setTime(playSlider.getValue());
+                controller.setTime(playSlider.getValue());
                 return true;
             }
         });
@@ -107,9 +100,9 @@ public class PlayView extends Table {
 
     }
 
-    private void setTime(float time){
-        model.nrModel.allNotesOffByEvents();
-        model.gethData().setIndexByTime(time);
-        model.time.setTime(time);
-    }
+//    private void setTime(float time){
+//        model.nrModel.allNotesOffByEvents();
+//        model.gethData().setIndexByTime(time);
+//        model.time.setTime(time);
+//    }
 }

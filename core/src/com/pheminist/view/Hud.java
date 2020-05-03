@@ -36,6 +36,10 @@ public class Hud extends Table {
         recBtn.pad(VPAD, 0, VPAD, 0);
         TextButton openFile = new TextButton("Open", skin);
         openFile.pad(VPAD, 0, VPAD, 0);
+
+        TextButton deadNotesButton = new TextButton("Dead notes", skin);
+        deadNotesButton.pad(VPAD, 0, VPAD, 0);
+
 //        sound=parent.getPreferences().isMusicEnabled();
         sound = true;
         final TextButton soundBtn = new TextButton(sound ? "Sound on" : "Sound off", skin);
@@ -57,6 +61,8 @@ public class Hud extends Table {
         this.add(soundBtn);
         this.row();
         this.add(openFile);
+        this.row();
+        this.add(deadNotesButton);
         this.row();
         this.add(exit);
         this.row();
@@ -84,9 +90,16 @@ public class Hud extends Table {
         openFile.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                controller.setSound(false);
+//                controller.setSound(false);
 //                model.beeper.allNotesOff();
                 controller.changeScreen(FChooser.class);
+            }
+        });
+
+        deadNotesButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                controller.changeScreen(NoteButtonsScreen.class);
             }
         });
 
@@ -98,7 +111,7 @@ public class Hud extends Table {
         });
     }
 
-    public void updateSoundState(){
+    public void updateSoundState() {
         controller.setSound(sound);
     }
 }

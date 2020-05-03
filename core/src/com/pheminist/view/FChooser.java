@@ -162,6 +162,7 @@ public class FChooser extends BaseScreen {
     private void startGame(FileHandle file) {
         model.inputFile.setFile(file);
         model.sethData(new HFNoteHandler(new HNoteProvider(new MidiData(file))));
+        controller.setTime(-2);
         controller.changeScreen(GScreen.class);
     }
 

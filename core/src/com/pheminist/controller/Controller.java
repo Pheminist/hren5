@@ -79,6 +79,7 @@ public class Controller extends Game {
         model.sound=sound;
         if (sound) {
             model.noteEvent.getPublisher().addListener(model.beeper);
+            model.beeper.allNotesOn();
         } else {
             model.noteEvent.getPublisher().removeListener(model.beeper);
             model.beeper.allNotesOff();
@@ -103,4 +104,11 @@ public class Controller extends Game {
     public void addCameraView(){
         videoController.addCameraView();
     }
+
+    public void setTime(float time){
+        model.nrModel.allNotesOffByEvents();
+        model.gethData().setIndexByTime(time);
+        model.time.setTime(time);
+    }
+
 }

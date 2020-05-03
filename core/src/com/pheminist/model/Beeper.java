@@ -5,11 +5,13 @@ import com.pheminist.interfaces.IListener;
 
 public class Beeper implements IListener<NoteEvent> {
     private IHorner horner;
+    private Model model;
     private int shift;
     public final IListener<Shift> shiftListener;
 
     Beeper(Model model) {
         horner=model.horner;
+        this.model=model;
         shiftListener=new IListener<Shift>() {
             @Override
             public void on(Shift event) {
@@ -22,9 +24,20 @@ public class Beeper implements IListener<NoteEvent> {
         horner.allNotesOff();
     }
 
+    public void allNotesOn(){
+        if(!model.sound) return;
+        boolean[] notes =model.nrModel.getIsNoteOns();
+        for(int i=0;i<notes.length;i++){
+            if(notes[i]){
+                horner.noteOn(0,model.nrModel.gethData().getTone(i)+shift);
+            }
+        }
+    }
+
     private void setShift(int shift) {
         allNotesOff();
         this.shift = shift;
+        allNotesOn();
     }
 
     @Override

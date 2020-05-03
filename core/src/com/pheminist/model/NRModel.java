@@ -23,10 +23,10 @@ public class NRModel {
         Arrays.fill(isNoteAlives, true);
     }
 
-    public void init() {
-        model.time.setTime(-2);
-        Arrays.fill(isNoteOns, false);
-    }
+//    public void init() {
+////        model.time.setTime(-2);
+////        Arrays.fill(isNoteOns, false);
+//    }
 
     public void update(float deltaTime) {
         if (model.pause.isPaused()) return;
@@ -93,5 +93,9 @@ public class NRModel {
             }
         }
         return str.toString();
+    }
+
+    public boolean[] getIsNoteOns(){
+        return isNoteOns;
     }
 }

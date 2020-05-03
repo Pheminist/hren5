@@ -28,7 +28,6 @@ public class NoteButton extends Table {
         if(!model.nrModel.isNoteAlive(note)) label.setColor(Color.DARK_GRAY);
         else label.setColor(NR.getNoteColor(note));
 
-        //        label.setColor(NR.getNoteColor(note));
         this.add(label);
         this.setColor(Color.DARK_GRAY);
 
@@ -38,10 +37,6 @@ public class NoteButton extends Table {
                 setAlive(!model.nrModel.isNoteAlive(note));
             }
         });
-
-        //        setSize(30,20);
-//        super(HData.octaveAndNoteName(hData.getTones()[note]), skin);
-//        textButton.getLabel().
     }
 
     private float prefHeight =10;

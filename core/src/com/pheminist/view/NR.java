@@ -58,7 +58,7 @@ public class NR extends Widget {
         this.screenNotes = nrModel.screenNotes;
         this.model = nrModel.model;
 
-        nrModel.init();
+//        nrModel.init();
         this.hData = nrModel.gethData();
 
         Skin skin = model.assetManager.get(SKIN, Skin.class);
