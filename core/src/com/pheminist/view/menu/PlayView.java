@@ -34,10 +34,11 @@ public class PlayView extends Table {
         this.model=model;
         final Skin skin = model.assetManager.get(SKIN, Skin.class);
         totalTime=model.gethData().getTotalTime();
-        TextButton replayButton = new TextButton("R", skin);
+        TextButton replayButton = new TextButton(" Rew ", skin);
         TextButton fullScreenBtn = new TextButton("[ ]", skin);
-        final ImageButton playPlusBtn1 = new ImageButton(skin, "play");
-//        playPlusBtn1.setChecked(true);
+        TextButton minusTimeBtn = new TextButton(" -5s ", skin);
+//        final ImageButton minusTimeBtn = new ImageButton(skin, "play");
+//        minusTimeBtn.setChecked(true);
         playTimeLabel = new Label("", skin);
         playTimeLabel.setAlignment(Align.right);
         playTimeLabel.setFontScale(0.8f);
@@ -46,9 +47,9 @@ public class PlayView extends Table {
         setSkin(skin);
         background("button-pressed");
         defaults().minHeight(40).prefHeight(40).pad(0, 2, 0, 2);
-        add(replayButton).minWidth(40).prefWidth(40);
-        add(fullScreenBtn).minWidth(40).prefWidth(40);
-        add(playPlusBtn1).minWidth(40).prefWidth(40);
+        add(replayButton).minWidth(40).prefWidth(90);
+//        add(fullScreenBtn).minWidth(40).prefWidth(40);
+        add(minusTimeBtn).minWidth(40).prefWidth(90);
         add(playTimeLabel).expandX().align(Align.right).padRight(20);
         row();
         add(playSlider).colspan(4).expandX().fillX();
@@ -57,6 +58,15 @@ public class PlayView extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 controller.setTime(START_TIME);
+            }
+        });
+
+        minusTimeBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                float time = model.time.getTime()-5f;
+                if (time<START_TIME) time = START_TIME;
+                controller.setTime(time);
             }
         });
 
