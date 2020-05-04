@@ -29,9 +29,13 @@ class Camera(private val context: AndroidLauncher):IVideoController {
         cameraView.cameraLensFacing = CameraCharacteristics.LENS_FACING_FRONT
 
         // Part from CameraX
-        val recordFiles = ContextCompat.getExternalFilesDirs(context, Environment.DIRECTORY_MOVIES)
-        val storageDirectory = recordFiles[0]
-        videoRecordingPath = "${storageDirectory.absoluteFile}/"
+//        val recordFiles = ContextCompat.getExternalFilesDirs(context, Environment.DIRECTORY_MOVIES)
+//        val storageDirectory = recordFiles[0]
+//        videoRecordingPath = "${storageDirectory.absoluteFile}/"
+        val storageDirectory = Environment.getExternalStorageDirectory()
+        videoRecordingPath ="${storageDirectory.absoluteFile}/hrenaoke/"
+        val dir = File(videoRecordingPath);
+        dir.mkdir()
     }
 
     override fun startCameraSession() {
@@ -41,7 +45,7 @@ class Camera(private val context: AndroidLauncher):IVideoController {
     private fun recordVideo(videoRecordingFilePath: String) {
         cameraView.startRecording(File(videoRecordingFilePath), ContextCompat.getMainExecutor(context), object : VideoCapture.OnVideoSavedCallback {
             override fun onVideoSaved(file: File) {
-                Toast.makeText(context, "Recording Saved", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Recording Saved in $videoRecordingFilePath", Toast.LENGTH_LONG).show()
                 Log.d(TAG, "onVideoSaved $videoRecordingFilePath")
             }
 
