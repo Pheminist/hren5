@@ -24,7 +24,7 @@ public class Filer {
         fileItems = new ArrayList<>();
         fileItems = getFileItems(getRoot());
         initInternalFileItems();
-        System.out.println("- root -  " + getRoot());
+//        System.out.println("- root -  " + getRoot());
     }
 
     public FileHandle getRoot() {

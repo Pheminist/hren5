@@ -15,7 +15,8 @@ public class DesktopHorner implements IHorner {
             synth = MidiSystem.getSynthesizer();
             synth.open();
             channels = synth.getChannels();
-            channels[0].programChange(22);
+//            channels[0].programChange(22);
+            channels[0].programChange(76);
         } catch (Exception e) {
             e.printStackTrace();
         }

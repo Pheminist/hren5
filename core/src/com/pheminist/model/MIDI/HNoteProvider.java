@@ -19,23 +19,24 @@ public class HNoteProvider {
         List<ActiveNote> activeNotes = new ArrayList<>();
         List<HFNote> hfNotes = new ArrayList<>();
 
-        System.out.println("HHHHHHH");
+ //       System.out.println("HHHHHHH");
         for (Track track : midiData.getTracks()) {
-            System.out.println("TRACK+++++++++++++++++++");
+//            System.out.println("TRACK+++++++++++++++++++");
             MEventReader mEventReader = new MEventReader(track);
             while (mEventReader.readNext()) {
                 int status = mEventReader.getStatus();
                 int noteNumber;
                 switch (status) {
                     case NOTE_ON:
-                        System.out.printf("\n ON : %3d  %3d  %10d",
-                                mEventReader.getChannel(),mEventReader.getTone(),mEventReader.getCurTick());
+//                        System.out.printf("\n ON : %3d  %3d  %10d",
+//                                mEventReader.getChannel(),mEventReader.getTone(),mEventReader.getCurTick());
                         noteNumber = getNoteNumber(mEventReader.getChannel(), mEventReader.getTone());
                         activeNotes.add(new ActiveNote(noteNumber,mEventReader.getCurTick()));
                         break;
                     case NOTE_OFF:
-                        System.out.printf("\nOFF : %3d  %3d  %10d",
-                                mEventReader.getChannel(),mEventReader.getTone(),mEventReader.getCurTick());
+
+ //                       System.out.printf("\nOFF : %3d  %3d  %10d",
+ //                               mEventReader.getChannel(),mEventReader.getTone(),mEventReader.getCurTick());
                         noteNumber = getNoteNumber(mEventReader.getChannel(), mEventReader.getTone());
                         long timeInTicks = 0;
                         int i;
@@ -96,12 +97,12 @@ public class HNoteProvider {
             notesArray[temp[i]] = tmp[i];
         }
 
-        System.out.print("\n notesArray  ");
-        for (Note note : notesArray) System.out.printf("%3d", note.tone);
-        System.out.print("\n tempNotes   ");
-        for (Note note : tmp) System.out.printf("%3d", note.tone);
-        System.out.print("\n temp        ");
-        for (int i : temp) System.out.printf("%3d", i);
+//        System.out.print("\n notesArray  ");
+//        for (Note note : notesArray) System.out.printf("%3d", note.tone);
+//        System.out.print("\n tempNotes   ");
+//        for (Note note : tmp) System.out.printf("%3d", note.tone);
+//        System.out.print("\n temp        ");
+//        for (int i : temp) System.out.printf("%3d", i);
 
     }
 

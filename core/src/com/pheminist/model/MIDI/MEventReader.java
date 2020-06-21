@@ -101,7 +101,7 @@ public class MEventReader {
                                 mReader.skip(1);
                                 tempo = mReader.read24BigEndian();
                                 status = TEMPO_STATUS;
-                                System.out.println("TEMPO -------------------");
+ //                               System.out.println("TEMPO -------------------");
                                 break;
                             default:
                                 mReader.skip(mReader.readVarLengthInt());

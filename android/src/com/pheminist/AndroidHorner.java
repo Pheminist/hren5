@@ -10,7 +10,7 @@ public class AndroidHorner implements IHorner {
     protected MidiDriver midi;
     private byte msg2[] = new byte[2];
     private byte msg3[] = new byte[3];
-    private final byte VALUE = 127;
+    private final byte VALUE = 80;
 
     public AndroidHorner() {
         midi = new MidiDriver();

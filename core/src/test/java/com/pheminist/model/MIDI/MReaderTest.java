@@ -25,7 +25,7 @@ public class MReaderTest {
         File file = new File(path);
         String absolutePath = file.getAbsolutePath();
 
-        System.out.println(absolutePath);
+ //       System.out.println(absolutePath);
         assertTrue(file.exists());
         testBytes = Files.readAllBytes(file.toPath());
 

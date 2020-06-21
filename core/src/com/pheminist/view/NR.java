@@ -89,7 +89,7 @@ public class NR extends Widget {
     @Override
     protected void sizeChanged() {
         super.sizeChanged();
-        System.out.println("size of NoteRenderer was changed");
+ //       System.out.println("size of NoteRenderer was changed");
     }
 
     @Override
